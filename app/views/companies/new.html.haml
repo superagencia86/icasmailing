@@ -1,0 +1,9 @@
+.title
+  %span= "Crear empresa"
+
+- form_for @company do |f|
+  = f.error_messages 
+  = render "form", :f => f
+
+  .buttonbar
+    = f.submit "Crear empresa", :id => 'submit_company'

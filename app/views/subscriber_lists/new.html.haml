@@ -1,0 +1,9 @@
+.title
+  %span= "Crear lista de subscripción"
+
+- form_for @subscriber_list do |f|
+  = f.error_messages 
+  = render "form", :f => f
+
+  .buttonbar
+    = f.submit "Crear lista de subscripción" 

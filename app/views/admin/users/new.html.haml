@@ -1,0 +1,8 @@
+.title
+  %span= "Crear usuario"
+- form_for [:admin, @space, @user] do |f|
+  = f.error_messages 
+  = render "form", :f => f
+
+  .buttonbar
+    = f.submit "Crear usuario" 

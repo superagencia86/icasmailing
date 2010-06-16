@@ -1,0 +1,189 @@
+body {
+  font-family: Tahoma; }
+
+ul, ol, legend, p {
+  margin: 0;
+  padding: 0; }
+
+li {
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px; }
+
+fieldset {
+  display: block;
+  *display: inline-block; }
+  fieldset:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+
+abbr, acronym {
+  border: 0;
+  font-variant: normal;
+  font-weight: normal; }
+
+ol, ul {
+  list-style: none; }
+
+label {
+  display: block;
+  *display: inline-block; }
+  label:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+
+input, textarea {
+  vertical-align: middle; }
+
+.check_boxes input, .radio input {
+  margin: 0; }
+.check_boxes label, .radio label {
+  cursor: pointer; }
+
+.hidden {
+  display: none; }
+
+.date li, .time li, .datetime li {
+  float: left;
+  width: auto;
+  clear: none; }
+.date label, .time label, .datetime label {
+  width: auto; }
+.date input, .time input, .datetime input {
+  display: inline;
+  margin: 0;
+  padding: 0; }
+
+.errors {
+  list-style: square; }
+  .errors li {
+    padding: 0;
+    border: none;
+    display: list-item;
+    float: none;
+    clear: both; }
+
+.inputs {
+  z-index: 99; }
+
+.buttons li {
+  float: left; }
+
+li {
+  *display: inline-block;
+  display: block; }
+  li:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  li fieldset {
+    border: none;
+    position: relative;
+    margin-top: 0px; }
+  li legend {
+    display: block;
+    margin-bottom: 0; }
+  li .label {
+    display: block;
+    clear: both;
+    background: transparent; }
+  li ol {
+    float: left;
+    margin: 0; }
+    li ol li {
+      padding: 0;
+      border: 0;
+      display: inline; }
+
+fieldset {
+  width: 760px; }
+
+ol {
+  padding-left: 0px; }
+
+input {
+  clear: both;
+  float: none; }
+
+li {
+  display: block;
+  clear: both;
+  float: none;
+  width: 760px; }
+  li ol {
+    padding: 0; }
+  li li {
+    clear: none;
+    width: auto; }
+  li fieldset legend, li fieldset legend .label {
+    display: block;
+    clear: both; }
+  li fieldset .label {
+    position: relative; }
+  li fieldset label, li fieldset input {
+    width: auto; }
+
+.date ol, .time ol, .datetime ol {
+  width: 760px; }
+.date li, .time li, .datetime li {
+  display: inline;
+  clear: none;
+  float: left;
+  padding-right: 0px/2; }
+
+.checkbox li, .radio li {
+  display: block; }
+.checkbox input, .radio input {
+  border: none; }
+
+label {
+  display: block;
+  clear: both;
+  float: none;
+  width: auto; }
+
+input, textarea {
+  width: auto; }
+
+select {
+  width: auto; }
+
+.errors li {
+  display: list-item; }
+
+.buttons ol {
+  padding-left: 0px;
+  padding-right: 0px; }
+.buttons li {
+  float: left;
+  width: auto;
+  clear: none;
+  display: inline; }
+.buttons input {
+  width: auto; }
+
+#errorExplanation {
+  width: 760px-0px; }
+
+.label {
+  #left: -0.5em;
+  #position: relative; }
+
+form.formtastic fieldset {
+  border: 0px; }
+
+.menu {
+  padding: 10px; }
+  .menu .title {
+    font-weight: bolder; }
+  .menu ul {
+    padding: 5px; }

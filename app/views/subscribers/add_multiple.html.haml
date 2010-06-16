@@ -1,0 +1,11 @@
+.title
+  %span= "#{@subscriber_list.name}: Añadir varios"
+
+- form_tag add_multiple_subscriber_list_subscribers_path(@subscriber_list) do 
+  .remote
+    .section
+      .label Formato: Email, Nombre, Apellidos
+      = text_area_tag :subscribers, "", :cols => 60, :rows => 20
+
+    .buttonbar
+      = submit_tag "Añadir"

@@ -1,0 +1,15 @@
+.title_tools#menu
+  = link_to("Editar", edit_proposal_path(@proposal))
+  = link_to("Eliminar?", @proposal, :method => :delete)
+
+.title
+  %span= @proposal.name
+
+%i
+  = "Estado: #{@proposal.state}"
+
+= render :partial => "comments/new", :locals => { :commentable => @proposal }
+= render :partial => "comments/comment", :collection => @proposal.comments
+
+%p
+  = @proposal.description.present? ? @proposal.description : "Sin descripción."

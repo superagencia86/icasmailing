@@ -1,0 +1,9 @@
+.title
+  %span= "Crear espacio"
+
+- form_for [:admin, @space] do |f|
+  = f.error_messages 
+  = render "form", :f => f
+
+  .buttonbar
+    = f.submit "Crear espacio" 

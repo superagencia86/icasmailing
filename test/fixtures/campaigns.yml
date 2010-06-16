@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  company_id: 1
+  name: MyString
+  subject: MyString
+  reply_to: MyString
+  from: MyString
+  from_name: MyString
+  state: MyString
+
+two:
+  company_id: 1
+  name: MyString
+  subject: MyString
+  reply_to: MyString
+  from: MyString
+  from_name: MyString
+  state: MyString

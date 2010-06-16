@@ -1,0 +1,27 @@
+.title_tools#menu
+  = link_to("Editar", edit_company_path(@company))
+  = link_to("Eliminar?", @company, :method => :delete)
+
+.title
+  %span= @company.name
+
+= render :partial => "comments/new", :locals => { :commentable => @company }
+= render :partial => "comments/comment", :collection => @company.comments.visible_for(current_user)
+
+%br/
+= link_to "Crear contacto", new_contact_path(:company_id => @company.id), { :class => "subtitle_tools" }
+.subtitle Contactos
+.list#contacts
+  = render :partial => "contacts/contact", :collection => @company.contacts
+
+%br/
+= link_to "Crear proyecto", new_project_path(:company_id => @company.id), { :class => "subtitle_tools" }
+.subtitle Proyectos
+.list#contacts
+  = render :partial => "projects/project", :collection => @company.projects
+
+%br/
+= link_to "Crear propuestas", new_proposal_path(:company_id => @company.id), { :class => "subtitle_tools" }
+.subtitle Propuestas
+.list#contacts
+  = render :partial => "proposals/proposal", :collection => @company.proposals

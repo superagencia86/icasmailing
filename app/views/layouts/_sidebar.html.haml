@@ -1,0 +1,9 @@
+- action ||= controller.action_name
+- sidebar = "#{controller.controller_name}/sidebar_#{action}"
+
+= yield(:sidebar)
+- begin
+  %td{ :class => :sidebar, :id => :sidebar, :valign => :top }
+    = render :partial => sidebar
+  - rescue MissingTemplate
+

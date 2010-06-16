@@ -1,0 +1,9 @@
+.title_tools#menu
+  = link_to("Editar", edit_contact_path(@contact))
+  = link_to("Eliminar?", @contact, :method => :delete)
+
+.title
+  %span= @contact.full_name
+
+= render :partial => "comments/new", :locals => { :commentable => @contact }
+= render :partial => "comments/comment", :collection => @contact.comments

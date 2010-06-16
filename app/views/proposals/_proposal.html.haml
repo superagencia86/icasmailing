@@ -1,0 +1,13 @@
+%li
+  .tools
+    = link_to("Editar", edit_proposal_path(proposal), :title => "Editar #{proposal.name}") + " | "
+    = link_to("Eliminar", proposal, :method => :delete, :confirm => '¿Estás seguro?') + " "
+
+  .indentslim
+    = link_to(h(proposal.name), proposal) << " - "
+    %tt
+      = t(:added_by, :time_ago => time_ago_in_words(proposal.created_at), :user => (proposal.user_id == @current_user.id ? t(:me) : h(proposal.user.full_name)))
+    %dt
+      - if proposal.company
+        = "Para #{link_to(proposal.company.name, proposal.company)} - " unless @company
+      = "Estado: #{proposal.state}"

@@ -1,0 +1,12 @@
+%li
+  .tools
+    = link_to("Editar", edit_admin_space_user_path(@space, user), :title => "Editar usuario") + " | "
+    = link_to("Eliminar", [:admin, @space, user], :method => :delete, :confirm => '¿Estás seguro?') + " "
+
+  .indentslim
+    = link_to(h(user.full_name), edit_polymorphic_path([:admin, @space, user])) << " - "
+    %tt
+      = t(:added, :time_ago => time_ago_in_words(user.created_at))
+    %dt
+      Administrador
+      = checkbox_for("update_admin", user, user.roles.include?("admin"))

@@ -1,0 +1,15 @@
+- without_controls = defined?(:without_controls) && without_controls
+
+%li
+  - unless without_controls
+    .tools
+      = link_to("Editar", edit_company_path(company), :title => "Editar #{company.name}") + " | "
+      = link_to("Eliminar", company, :method => :delete, :confirm => '¿Estás seguro?') + " "
+
+  .indentslim
+    = link_to(h(company.name), company) << " - "
+    %tt
+      = t(:added_by, :time_ago => time_ago_in_words(company.created_at), :user => (company.user_id == @current_user.id ? t(:me) : h(company.user.full_name)))
+    %dt
+      = link_to t('pluralize.contact', company.contacts.count), contacts_path(:company_id => company.id)
+

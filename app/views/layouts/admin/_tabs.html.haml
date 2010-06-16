@@ -1,0 +1,5 @@
+
+#tabs
+  %ul
+    %li= link_to("Espacios", admin_spaces_path, :class => active?("admin/espacios"))  if current_user.is_superadmin?
+    %li= link_to("Usuarios", admin_users_path, :class => active?("admin/usuarios"))  if current_user.is_admin?

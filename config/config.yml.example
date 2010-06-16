@@ -1,0 +1,9 @@
+:gmail:
+  :username: "test@beecoder.com"
+  :password: ".testmail"
+
+:host: "localhost:3000" 
+:crm: true
+:mailing:
+  :contacts: 'superagencia86'
+

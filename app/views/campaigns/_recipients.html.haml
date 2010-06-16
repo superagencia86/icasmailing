@@ -1,0 +1,17 @@
+%ul
+  - for recipient in recipients
+    - campaign_recipient = @campaign_recipients.select{|cr| cr.recipient_id == recipient.id && cr.campaign_id == @campaign.id}.first
+    %li
+      = check_box_tag "campaign_recipient_ids[]", recipient.id, !campaign_recipient.sent_email && campaign_recipient.active && recipient.email.present?, :disabled => campaign_recipient.sent_email || recipient.email.blank?
+      = recipient.name
+      
+      - if recipient.is_a? Contact
+        = " - de #{recipient.company.name}"
+      
+      \-
+      = recipient.email.present? ? recipient.email : "Sin email"
+      - if campaign_recipient.sent_email
+        \-
+        Campaña ya enviada a este usuario
+      
+      

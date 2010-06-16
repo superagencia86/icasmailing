@@ -1,0 +1,13 @@
+.title_tools
+  = link_to("Crear proyecto", new_project_path, :title => "Crear proyecto") 
+
+.title
+  %span= "Proyectos"
+
+.list#projects
+  - unless @projects.empty?
+    = render :partial => "project", :collection => @projects
+  - else
+    = render :partial => "common/empty"
+#paginate= render :partial => "common/paginate"
+

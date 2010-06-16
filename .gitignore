@@ -1,0 +1,12 @@
+.DS_Store
+log/*.log
+log/*.pid
+tmp/**/*
+tmp/*.xml
+config/database.yml
+db/*.sqlite3
+*.swp
+db/schema.rb
+config/config.yml
+public/system/*
+public/campaign/*

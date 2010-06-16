@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  campaign_id: 1
+  subscriber_id: 1
+  sent_email: false
+
+two:
+  campaign_id: 1
+  subscriber_id: 1
+  sent_email: false

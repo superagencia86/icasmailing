@@ -1,0 +1,18 @@
+%li
+  .tools
+    %small= l(activity.created_at, :format => :short).capitalize
+  %tt
+    = activity.user.full_name
+    = t('action_' + activity.action) 
+    = t('item_' + activity.item_type.downcase)
+
+    - if activity.item
+      - if activity.item.respond_to?(:full_name)
+        = link_to(h(activity.item.full_name), polymorphic_url(activity.item))
+      - elsif activity.item.respond_to?(:name)
+        = link_to(h(activity.item.name), polymorphic_url(activity.item))
+      - else
+        %font{:color => :black}= h(activity.item.name) # Individual tasks have no landing pages where we could link to.
+    
+    
+

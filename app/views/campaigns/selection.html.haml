@@ -1,0 +1,29 @@
+.title
+  %span= "#{@campaign.name}: Selección de remitentes"
+
+- form_for @campaign, :url => selection_campaign_path(@campaign) do |f|
+  .remote
+    = f.error_messages
+    .section
+      - if (recipients = @campaign.subscriber_recipients).present?
+        %br/
+        %h3
+          Subscriptores
+        = render :partial => 'recipients', :locals => {:recipients => recipients}
+
+      - if (recipients = @campaign.company_recipients).present?
+        %br/
+        %h3
+          Empresas
+        = render :partial => 'recipients', :locals => {:recipients => recipients}
+
+      - if (recipients = @campaign.contact_recipients).present?
+        %br/
+        %h3
+          Contactos
+        = render :partial => 'recipients', :locals => {:recipients => recipients}
+  
+  .buttonbar
+    = f.submit "Guardar"
+    = f.submit "Guardar y cargar template"
+  

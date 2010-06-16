@@ -1,0 +1,13 @@
+.title_tools
+  = link_to("Crear propuesta", new_proposal_path, :title => "Crear propuesta") 
+
+.title
+  %span= "Propuesta"
+
+.list#proposals
+  - unless @proposals.empty?
+    = render :partial => "proposal", :collection => @proposals
+  - else
+    = render :partial => "common/empty"
+#paginate= render :partial => "common/paginate"
+

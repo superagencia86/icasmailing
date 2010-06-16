@@ -1,0 +1,11 @@
+.title_tools
+  = link_to("Crear espacio", new_admin_space_path, :title => "Crear espacio") 
+
+.title
+  %span= "Espacios"
+
+.list#spaces
+  - unless @spaces.empty?
+    = render :partial => "space", :collection => @spaces
+  - else
+    = render :partial => "common/empty"

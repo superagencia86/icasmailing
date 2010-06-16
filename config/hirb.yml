@@ -1,0 +1,7 @@
+:output:
+  User:
+    :options:
+      :fields:
+      - id
+      - space_id
+      - email

@@ -1,0 +1,12 @@
+%li
+  .tools
+    = link_to("Editar", edit_project_path(project), :title => "Editar #{project.name}") + " | "
+    = link_to("Eliminar", project, :method => :delete, :confirm => '¿Estás seguro?') + " "
+
+  .indentslim
+    = link_to(h(project.name), project) << " - "
+    %tt
+      = t(:added_by, :time_ago => time_ago_in_words(project.created_at), :user => (project.user_id == @current_user.id ? t(:me) : h(project.user.full_name)))
+    - if project.company
+      %dt
+        = "Para #{link_to(project.company.name, project.company)}" unless @company

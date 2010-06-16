@@ -1,0 +1,9 @@
+.title
+  %span= "Crear propuesta"
+
+- form_for @proposal do |f|
+  = f.error_messages 
+  = render "form", :f => f
+
+  .buttonbar
+    = f.submit "Crear propuesta" 

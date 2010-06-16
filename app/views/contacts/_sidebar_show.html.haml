@@ -1,0 +1,13 @@
+.panel#summary
+  %h4= h(@contact.full_name)
+  %div
+    %b= link_to(truncate(@contact.email, :length => 30), "mailto:" << @contact.email.to_s, :title => @contact.email) if @contact.email.present?
+    %b= link_to(truncate(@contact.secondary_email, :length => 30), "mailto:" << @contact.secondary_email.to_s, :title => @contact.secondary_email) if @contact.secondary_email.present?
+
+  %div
+    = "Cargo: #{@contact.title}<br/>" if @contact.title.present?
+    = "Departamento: #{@contact.section}" if @contact.section.present?
+
+  %div
+    - if @contact.phone.present? || @contact.celular.present?
+      = "Teléfono/s: <br/><b>#{@contact.phone}</b> - <b>#{@contact.celular}</b><br />"

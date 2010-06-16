@@ -1,0 +1,10 @@
+#header
+  #welcome
+    %span Welcome, #{current_user.name}
+    %span> !&nbsp;&nbsp;
+
+    = link_to("Volver a Maxwell", root_path) << " |"
+    = link_to("Logout", logout_path)
+  %h3
+    = link_to("Maxwell Administración", admin_path)
+

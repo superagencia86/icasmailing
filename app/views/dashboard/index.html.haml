@@ -1,0 +1,9 @@
+.title
+  %span#title Actividad reciente
+
+.list#activities
+  - unless @activities.empty?
+    = render :partial => "activity", :collection => @activities
+  - else
+    Sin actividad
+

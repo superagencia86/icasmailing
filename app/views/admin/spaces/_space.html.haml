@@ -1,0 +1,12 @@
+%li
+  .tools
+    = link_to("Editar", edit_admin_space_path(space), :title => "Editar #{space.name}") + " | "
+    = link_to("Eliminar", [:admin, space], :method => :delete, :confirm => '¿Estás seguro?') + " "
+
+  .indentslim
+    = link_to(h(space.name), [:admin, space]) << " - "
+    %tt
+      = t(:added, :time_ago => time_ago_in_words(space.created_at))
+    %dt
+      = link_to t('pluralize.user', space.users.count), admin_space_users_path(space)
+

@@ -1,0 +1,28 @@
+.remote
+  .section
+    %table(width="500" cellpadding="0" cellspacing="0")
+      %tr
+        %td(valign="top")
+          .label.top.req= "Espacio"
+          = f.collection_select :space_id, Space.all, :id, :name, :include_blank => true
+    
+      %tr
+        %td(valign="top")
+          .label.top.req= "Nombre"
+          = f.text_field :name, :style => "width:224px"
+        %td= spacer
+        %td(valign="top")
+          .label.top.req= "Apellidos"
+          = f.text_field :surname, :style => "width:224px"
+      %tr
+        %td(valign="top")
+          .label.top.req= "Email"
+          = f.text_field :email, :style => "width:224px"
+      %tr
+        %td(valign="top")
+          .label.top.req= "Contraseña"
+          = f.password_field :password, :style => "width:224px"
+      %tr
+        %td(valign="top")
+          .label.top.req= "Repetir contraseña"
+          = f.password_field :password_confirmation, :style => "width:224px"

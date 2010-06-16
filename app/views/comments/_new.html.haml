@@ -1,0 +1,12 @@
+- class_name = commentable.class.name.downcase
+.comment#comment_new{:style => "margin: 5px 0px 0px 0px"}
+  - form_for(Comment.new) do |f|
+    = hidden_field_tag "comment[user_id]", current_user.id
+    = hidden_field_tag "comment[commentable_id]", commentable.id
+    = hidden_field_tag "comment[commentable_type]", class_name.capitalize
+    %div
+      = f.text_field :comment
+      = f.check_box  :private
+      = f.label :private, "Privado"
+      = f.submit "Añadir comentario"
+

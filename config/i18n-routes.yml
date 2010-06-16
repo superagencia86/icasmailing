@@ -1,0 +1,15 @@
+es:
+  companies: empresas
+  spaces: espacios
+  users: usuarios
+  contacts: contactos
+  projects: proyectos
+  proposals: propuestas
+  subscriber_lists: listas
+  subscribers: subscriptores
+  campaigns: campanias
+
+  new: nuevo
+  edit: editar
+  share: compartir
+  add_multiple: aniadir_varios

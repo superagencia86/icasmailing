@@ -1,0 +1,13 @@
+.title_tools
+  = link_to("Crear empresa", new_company_path, :title => "Crear empresa") 
+
+.title
+  %span#create_account_title= "Empresas"
+
+.list#companies
+  - unless @companies.empty?
+    = render :partial => "company", :collection => @companies
+  - else
+    = render :partial => "common/empty"
+#paginate= render :partial => "common/paginate"
+

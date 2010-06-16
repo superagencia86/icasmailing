@@ -1,0 +1,54 @@
+= f.hidden_field :user_id, :value => current_user.id
+.remote
+  .section
+    %table(width="500" cellpadding="0" cellspacing="0")
+      %tr
+        %td(valign="top")
+          .label.top.req= "Nombre"
+          = f.text_field :name, :style => "width:224px"
+        %td= spacer
+        %td(valign="top")
+          .label.top= "Apellidos"
+          = f.text_field :surname, :style => "width:224px"
+        %td= spacer
+        %td
+          .label.top.req= "Empresa"
+          #company
+            = render :partial => 'companies/company_select', :locals => {:f => f.object_name, :selected => @contact.company_id}
+          
+
+      %tr
+        %td(valign="top")
+          .label.top= "Email"
+          = f.text_field :email, :style => "width:224px"
+        %td= spacer
+        %td(valign="top")
+          .label.top= "Email (secundario)"
+          = f.text_field :secondary_email, :style => "width:224px"
+      %tr
+        %td(valign="top")
+          .label.top= "Teléfono fijo"
+          = f.text_field :phone, :style => "width:224px"
+        %td= spacer
+        %td(valign="top")
+          .label.top= "Teléfono móvil"
+          = f.text_field :celular, :style => "width:224px"
+
+      %tr
+        %td(valign="top")
+          .label.top= "Cargo"
+          = f.text_field :title, :style => "width:224px"
+        %td= spacer
+        %td(valign="top")
+          .label.top= "Departamento"
+          = f.text_field :section, :style => "width:224px"
+  .subtitle= "Visibilidad"
+  .section
+    %table{ :width => 800, :cellpadding => 0, :cellspacing => 0 }
+      %tr
+        %td{ :colspan => 3 }
+          = f.radio_button :visibility, "public", :checked => @contact.new_record? || @contact.visibility == "public"
+          Público
+          = f.radio_button :visibility, "private"
+          Privado
+          

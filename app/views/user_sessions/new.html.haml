@@ -1,0 +1,17 @@
+.standalone#standalone
+  - form_for @user_session, :url => user_session_path do |f|
+    .title
+      = APP.messages.login.access
+
+    .section
+      .label= "Espacio:"
+      = f.collection_select :space_id, Space.all, :id, :name, {:selected => @space.try(:id), :include_blank => true}
+      .label= "Email:"
+      = f.text_field :email
+      .label= "Contraseña:"
+      = f.password_field :password
+
+    %div(style="margin-left:12px") #{f.check_box(:remember_me)} Recuérdame la contraseña cada vez que inicie
+    %br
+    .buttonbar
+      = f.submit "Acceder"

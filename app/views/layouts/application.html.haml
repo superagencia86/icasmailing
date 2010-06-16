@@ -1,0 +1,28 @@
+!!!
+%html
+  %head
+    %title
+      = "Maxwell"
+      = " - #{current_space.name}" if current_space
+      = " - #{yield(:title)}" if yield(:title)
+    = stylesheet_link_tag "screen", "common", 'jquery.wysiwyg.css'
+    = javascript_include_tag :defaults, 'jquery.wysiwyg.js'
+  %body
+    = render :partial => 'layouts/header'
+
+    - if logged_in?
+      = render :partial => 'layouts/tabs'
+
+    - [:error, :notice].each do |type|
+      - if flash[type]
+        %p#flash{:class => "flash_#{type}"}= flash[type]
+
+    - if controller.controller_name == "user_sessions"
+      = yield
+    - else
+      %table{ :width => "100%", :height => "100%", :cellpadding => 0, :cellspacing => 0, :class => :tabbed }
+        %tr
+          = render :partial => "layouts/sidebar"
+          %td{ :class => :main, :id => :main, :valign => :top }
+            = yield
+

@@ -1,0 +1,12 @@
+.title_tools#menu
+  = link_to("Editar", edit_project_path(@project))
+  = link_to("Eliminar?", @project, :method => :delete)
+
+.title
+  %span= @project.name
+
+= render :partial => "comments/new", :locals => { :commentable => @project }
+= render :partial => "comments/comment", :collection => @project.comments
+
+%br/
+= @project.description.present? ? @project.description : "Sin descripción."

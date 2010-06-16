@@ -1,0 +1,13 @@
+.title_tools
+  = link_to("Crear contacto", new_contact_path, :title => "Crear contacto") 
+
+.title
+  %span= "Contactos"
+
+.list#contacts
+  - unless @contacts.empty?
+    = render :partial => "contact", :collection => @contacts
+  - else
+    = render :partial => "common/empty"
+#paginate= render :partial => "common/paginate"
+

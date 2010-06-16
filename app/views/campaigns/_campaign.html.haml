@@ -1,0 +1,10 @@
+%li
+  .tools
+    = link_to("Editar", edit_polymorphic_path(campaign)) + " | "
+    = link_to("Eliminar", campaign, :method => :delete, :confirm => '¿Estás seguro?') 
+    &nbsp;
+
+  .indentslim
+    = campaign.name << " - "
+    %tt
+      = t(:added, :time_ago => time_ago_in_words(campaign.created_at))

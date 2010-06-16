@@ -1,0 +1,9 @@
+.title_tools#menu
+  = link_to("Editar", edit_subscriber_list_path(@subscriber_list))
+  = link_to("Eliminar?", @subscriber_list, :method => :delete)
+
+.title
+  %span= @subscriber_list.name
+  
+= render :partial => "comments/new", :locals => { :commentable => @subscriber_list }
+= render :partial => "comments/comment", :collection => @subscriber_list.comments

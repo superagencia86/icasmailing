@@ -1,0 +1,9 @@
+.title
+  %span= "Compartir"
+
+.list
+  - form_for @shared_list, :url => share_subscriber_list_path(@subscriber_list) do |f|
+    = f.collection_select :space_id, @spaces, :id, :name, :include_blank => true
+    = f.date_select :expires_at
+
+    = f.submit "Compartir"

@@ -1,0 +1,8 @@
+.title
+  %span= "Editar empresa"
+- form_for @company do |f|
+  = f.error_messages
+  = render "form", :f => f 
+
+  .buttonbar
+    = f.submit "Editar empresa", :id => 'submit_company'

@@ -1,0 +1,20 @@
+!!!
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => :en,  :lang => :en }
+  %head
+    %meta{ "http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
+    %title Maxwell Administración
+    = stylesheet_link_tag "screen"
+    = javascript_include_tag :defaults
+
+  %body.admin
+    = render :partial => "layouts/admin/header"
+    = render :partial => 'layouts/admin/tabs'
+
+    %table{ :width => "100%", :height => "100%", :cellpadding => 0, :cellspacing => 0, :class => :tabbed }
+      %tr
+        -#
+          %td{ :class => :sidebar, :id => :sidebar, :valign => :top }
+            = render :partial => "layouts/sidebar"
+        %td{ :class => :main, :id => :main, :valign => :top }
+          = yield
+

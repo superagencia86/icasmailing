@@ -1,0 +1,26 @@
+.panel#summary
+  %h4= h(@company.name)
+  %div
+    %b= link_to(truncate(@company.web_1, :length => 30), @company.web_1, :popup => true) if @company.web_1.present?
+    %b= link_to(truncate(@company.web_2, :length => 30), @company.web_2, :popup => true) if @company.web_2.present?
+    %b= link_to(truncate(@company.web_3, :length => 30), @company.web_3, :popup => true) if @company.web_3.present?
+    %b= link_to(truncate(@company.email, :length => 30), "mailto:" << @company.email.to_s, :title => @company.email) if @company.email.present?
+
+  %div
+    - if @company.phone_1.present? || @company.phone_2.present?
+      = "Teléfono/s: <br/><b>#{@company.phone_1}</b> - <b>#{@company.phone_2}</b><br />"
+
+    - if @company.fax.present?
+      = "Fax: <b>#{@company.fax}</b><br />"
+
+  - if @company.address.present?
+    %div
+      Dirección:
+      %br/
+      %b
+        = @company.address 
+        %br/
+      = [@company.locality, ("#{PROVINCES[@company.province_id - 1].name.chop}" if @company.province_id.present?), @company.country].compact.join(", ")
+
+
+
