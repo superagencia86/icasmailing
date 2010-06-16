@@ -5,7 +5,7 @@
 require 'erb'
 require 'capistrano/ext/multistage'
 set :stages, %w(maxwell icas)
-set :default_stage, "maxwell"
+set :default_stage, "icas"
 
 #############################################################
 #	Settings
@@ -28,7 +28,7 @@ set :user, "deploy"
 set :scm, :git
 set :branch, "master"
 set :scm_user, 'git'
-set :repository,  "git@gitorius.beecoder.com:maxwell/mainline.git"
+set :repository,  "git@gitorius.beecoder.com:icas-maxwell/mainline.git"
 
 # before "deploy:stop_mail_daemon"
 after "deploy:update_code", "db:symlink" # , "deploy:restart_mail_daemon"
