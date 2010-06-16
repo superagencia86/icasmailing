@@ -5,14 +5,13 @@ $(document).ready(function() {
   $('#new_company_link').live("click", function(){ $("#company_div").toggle(); $("#company_select").toggle();} );
 
   // Subscriber form
-  value = $("#subscriber_subscriber_type_id option:selected").val();
+  value = $("#subscriber_list_contact_type_id option:selected, #contact_contact_type_id option:selected").val();
   if(value == "2"){
     $("#subscriber_subtypes").show();
   }
 
-  $("#subscriber_subscriber_type_id").change(function(){
-    value = $("#subscriber_subscriber_type_id option:selected").val();
-
+  $("#subscriber_list_contact_type_id, #contact_contact_type_id").change(function(){
+    value = $("#subscriber_list_contact_type_id option:selected, #contact_contact_type_id option:selected").val();
     if(value == "2") {
       $("#subscriber_subtypes").show();
     } else {

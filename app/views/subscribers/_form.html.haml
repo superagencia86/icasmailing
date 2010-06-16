@@ -2,69 +2,19 @@
   .section
     %table(width="500" cellpadding="0" cellspacing="0")
       %tr
-        %td(valign="top")
-          .label.top.req= "Nombre"
-          = f.text_field :name, :style => "width:224px"
-        %td= spacer
-        %td(valign="top")
-          .label.top.req= "Apellidos"
-          = f.text_field :surname, :style => "width:224px"
-      %tr
-        %td{ :valign => :top }
-          .label.top Profesión
-          = f.text_field :job, :style => "width:224px"
-        %td= spacer
-        %td{ :valign => :top }
-          .label.top Sexo
-          = f.collection_select :sex_id, SEX, :idx, :name, :include_blank => true
-      %tr
         %td{ :valign => :top }
           .label.top.req Email
           = f.text_field :email, :style => "width:224px"
-        %td= spacer
-        %td{ :valign => :top }
-          .label.top Web/blog
-          = f.text_field :web, :style => "width:224px"
       %tr
-        %td{ :valign => :top }
-          .label.top Teléfono móvil
-          = f.text_field :celular, :style => "width:224px"
+        %td(valign="top")
+          .label.top= "Nombre"
+          = f.text_field :name, :style => "width:224px"
         %td= spacer
-        %td{ :valign => :top }
-          .label.top Teléfono fijo
-          = f.text_field :telephone, :style => "width:224px"
-      %tr
-        %td{ :valign => :top }
-          .label.top Fecha de nacimiento
-          = f.date_select :birthday_at, :include_blank => true
-      %tr
-        %td{ :valign => :top }
-          .label.top Dirección
-          = f.text_area :address, :style =>"width:240px", :rows => 4
+        %td(valign="top")
+          .label.top= "Primer apellido"
+          = f.text_field :first_surname, :style => "width:224px"
         %td= spacer
-        %td{ :valign => :top }
-          .label.top Provincia
-          = f.collection_select :province_id, PROVINCES, :idx, :name, :include_blank => true
-        %td= spacer
-        %td{ :valign => :top }
-          .label.top Localidad
-          = f.text_field :locality, :style => "width:224px"
-
-      %tr
-        %td{ :valign => :top }
-          .label.top Tipo de contacto
-          = f.collection_select :subscriber_type_id, SUBSCRIBER_TYPES, :idx, :name, :include_blank => true
-        %td= spacer
-        %td{ :valign => :top }
-          #subscriber_subtypes{:style => 'display:none'}
-            .label.top Subtipo de contacto
-            = f.collection_select :subscriber_subtype_id, SUBSCRIBER_SUBTYPES, :idx, :name, :include_blank => true
-      %tr
-        %td{ :valign => :top }
-          .label.top Intereses
-          - for hobby in Hobby.find(:all)
-            = check_box_tag "subscriber[hobby_ids][]", hobby.id, @subscriber.hobbies.include?(hobby)
-            = hobby.name 
-            %br/
-          
-
+        %td(valign="top")
+          .label.top= "Segundo apellido"
+          = f.text_field :second_surname, :style => "width:224px"
+      

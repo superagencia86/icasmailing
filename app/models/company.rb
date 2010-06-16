@@ -20,20 +20,4 @@ class Company < ActiveRecord::Base
 
   simple_column_search :name, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
 
-  def self.finder(options = {})
-    conditions = []
-
-    %w(company_type relationship sector).each do |field|
-      conditions << "#{field}_id in (#{options["#{field}".to_sym].join(',')})" if options["#{field}".to_sym].present?
-    end
-
-    if conditions.present?
-      Company.find(
-        :all, 
-        :joins => "LEFT JOIN companies_company_types ON companies_company_types.company_id = companies.id LEFT JOIN companies_sectors ON companies_sectors.company_id = companies.id LEFT JOIN companies_relationships ON companies_relationships.company_id = companies.id",
-        :group => 'companies.id',
-        :conditions => conditions.join(" OR ")
-      )
-    end
-  end
 end

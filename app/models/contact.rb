@@ -5,8 +5,10 @@ class Contact < ActiveRecord::Base
   belongs_to :user
   belongs_to :company
   has_many :comments, :as => :commentable
-
-  validates_presence_of :name, :company_id
+  
+  has_and_belongs_to_many :hobbies
+  
+  validates_presence_of :name, :email
   validates_uniqueness_of :email
 
   default_scope :order => 'name ASC, surname ASC'
@@ -19,5 +21,34 @@ class Contact < ActiveRecord::Base
 
   def full_name
     "#{name} #{surname}"
+  end
+  
+  def self.finder(options = {})
+    conditions = []
+
+    %w(contact_type_id contact_subtype_id).each do |field|
+      conditions << "#{field} = #{options["#{field}".to_sym]}" if options["#{field}".to_sym].present?
+    end
+    
+    if options[:hobby].present?
+      conditions << "hobby_id IN (#{options[:hobby].join(',')})"
+      joins = "LEFT JOIN contacts_hobbies ON contacts_hobbies.contact_id = contacts.id" if options[:hobby]
+    else
+      joins = ""
+    end
+
+    if conditions.present?
+      Contact.find(
+        :all,
+        :joins => joins,
+        :group => 'contacts.id',
+        :conditions => conditions.join(" AND ")
+      )
+    end
+  end
+  
+  
+  def before_save
+    self.contact_subtype_id = nil if self.contact_type_id != 2
   end
 end

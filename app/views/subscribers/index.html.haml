@@ -13,9 +13,9 @@
     = render :partial => "common/empty"
 #paginate= render :partial => "common/paginate"
 
-- if @subscriber_list.has_finder? && (companies = @subscriber_list.companies).present?
+- if @subscriber_list.has_finder? && (contacts = @subscriber_list.contacts).present?
   %br/
   .subtitle
-    Empresas
+    Contactos
   .list#companies
-    = render :partial => "companies/company", :collection => companies, :locals => {:without_controls => true}
+    = render :partial => "contacts/contact", :collection => contacts, :locals => {:without_controls => true}

@@ -2,7 +2,7 @@ class Subscriber < ActiveRecord::Base
   belongs_to :subscriber_list, :counter_cache => true
   has_and_belongs_to_many :hobbies
 
-  validates_presence_of :name, :surname, :email
+  validates_presence_of :email
 
   before_save :reset_subcriber_subtype_if
 

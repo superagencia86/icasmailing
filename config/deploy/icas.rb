@@ -1,5 +1,5 @@
 set :application, "icasmailing"
-set :domain, "icasmailing.superagencia86.es"
+set :domain, "superagencia86.com"
 server domain, :app, :web
 role :db, domain, :primary => true
 set :deploy_to, "/var/www/superage/#{application}"

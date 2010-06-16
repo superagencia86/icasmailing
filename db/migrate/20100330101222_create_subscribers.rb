@@ -3,8 +3,8 @@ class CreateSubscribers < ActiveRecord::Migration
     create_table :subscribers do |t|
       t.integer :subscriber_list_id
       t.string :name
-      t.string :surname
-      t.integer :province_id
+      t.string :first_surname
+      t.string :second_surname
       t.string :email
 
       t.timestamps

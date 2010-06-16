@@ -2,9 +2,10 @@
   %ul
     %li= link_to("Inicio",         root_path,             :class => active?(:root))
 
+    %li= link_to("Empresas",       companies_path,        :class => active?("empresas"))
+    %li= link_to("Contactos",      contacts_path,         :class => active?("contactos"))
+
     - if APP.has_crm?
-      %li= link_to("Empresas",       companies_path,        :class => active?("empresas"))
-      %li= link_to("Contactos",      contacts_path,         :class => active?("contactos"))
       %li= link_to("Proyectos",      projects_path,         :class => active?("proyectos"))
       %li= link_to("Propuestas",     proposals_path,        :class => active?("propuestas"))
 

@@ -21,6 +21,7 @@
         = link_to t('pluralize.subscriber', subscriber_list.subscribers.count), subscriber_list_subscribers_path(subscriber_list)
         - if subscriber_list.has_finder?
           Lista inteligente
+          = "(#{subscriber_list.contacts.length})"
     - else
       - if share
         %tt
@@ -30,6 +31,7 @@
           = "del espacio <b>#{subscriber_list.shares_space.name}</b>"
           - if subscriber_list.has_finder?
             Lista inteligente
+            = "(#{subscriber_list.contacts.length})"
       - else
         %tt
           = " &ndash; "
@@ -38,3 +40,4 @@
           = "al espacio <b>#{shared_list.space.name}</b>"
           - if subscriber_list.has_finder?
             Lista inteligente
+            = "(#{subscriber_list.contacts.length})"
