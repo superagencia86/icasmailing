@@ -24,27 +24,19 @@ class Contact < ActiveRecord::Base
   end
   
   def self.finder(options = {})
-    conditions = []
+    conditions, joins = [], ""
 
     %w(contact_type_id contact_subtype_id).each do |field|
       conditions << "#{field} = #{options["#{field}".to_sym]}" if options["#{field}".to_sym].present?
     end
-    
+
     if options[:hobby].present?
-      conditions << "hobby_id IN (#{options[:hobby].join(',')})"
-      joins = "LEFT JOIN contacts_hobbies ON contacts_hobbies.contact_id = contacts.id" if options[:hobby]
-    else
-      joins = ""
+      conditions << "#{options[:hobby].length} = all (select count(contact_id) from contacts_hobbies 
+        where hobby_id IN (#{options[:hobby].join(',')}) GROUP BY contacts_hobbies.contact_id)"
+      joins = "LEFT JOIN contacts_hobbies ON contacts_hobbies.contact_id = contacts.id" 
     end
 
-    if conditions.present?
-      Contact.find(
-        :all,
-        :joins => joins,
-        :group => 'contacts.id',
-        :conditions => conditions.join(" AND ")
-      )
-    end
+    Contact.find(:all, :joins => joins, :group => 'contacts.id', :conditions => conditions.join(" AND ")) if conditions.present?
   end
   
   

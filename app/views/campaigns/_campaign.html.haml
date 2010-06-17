@@ -8,3 +8,5 @@
     = campaign.name << " - "
     %tt
       = t(:added, :time_ago => time_ago_in_words(campaign.created_at))
+    %dt
+      = link_to "Enviado a #{campaign.campaign_recipients.sent.count} emails"

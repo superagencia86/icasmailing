@@ -7,7 +7,12 @@ class Campaign < ActiveRecord::Base
     def valids
       self.find(:all, :conditions => ["active is true and sent_email is false and visible is true"])
     end
+
+    def sent
+      self.find(:all, :conditions => ["sent_email is true"])
+    end
   end
+
   has_many :subscriber_recipients, :through => :campaign_recipients, :source => :subscriber, 
     :conditions => "campaign_recipients.recipient_type = 'Subscriber' AND visible is true"
   has_many :company_recipients, :through => :campaign_recipients, :source => :company, 
@@ -26,6 +31,8 @@ class Campaign < ActiveRecord::Base
   end
 
   validates_presence_of :name, :subject, :from
+
+  default_scope :order => 'name desc'
 
   aasm_column :current_state
   aasm_initial_state :new
@@ -75,7 +82,7 @@ class Campaign < ActiveRecord::Base
     args.each do |subscriber_list_id|
       subscriber_list = SubscriberList.find(subscriber_list_id, :include => [:subscribers])
       create_campaign_recipients_for(subscriber_list.subscribers, subscriber_list_id)
-      create_campaign_recipients_for(subscriber_list.companies, subscriber_list_id) if subscriber_list.companies.present?
+      create_campaign_recipients_for(subscriber_list.contacts, subscriber_list_id) if subscriber_list.contacts.present?
     end
 
     deleted_lists = CampaignRecipient.find(:all, :select => 'subscriber_list_id', :group => 'subscriber_list_id').map(&:subscriber_list_id) - args
