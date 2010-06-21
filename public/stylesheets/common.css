@@ -144,6 +144,23 @@
   margin: 3px 0px 0px 0px;
   vertical-align: middle; }
 
+input.btn, a.btn{
+  background: #e2e2e2;
+  border: 1px solid #999;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 4px 7px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;}
+
+input.btn:hover, a.btn:hover{
+  background: #333;
+  color: #fff;
+  border: 1px solid #e2e2e2;
+  }
+
+
+
 .lorem {
   width: 50%;
   margin: 0 auto;

@@ -29,7 +29,8 @@ a {
     font-weight: bold;}
   a:hover {
     color: #222;
-    text-decoration:underline; }
+    text-decoration: underline;
+    font-weight: bold;}
   a img {
     background-color: white;
     border: none;
@@ -298,6 +299,20 @@ tt {
   margin: 3px 0px 0px 0px;
   vertical-align: middle; }
 
+input.btn, a.btn{
+  background: #e2e2e2;
+  border: 1px solid #999;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 4px 7px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;}
+
+input.btn:hover, a.btn:hover{
+  background: #333;
+  color: #fff;
+  border: 1px solid #e2e2e2;
+  }
 .lorem {
   width: 50%;
   margin: 0 auto;
@@ -592,15 +607,21 @@ tt {
   border-right: 1px solid lightpink;
   background: pink; }
 
+p.flash_warning, p.flash_error, p.flash_notice, p.flash_message, p.flash_exception {
+  -webkit-border-radius: 5px;
+  -moz-border-radius:5px;
+  width: 96%;
+  margin: 10px auto;
+  font-weight:bold;
+  font-size: 14px;
+}
 p.flash_warning, p.flash_error {
   background: lightpink;
   color: maroon;
-  margin: 0px;
   padding: 5px 0px 5px 16px; }
 p.flash_notice, p.flash_message {
-  background: #df9;
-  color: darkgreen;
-  margin: 0px;
+  background: #7cae1d;
+  color: #fff;
   padding: 5px 0px 5px 16px; }
 p.flash_exception {
   background: #df9;
