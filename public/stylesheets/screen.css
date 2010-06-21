@@ -25,10 +25,11 @@ ul li {
 a {
   text-decoration: none; }
   a:link, a:visited {
-    color: #0033cc; }
+    color: #bb1237; 
+    font-weight: bold;}
   a:hover {
-    background: #0033cc;
-    color: white; }
+    color: #222;
+    text-decoration:underline; }
   a img {
     background-color: white;
     border: none;
@@ -57,24 +58,26 @@ tt {
   font-size: 12px; }
 
 #header {
-  background: #1e4262;
-  color: skyblue;
+  background: #fff;
+  color: #bb1237;
   padding: 8px 16px 8px 16px; }
+  #header h3{width: 200px; height: 65px;
+    background: url("/images/logo_icas.png") no-repeat 0 0;}
   #header h3 a {
-    background: #1e4262;
     color: greenyellow;
     font: normal 15px "Lucida Grande", Arial, Helvetica, sans-serif;
     text-decoration: none; }
+  #header h3 span{display: none;}
   #header #welcome {
     float: right;
     font-size: 11px; }
     #header #welcome a {
-      color: lightyellow;
+      color: #bb1237;
       padding: 1px 4px 2px 4px;
       text-decoration: none; }
       #header #welcome a:hover {
-        background: #1e4262;
-        color: yellow; }
+        background: #c3c3c3;
+        color: #222; }
     #header #welcome a.selected {
       background: steelblue;
       color: lightyellow;
@@ -82,6 +85,16 @@ tt {
       -moz-border-radius-topright: 2px;
       -webkit-border-top-left-radius: 2px;
       -webkit-border-top-right-radius: 2px; }
+
+  #header #slogan {
+    float: right;
+    clear: both;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 20px;
+    font-size: 20px;}
+    #header #slogan span{
+      display: block;}
   #header #jumpbox {
     background: steelblue;
     margin: 2px 0px 0px 0px;
@@ -102,7 +115,7 @@ tt {
       margin: 2px 0px 0px 0px; }
 
 #tabs {
-  background: #1e4262;
+  background: #fff;
   height: 24px;
   padding: 0px;
   text-align: center;
@@ -114,23 +127,24 @@ tt {
     margin: 0px 4px 0px 16px;
     width: 90px; }
   #tabs a:link, #tabs a:visited {
-    background: #466bb1;
+    background: #b21236;
     color: white;
     float: left;
     padding: 4px 8px 5px 8px;
     text-align: center;
     text-decoration: none;
+    font-weight: bold;
     width: 90px;
     -moz-border-radius-topleft: 3px;
     -moz-border-radius-topright: 3px;
     -webkit-border-top-left-radius: 3px;
     -webkit-border-top-right-radius: 3px; }
   #tabs a:hover {
-    background: #97baff;
-    color: navy; }
+    background: #c3c3c3;
+    color: #fff; }
   #tabs a:link.active, #tabs a:visited.active {
-    background: azure;
-    color: navy;
+    background: #c3c3c3 ;
+    color: #fff;
     text-decoration: none; }
 
 #footer {
@@ -139,11 +153,11 @@ tt {
   padding: 0px 0px 0px 16px; }
 
 .title {
-  border-bottom: 1px gray solid;
-  color: #342d7e;
+  border-bottom: 2px #ccc solid;
+  color: #bb1237;
   font-size: 17px;
   font-weight: bold;
-  padding-bottom: 2px; }
+  padding-bottom: 5px; }
   .title img {
     position: relative;
     top: 2px; }
@@ -238,7 +252,7 @@ tt {
   margin: 5px 0px 0px 0px; }
 
 .req {
-  color: navy; }
+  color: #bb1237; }
 
 .intro {
   color: dimgray;
@@ -252,9 +266,9 @@ tt {
   padding: 4px 15px 8px 15px; }
 
 .remote {
-  border: 5px lightblue solid;
+  border: 1px #ccc solid;
   background: whitesmoke;
-  margin: 0px;
+  margin: 10px 0px;
   padding: 0px 10px 0px 10px;
   position: relative; }
   .remote .close {
@@ -449,7 +463,7 @@ tt {
       text-decoration: none; }
 
 .filters, .panel {
-  background: snow;
+  background: #fff;
   margin: 0px 0px 12px 0px;
   padding: 6px 8px 6px 8px;
   -moz-border-radius: 4px;
@@ -458,7 +472,7 @@ tt {
   -webkit-box-shadow: 2px 2px 8px #bbb, -2px 0px 8px #bbb; }
 
 .filters h4 {
-  color: navy;
+  color: #bb1237;
   font-size: 12px;
   font-weight: bold; }
 .filters input[type=text] {
@@ -492,7 +506,7 @@ tt {
 .panel#recently {
   background: floralwhite; }
 .panel#summary {
-  background: oldlace; }
+  background: #fff; }
   .panel#summary p {
     margin: 4px 0px 4px 0px; }
 

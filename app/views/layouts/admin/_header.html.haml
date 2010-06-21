@@ -5,6 +5,13 @@
 
     = link_to("Volver a Maxwell", root_path) << " |"
     = link_to("Logout", logout_path)
+
+  #slogan
+    %span Sistema de gestión de contactos y difusión online
+    %span Servicios centrales ICAS
+
   %h3
-    = link_to("Maxwell Administración", admin_path)
+    - link_to admin_path do
+      %span
+        Maxwell Administración
 

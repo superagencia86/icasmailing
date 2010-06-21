@@ -1,9 +1,9 @@
 .title {
-  border-bottom: 1px gray solid;
-  color: #342d7e;
+  border-bottom: 2px #ccc solid;
+  color: #bb1237;
   font-size: 17px;
   font-weight: bold;
-  padding-bottom: 2px; }
+  padding-bottom: 5px; }
   .title img {
     position: relative;
     top: 2px; }
@@ -98,7 +98,7 @@
   margin: 5px 0px 0px 0px; }
 
 .req {
-  color: navy; }
+  color: #bb1237; }
 
 .intro {
   color: dimgray;
@@ -112,9 +112,9 @@
   padding: 4px 15px 8px 15px; }
 
 .remote {
-  border: 5px lightblue solid;
+  border: 1px #ccc solid;
   background: whitesmoke;
-  margin: 0px;
+  margin: 10px 0px;
   padding: 0px 10px 0px 10px;
   position: relative; }
   .remote .close {
@@ -309,7 +309,7 @@
       text-decoration: none; }
 
 .filters, .panel {
-  background: snow;
+  background: #fff;
   margin: 0px 0px 12px 0px;
   padding: 6px 8px 6px 8px;
   -moz-border-radius: 4px;
@@ -318,7 +318,7 @@
   -webkit-box-shadow: 2px 2px 8px #bbb, -2px 0px 8px #bbb; }
 
 .filters h4 {
-  color: navy;
+  color: #bb1237;
   font-size: 12px;
   font-weight: bold; }
 .filters input[type=text] {
@@ -352,7 +352,7 @@
 .panel#recently {
   background: floralwhite; }
 .panel#summary {
-  background: oldlace; }
+  background: #fff; }
   .panel#summary p {
     margin: 4px 0px 4px 0px; }
 
