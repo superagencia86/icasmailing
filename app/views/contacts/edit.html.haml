@@ -6,4 +6,6 @@
   = render "form", :f => f
 
   .buttonbar
-    = f.submit "Editar contacto" 
+    = f.submit "Guardar cambios" 
+    %p
+      = link_to "Volver a todos los contactos", contacts_path

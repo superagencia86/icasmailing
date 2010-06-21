@@ -1,13 +1,14 @@
 #header
   #welcome
     - if @current_user
-      Bienvenido,
-      -# This span gets updated on the fly if user changes her name.
+      Bienvenido
       %span#welcome_username= @current_user.name
-      %span> !&nbsp;&nbsp;
+      %span> &nbsp;&nbsp;
+      |
+
 
       - if @current_user.is_admin?
-        = link_to("Admin", admin_path) << " |"
+        = link_to("Administrador", admin_path) << " |"
 
       = link_to("Cerrar sesión", logout_path)
     - else
@@ -16,5 +17,5 @@
       
   %h3
     = link_to("Maxwell", root_path)
-    = " - #{current_space.name}" if current_space
+    = " ~ #{current_space.name}" if current_space
 

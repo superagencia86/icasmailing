@@ -1,9 +1,22 @@
 .title_tools#menu
   = link_to("Editar", edit_contact_path(@contact))
-  = link_to("Eliminar?", @contact, :method => :delete)
+  = link_to("Eliminar", @contact, :method => :delete)
 
 .title
   %span= @contact.full_name
 
-= render :partial => "comments/new", :locals => { :commentable => @contact }
-= render :partial => "comments/comment", :collection => @contact.comments
+#summary
+  %div
+    %b= link_to(truncate(@contact.email, :length => 30), "mailto:" << @contact.email.to_s, :title => @contact.email) if @contact.email.present?
+    %b= link_to(truncate(@contact.secondary_email, :length => 30), "mailto:" << @contact.secondary_email.to_s, :title => @contact.secondary_email) if @contact.secondary_email.present?
+
+  %div
+    = "Cargo: #{@contact.title}<br/>" if @contact.title.present?
+    = "Departamento: #{@contact.section}" if @contact.section.present?
+
+  %div
+    - if @contact.phone.present? || @contact.celular.present?
+      = "Teléfono/s: <br/><b>#{@contact.phone}</b> - <b>#{@contact.celular}</b><br />"
+
+%p
+  = link_to "Volver a todos los contactos", contacts_path
