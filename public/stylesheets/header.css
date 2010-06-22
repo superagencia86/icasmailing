@@ -1,22 +1,30 @@
 #header {
-  background: #1e4262;
-  color: skyblue;
+  background: white;
+  color: #b71739;
   padding: 8px 16px 8px 16px; }
-  #header h3 a {
-    background: #1e4262;
-    color: greenyellow;
-    font: normal 15px "Lucida Grande", Arial, Helvetica, sans-serif;
-    text-decoration: none; }
+  #header h3 {
+    width: 259px;
+    height: 82px;
+    background: url("/images/logo_icas.png") no-repeat 0 0; }
+    #header h3 a {
+      background: white;
+      color: greenyellow;
+      font: normal 15px "Lucida Grande", Arial, Helvetica, sans-serif;
+      text-decoration: none; }
+    #header h3 span {
+      display: none; }
   #header #welcome {
     float: right;
-    font-size: 11px; }
+    font-size: 11px;
+    font-weight: bold;
+    color: #b71739; }
     #header #welcome a {
-      color: lightyellow;
+      color: #222;
       padding: 1px 4px 2px 4px;
       text-decoration: none; }
       #header #welcome a:hover {
-        background: #1e4262;
-        color: yellow; }
+        background: white;
+        color: #b71739; }
     #header #welcome a.selected {
       background: steelblue;
       color: lightyellow;
@@ -24,6 +32,17 @@
       -moz-border-radius-topright: 2px;
       -webkit-border-top-left-radius: 2px;
       -webkit-border-top-right-radius: 2px; }
+    #header #welcome span {
+      color: #222; }
+  #header #slogan {
+    float: right;
+    clear: both;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 20px;
+    font-size: 20px; }
+    #header #slogan span {
+      display: block; }
   #header #jumpbox {
     background: steelblue;
     margin: 2px 0px 0px 0px;
@@ -44,7 +63,7 @@
       margin: 2px 0px 0px 0px; }
 
 #tabs {
-  background: #1e4262;
+  background: white;
   height: 24px;
   padding: 0px;
   text-align: center;
@@ -56,7 +75,7 @@
     margin: 0px 4px 0px 16px;
     width: 90px; }
   #tabs a:link, #tabs a:visited {
-    background: #466bb1;
+    background: #b71739;
     color: white;
     float: left;
     padding: 4px 8px 5px 8px;
@@ -68,11 +87,11 @@
     -webkit-border-top-left-radius: 3px;
     -webkit-border-top-right-radius: 3px; }
   #tabs a:hover {
-    background: #97baff;
-    color: navy; }
+    background: #bfbfbf;
+    color: white; }
   #tabs a:link.active, #tabs a:visited.active {
-    background: azure;
-    color: navy;
+    background: #bfbfbf;
+    color: white;
     text-decoration: none; }
 
 #footer {

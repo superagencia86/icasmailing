@@ -49,16 +49,22 @@
 // Flash messages.
 //------------------------------------------------------------------------------
 p
+  &.flash_warning, &.flash_error, &.flash_notice, &.flash_message
+  :-webkit-border-radius 5px
+  :-moz-border-radius 5px
+  :width 96%
+  :margin 10px auto
+  :font-weight bold
+  :font-size 14px
+
   &.flash_warning, &.flash_error
     :background lightpink
     :color maroon
-    :margin 0px
     :padding 5px 0px 5px 16px
 
   &.flash_notice, &.flash_message
-    :background #df9
-    :color darkgreen
-    :margin 0px
+    :background #7cae1d
+    :color #fff
     :padding 5px 0px 5px 16px
 
   &.flash_exception

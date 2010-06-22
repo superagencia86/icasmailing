@@ -15,16 +15,16 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //------------------------------------------------------------------------------
 
-!color_header                = "skyblue"
-!color_header_background     = #1e4262
+!color_header                = #b71739
+!color_header_background     = "white"
 !color_logo                  = "greenyellow"
 
 !color_tab                   = "white"
-!color_tab_background        = #466bb1
-!color_active_tab            = "navy"
-!color_active_tab_background = "azure"
-!color_hover_tab             = "navy"
-!color_hover_tab_background  = #97baff
+!color_tab_background        = #b71739
+!color_active_tab            = "white" 
+!color_active_tab_background = #bfbfbf 
+!color_hover_tab             = "white"
+!color_hover_tab_background  = #bfbfbf 
 
 !size_tab_height             = 24px
 !size_tab_width              = 90px
@@ -38,22 +38,30 @@
   :color = !color_header
   :padding 8px 16px 8px 16px
 
-  h3 a
-    :background = !color_header_background
-    :color = !color_logo
-    :font normal 15px "Lucida Grande", Arial, Helvetica, sans-serif
-    :text-decoration none
+  h3
+    :width 259px
+    :height 82px
+    :background url("/images/logo_icas.png") no-repeat 0 0
+    a
+      :background = !color_header_background
+      :color = !color_logo
+      :font normal 15px "Lucida Grande", Arial, Helvetica, sans-serif
+      :text-decoration none
+    span
+      :display none
 
   #welcome
     :float right
     :font-size 11px
+    :font-weight bold
+    :color = !color_header
     a
-      :color lightyellow
+      :color #222
       :padding 1px 4px 2px 4px
       :text-decoration none
       &:hover
         :background = !color_header_background
-        :color yellow
+        :color = !color_header
     a.selected
       :background steelblue
       :color lightyellow
@@ -63,6 +71,17 @@
       :-webkit-border
         :top-left-radius 2px
         :top-right-radius 2px
+    span
+      :color #222
+  #slogan
+    :float right
+    :clear both
+    :font-weight bold
+    :text-align right
+    :margin-top 20px
+    :font-size 20px
+    span
+      :display block
 
   #jumpbox
     :background steelblue

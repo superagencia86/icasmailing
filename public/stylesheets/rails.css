@@ -24,25 +24,30 @@
   border-right: 1px solid lightpink;
   background: pink; }
 
-p.flash_warning, p.flash_error {
-  background: lightpink;
-  color: maroon;
-  margin: 0px;
-  padding: 5px 0px 5px 16px; }
-p.flash_notice, p.flash_message {
-  background: #df9;
-  color: darkgreen;
-  margin: 0px;
-  padding: 5px 0px 5px 16px; }
-p.flash_exception {
-  background: #df9;
-  border: 5px limegreen solid;
-  font-size: 14px;
-  margin: 50px auto;
-  padding: 50px;
-  width: 450px;
-  -moz-box-shadow: 5px 5px 15px #999, -5px 0px 15px #999;
-  -webkit-box-shadow: 5px 5px 15px #999, -5px 0px 15px #999; }
+p {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  width: 96%;
+  margin: 10px auto;
+  font-weight: bold;
+  font-size: 14px; }
+  p.flash_warning, p.flash_error {
+    background: lightpink;
+    color: maroon;
+    padding: 5px 0px 5px 16px; }
+  p.flash_notice, p.flash_message {
+    background: #7cae1d;
+    color: #fff;
+    padding: 5px 0px 5px 16px; }
+  p.flash_exception {
+    background: #df9;
+    border: 5px limegreen solid;
+    font-size: 14px;
+    margin: 50px auto;
+    padding: 50px;
+    width: 450px;
+    -moz-box-shadow: 5px 5px 15px #999, -5px 0px 15px #999;
+    -webkit-box-shadow: 5px 5px 15px #999, -5px 0px 15px #999; }
 
 div.auto_complete {
   background: white;
