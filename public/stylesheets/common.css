@@ -1,9 +1,9 @@
 .title {
-  border-bottom: 2px #ccc solid;
-  color: #bb1237;
+  border-bottom: 1px gray solid;
+  color: #b71739;
   font-size: 17px;
   font-weight: bold;
-  padding-bottom: 5px; }
+  padding-bottom: 2px; }
   .title img {
     position: relative;
     top: 2px; }
@@ -46,7 +46,7 @@
 
 .standalone {
   background: #fff;
-  border: 2px #aaa solid;
+  border: 2px #ccc solid;
   margin: 75px auto 6px auto;
   padding: 20px;
   width: 400px;
@@ -61,7 +61,7 @@
   .standalone input[type="submit"] {
     font-size: 14px; }
   .standalone .section {
-    background: #fff;}
+    background: white; }
 
 .tabbed {
   padding: 12px 12px 12px 16px; }
@@ -100,7 +100,7 @@
   margin: 5px 0px 0px 0px; }
 
 .req {
-  color: #bb1237; }
+  color: #b71739; }
 
 .intro {
   color: dimgray;
@@ -114,9 +114,10 @@
   padding: 4px 15px 8px 15px; }
 
 .remote {
-  border: 1px #ccc solid;
+  border: 2px #ccc solid;
+  margin: 20px 0;
   background: whitesmoke;
-  margin: 10px 0px;
+  margin: 0px;
   padding: 0px 10px 0px 10px;
   position: relative; }
   .remote .close {
@@ -146,22 +147,19 @@
   margin: 3px 0px 0px 0px;
   vertical-align: middle; }
 
-input.btn, a.btn{
+input.btn, a.btn {
   background: #e2e2e2;
   border: 1px solid #999;
   cursor: pointer;
   font-weight: bold;
   padding: 4px 7px;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;}
+  -webkit-border-radius: 5px; }
 
-input.btn:hover, a.btn:hover{
+input.btn:hover, a.btn:hover {
   background: #333;
   color: #fff;
-  border: 1px solid #e2e2e2;
-  }
-
-
+  border: 1px solid #e2e2e2; }
 
 .lorem {
   width: 50%;
@@ -337,7 +335,7 @@ input.btn:hover, a.btn:hover{
   -webkit-box-shadow: 2px 2px 8px #bbb, -2px 0px 8px #bbb; }
 
 .filters h4 {
-  color: #bb1237;
+  color: #b71739;
   font-size: 12px;
   font-weight: bold; }
 .filters input[type=text] {
@@ -371,7 +369,7 @@ input.btn:hover, a.btn:hover{
 .panel#recently {
   background: floralwhite; }
 .panel#summary {
-  background: #fff; }
+  background: oldlace; }
   .panel#summary p {
     margin: 4px 0px 4px 0px; }
 
