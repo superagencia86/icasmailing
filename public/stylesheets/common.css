@@ -1,5 +1,5 @@
 .title {
-  border-bottom: 1px gray solid;
+  border-bottom: 2px #ccc solid;
   color: #b71739;
   font-size: 17px;
   font-weight: bold;
@@ -117,7 +117,6 @@
   border: 2px #ccc solid;
   margin: 20px 0;
   background: whitesmoke;
-  margin: 0px;
   padding: 0px 10px 0px 10px;
   position: relative; }
   .remote .close {
