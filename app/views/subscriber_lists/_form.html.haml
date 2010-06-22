@@ -1,40 +1,57 @@
-.section
-  %table(width="500" cellpadding="0" cellspacing="0")
-    %tr
-      %td(valign="top")
-        .label.top.req= "Nombre de la lista"
-        = f.text_field :name, :style => "width:224px"
-  
-  %table
-    %tr
-      %td
-        Añadir usuarios generales
-      %td
-    %tr
-      %td
-        = link_to "Todos los usuarios generales"
-      %td
-        = link_to "Añadir usuarios manualmente"
+%table(width="500" cellpadding="0" cellspacing="0")
+  %tr
+    %td(valign="top")
+      .label.top.req= "Nombre de la lista"
+      = f.text_field :name, :style => "width:224px"
 
-    %tr
-      %td{ :valign => :top }
-        .label.top Sesgar por intereses:
-        - for hobbies in Hobby.find(:all, :conditions => ["name != 'otros'"]).in_groups_of(3, false)
-          %div{:style => 'float:left; margin-right: 80px'}
-            - for hobby in hobbies
-              = check_box_tag "subscriber_list[hobby_ids][]", hobby.id, @subscriber_list.hobbies.include?(hobby)
-              = hobby.name 
-              %br/          
+%table
+  %tr
+    %td
+      Añadir usuarios generales
+  %tr
+    %td
+      = link_to "Todos los usuarios generales"
+    %td= spacer
+    %td
+      = link_to "Añadir usuarios manualmente"
 
--#
-.section
-  %table{ :width => 800, :cellpadding => 0, :cellspacing => 0 }
-    %tr
-      %td{ :valign => :top }
-        .label.top Tipo de contacto
-        = f.collection_select :contact_type_id, SUBSCRIBER_TYPES, :idx, :name, :include_blank => true
-      %td= spacer
-      %td{ :valign => :top }
-        #subscriber_subtypes{:style => 'display:none'}
-          .label.top Subtipo de contacto
-          = f.collection_select :contact_subtype_id, SUBSCRIBER_SUBTYPES, :idx, :name, :include_blank => true
+%table
+  %tr
+    %td{ :valign => :top }
+      .label.top Sesgar por intereses:
+      - for hobbies in Hobby.find(:all, :conditions => ["name != 'otros'"]).in_groups_of(3, false)
+        %div{:style => 'float:left; margin-right: 80px'}
+          - for hobby in hobbies
+            = check_box_tag "subscriber_list[hobby_ids][]", hobby.id, @subscriber_list.hobbies.include?(hobby)
+            = hobby.name 
+            %br/          
+
+%table
+  %tr
+    %td
+      Añadir usuarios protocolo
+  %tr
+    %td
+      = link_to "Todos los usuarios protocolo"
+    %td= spacer
+    %td
+      = link_to "Añadir usuarios manualmente"
+
+%table
+  %tr
+    %td
+      Añadir medios de comunicación 
+  %tr
+    %td
+      = link_to "Todos los medios de comunicación"
+    %td= spacer
+    %td
+      = link_to "Añadir usuarios manualmente"
+
+%table
+  %tr
+    %td
+      Esta lista tiene 0 contactos
+  %tr
+    %td
+      = link_to "Visualizar o editar lista completa"
