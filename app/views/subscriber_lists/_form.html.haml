@@ -2,9 +2,31 @@
   %table(width="500" cellpadding="0" cellspacing="0")
     %tr
       %td(valign="top")
-        .label.top.req= "Nombre"
+        .label.top.req= "Nombre de la lista"
         = f.text_field :name, :style => "width:224px"
+  
+  %table
+    %tr
+      %td
+        Añadir usuarios generales
+      %td
+    %tr
+      %td
+        = link_to "Todos los usuarios generales"
+      %td
+        = link_to "Añadir usuarios manualmente"
 
+    %tr
+      %td{ :valign => :top }
+        .label.top Sesgar por intereses:
+        - for hobbies in Hobby.find(:all, :conditions => ["name != 'otros'"]).in_groups_of(3, false)
+          %div{:style => 'float:left; margin-right: 80px'}
+            - for hobby in hobbies
+              = check_box_tag "subscriber_list[hobby_ids][]", hobby.id, @subscriber_list.hobbies.include?(hobby)
+              = hobby.name 
+              %br/          
+
+-#
 .section
   %table{ :width => 800, :cellpadding => 0, :cellspacing => 0 }
     %tr
@@ -16,10 +38,3 @@
         #subscriber_subtypes{:style => 'display:none'}
           .label.top Subtipo de contacto
           = f.collection_select :contact_subtype_id, SUBSCRIBER_SUBTYPES, :idx, :name, :include_blank => true
-    %tr
-      %td{ :valign => :top }
-        .label.top Intereses
-        - for hobby in Hobby.find(:all)
-          = check_box_tag "subscriber_list[hobby_ids][]", hobby.id, @subscriber_list.hobbies.include?(hobby)
-          = hobby.name 
-          %br/          
