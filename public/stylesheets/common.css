@@ -62,6 +62,9 @@
     font-size: 14px; }
   .standalone .section {
     background: white; }
+  .standalone .title {
+    border-bottom: none;
+    margin-top: 5px; }
 
 .tabbed {
   padding: 12px 12px 12px 16px; }
