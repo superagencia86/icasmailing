@@ -19,7 +19,7 @@
     font-weight: bold;
     color: #b71739; }
     #header #welcome a {
-      color: #222;
+      color: #222222;
       padding: 1px 4px 2px 4px;
       text-decoration: none; }
       #header #welcome a:hover {
@@ -33,7 +33,7 @@
       -webkit-border-top-left-radius: 2px;
       -webkit-border-top-right-radius: 2px; }
     #header #welcome span {
-      color: #222; }
+      color: #222222; }
   #header #slogan {
     float: right;
     clear: both;
