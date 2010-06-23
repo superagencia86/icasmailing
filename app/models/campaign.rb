@@ -90,7 +90,7 @@ class Campaign < ActiveRecord::Base
       CampaignRecipient.update_all('visible = 0', "subscriber_list_id = #{subscriber_list_id}")
     end
 
-    subscriber_list_ids_without_subscribing=(args)
+    self.subscriber_list_ids_without_subscribing=(args)
   end
 
   alias_method_chain :subscriber_list_ids=, :subscribing

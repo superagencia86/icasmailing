@@ -41,7 +41,7 @@ class SubscriberListsController < InheritedResources::Base
 
   def create
     create! do |success, failure|
-      success.html { redirect_to subscriber_list_subscribers_path(@subscriber_list)}
+      success.html { redirect_to edit_subscriber_list_path(@subscriber_list)}
     end
   end
   

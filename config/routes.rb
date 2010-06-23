@@ -24,7 +24,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :comments
 
-  map.resources :subscriber_lists, :member => {:share => :any, :unshare => :get} do |subscriber_list|
+  map.resources :subscriber_lists, :member => {:filter_by_hobbies => :post, :share => :any, :unshare => :get} do |subscriber_list|
     subscriber_list.resources :subscribers, :collection => {:add_multiple => :any}
   end
 

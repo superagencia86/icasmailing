@@ -1,57 +1,63 @@
-%table(width="500" cellpadding="0" cellspacing="0")
-  %tr
-    %td(valign="top")
-      .label.top.req= "Nombre de la lista"
-      = f.text_field :name, :style => "width:224px"
+.remote
+  .section
+    %table(width="500" cellpadding="0" cellspacing="0")
+      %tr
+        %td(valign="top")
+          .label.top.req= "Nombre de la lista"
+          = f.text_field :name, :style => "width:224px"
 
-%table
-  %tr
-    %td
-      Añadir usuarios generales
-  %tr
-    %td
-      = link_to "Todos los usuarios generales"
-    %td= spacer
-    %td
-      = link_to "Añadir usuarios manualmente"
+    - if !@subscriber_list.new_record?
+      %table
+        %tr
+          %td
+            Añadir usuarios generales
+        %tr
+          %td
+            = link_to "Todos los usuarios generales"
+          %td= spacer
+          %td
+            = link_to "Añadir usuarios manualmente"
 
-%table
-  %tr
-    %td{ :valign => :top }
-      .label.top Sesgar por intereses:
-      - for hobbies in Hobby.find(:all, :conditions => ["name != 'otros'"]).in_groups_of(3, false)
-        %div{:style => 'float:left; margin-right: 80px'}
-          - for hobby in hobbies
-            = check_box_tag "subscriber_list[hobby_ids][]", hobby.id, @subscriber_list.hobbies.include?(hobby)
-            = hobby.name 
-            %br/          
+      %table
+        %tr
+          %td{ :valign => :top }
+            .label.top Sesgar por intereses:
+            - form_for @subscriber_list, filter_by_hobbies_subscriber_list_path(@subscriber_list) do |f|
+              - for hobbies in Hobby.find(:all, :conditions => ["name != 'otros'"]).in_groups_of(3, false)
+                %div{:style => 'float:left; margin-right: 80px'}
+                  - for hobby in hobbies
+                    = check_box_tag "subscriber_list[hobby_ids][]", hobby.id, @subscriber_list.hobbies.include?(hobby)
+                    = hobby.name 
+                    %br/          
+              %br/
+              = submit_tag "Sesgar"
 
-%table
-  %tr
-    %td
-      Añadir usuarios protocolo
-  %tr
-    %td
-      = link_to "Todos los usuarios protocolo"
-    %td= spacer
-    %td
-      = link_to "Añadir usuarios manualmente"
+      %table
+        %tr
+          %td
+            Añadir usuarios protocolo
+        %tr
+          %td
+            = link_to "Todos los usuarios protocolo"
+          %td= spacer
+          %td
+            = link_to "Añadir usuarios manualmente"
 
-%table
-  %tr
-    %td
-      Añadir medios de comunicación 
-  %tr
-    %td
-      = link_to "Todos los medios de comunicación"
-    %td= spacer
-    %td
-      = link_to "Añadir usuarios manualmente"
+      %table
+        %tr
+          %td
+            Añadir medios de comunicación 
+        %tr
+          %td
+            = link_to "Todos los medios de comunicación"
+          %td= spacer
+          %td
+            = link_to "Añadir usuarios manualmente"
 
-%table
-  %tr
-    %td
-      Esta lista tiene 0 contactos
-  %tr
-    %td
-      = link_to "Visualizar o editar lista completa"
+      %table
+        %tr
+          %td
+            Esta lista tiene 0 contactos
+        %tr
+          %td
+            = link_to "Visualizar o editar lista completa"
