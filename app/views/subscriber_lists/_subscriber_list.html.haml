@@ -12,13 +12,12 @@
         = link_to("Dejar de compartir", unshare_subscriber_list_path(subscriber_list, :idx => shared_list.id))
 
   .indentslim
-    = link_to(h(subscriber_list.name), [subscriber_list, Subscriber.new]) 
+    = link_to h(subscriber_list.name), subscriber_list_path(subscriber_list)
     - unless shared_list || share
       %tt
         = " &ndash; "
         = t(:added, :time_ago => time_ago_in_words(subscriber_list.created_at))
       %dt
-        = link_to t('pluralize.subscriber', subscriber_list.subscribers.count), subscriber_list_subscribers_path(subscriber_list)
         - if subscriber_list.has_finder?
           Lista inteligente
           = "(#{subscriber_list.contacts.length})"

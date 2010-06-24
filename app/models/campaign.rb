@@ -81,7 +81,6 @@ class Campaign < ActiveRecord::Base
   def subscriber_list_ids_with_subscribing=(args)
     args.each do |subscriber_list_id|
       subscriber_list = SubscriberList.find(subscriber_list_id, :include => [:subscribers])
-      create_campaign_recipients_for(subscriber_list.subscribers, subscriber_list_id)
       create_campaign_recipients_for(subscriber_list.contacts, subscriber_list_id) if subscriber_list.contacts.present?
     end
 
@@ -100,18 +99,15 @@ class Campaign < ActiveRecord::Base
   def create_campaign_recipients_for(list, subscriber_list_id)
     list.each do |element|
       create_campaign_recipient(element, subscriber_list_id)
-      
-      if element.is_a? Company
-        element.contacts.each do |contact|
-          create_campaign_recipient(contact, subscriber_list_id)
-        end
-      end
     end
   end
   
   def create_campaign_recipient(element, subscriber_list_id)
-    recipient = CampaignRecipient.find_or_create_by_campaign_id_and_subscriber_list_id_and_recipient_id_and_recipient_type(
-      self.id, subscriber_list_id, element.id, element.class.to_s)
+    if (recipient = CampaignRecipient.find_by_campaign_id_and_recipient_id_and_recipient_type(self.id, element.id, element.class.to_s)).nil?
+      recipient = CampaignRecipient.find_or_create_by_campaign_id_and_recipient_id_and_recipient_type(
+        self.id, subscriber_list_id, element.id, element.class.to_s) # Lo doy de alta con el subscriber_list_id para facilitar el desmarcado de listas y puesta visible a 0
+    end
+
     recipient.update_attribute("visible", true) unless recipient.visible
   end
 end

@@ -13,10 +13,10 @@
             Añadir usuarios generales
         %tr
           %td
-            = link_to "Todos los usuarios generales"
+            = link_to "Todos los usuarios generales", add_all_to_subscriber_list_path(@subscriber_list, :contact_type => 1), :class => 'btn'
           %td= spacer
           %td
-            = link_to "Añadir usuarios manualmente"
+            = link_to "Añadir usuarios manualmente", add_by_type_to_subscriber_list_contacts_path(@subscriber_list, :contact_type => 1), :class => 'btn'
 
       %table
         %tr
@@ -30,7 +30,7 @@
                     = hobby.name 
                     %br/          
               %br/
-              = submit_tag "Sesgar"
+              = submit_tag "Sesgar", :class => 'btn'
 
       %table
         %tr
@@ -38,10 +38,10 @@
             Añadir usuarios protocolo
         %tr
           %td
-            = link_to "Todos los usuarios protocolo"
+            = link_to "Todos los usuarios protocolo", add_all_to_subscriber_list_path(@subscriber_list, :contact_type => 2), :class => 'btn'
           %td= spacer
           %td
-            = link_to "Añadir usuarios manualmente"
+            = link_to "Añadir usuarios manualmente", add_by_type_to_subscriber_list_contacts_path(@subscriber_list, :contact_type => 2), :class => 'btn'
 
       %table
         %tr
@@ -49,15 +49,18 @@
             Añadir medios de comunicación 
         %tr
           %td
-            = link_to "Todos los medios de comunicación"
+            = link_to "Todos los medios de comunicación", add_all_to_subscriber_list_path(@subscriber_list, :contact_type => 3), :class => 'btn'
           %td= spacer
           %td
-            = link_to "Añadir usuarios manualmente"
+            = link_to "Añadir usuarios manualmente", add_by_type_to_subscriber_list_contacts_path(@subscriber_list, :contact_type => 2), :class => 'btn'
 
       %table
         %tr
           %td
-            Esta lista tiene 0 contactos
+            Esta lista tiene
+            %b
+              = @subscriber_list.subscribers.count
+            contacto/s
         %tr
           %td
-            = link_to "Visualizar o editar lista completa"
+            = link_to "Visualizar o editar lista completa", subscriber_list_path(@subscriber_list), :class => 'btn'

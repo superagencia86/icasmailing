@@ -1,9 +1,0 @@
-.title
-  %span= "Editar subscriptor"
-
-- form_for [@subscriber_list, @subscriber] do |f|
-  = f.error_messages 
-  = render "form", :f => f
-
-  .buttonbar
-    = f.submit "Editar subscriptor" 

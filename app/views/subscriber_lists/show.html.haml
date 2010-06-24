@@ -1,9 +1,30 @@
 .title_tools#menu
   = link_to("Editar", edit_subscriber_list_path(@subscriber_list))
-  = link_to("Eliminar?", @subscriber_list, :method => :delete)
+  = link_to("Eliminar", @subscriber_list, :method => :delete)
 
 .title
   %span= @subscriber_list.name
   
 = render :partial => "comments/new", :locals => { :commentable => @subscriber_list }
 = render :partial => "comments/comment", :collection => @subscriber_list.comments
+
+.list#subscriber
+  .subtitle
+    Contactos
+    
+  - if (contacts = @subscriber_list.contacts).present?
+    %ul
+      - for contact in contacts
+        %li
+          .tools
+            = link_to("Eliminar", [@subscriber_list, contact], :method => :delete, :confirm => '¿Estás seguro?')
+
+          .indentslim
+            = contact.full_name << " - "
+            %tt
+              = t(:added, :time_ago => time_ago_in_words(contact.created_at))
+            %dt
+              = contact.email
+  - else
+    %p
+      No existen contactos en esta lista de envío aún.

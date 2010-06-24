@@ -38,6 +38,20 @@ class SubscriberListsController < InheritedResources::Base
       end
     end
   end
+  
+  # This method add all contacts of a type
+  def add_all_to
+    if params[:contact_type] && [1, 2, 3].include?(params[:contact_type].to_i)
+      contacts = Contact.find_all_by_contact_type_id(params[:contact_type])
+      for contact in contacts
+        Subscriber.find_or_create_by_subscriber_list_id_and_contact_id(@subscriber_list.id, contact.id)
+      end
+
+      flash[:notice] = "Todos los #{SUBSCRIBER_TYPES.select{|x| x.idx == params[:contact_type].to_i}.first.name} han sido añadidos."
+    end
+
+    redirect_to :back
+  end
 
   def create
     create! do |success, failure|

@@ -2,10 +2,7 @@ class CreateSubscribers < ActiveRecord::Migration
   def self.up
     create_table :subscribers do |t|
       t.integer :subscriber_list_id
-      t.string :name
-      t.string :first_surname
-      t.string :second_surname
-      t.string :email
+      t.integer :contact_id
 
       t.timestamps
     end

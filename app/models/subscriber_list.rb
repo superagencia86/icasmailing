@@ -1,8 +1,10 @@
 class SubscriberList < ActiveRecord::Base
-  has_many :subscribers
   belongs_to :space
   belongs_to :shares_space, :class_name => 'Space'
   has_many :comments, :as => :commentable
+  
+  has_many :subscribers
+  has_many :contacts, :through => :subscribers
 
   has_and_belongs_to_many :hobbies
 
@@ -20,10 +22,6 @@ class SubscriberList < ActiveRecord::Base
 
   def has_finder?
     self.hobbies.present? || self.contact_type_id.present?
-  end
-
-  def contacts
-    Contact.finder(:contact_type_id => self.contact_type_id, :contact_subtype_id => self.contact_subtype_id, :hobby => self.hobby_ids)
   end
   
   def before_save
