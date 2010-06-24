@@ -104,7 +104,7 @@ class Campaign < ActiveRecord::Base
   
   def create_campaign_recipient(element, subscriber_list_id)
     if (recipient = CampaignRecipient.find_by_campaign_id_and_recipient_id_and_recipient_type(self.id, element.id, element.class.to_s)).nil?
-      recipient = CampaignRecipient.find_or_create_by_campaign_id_and_recipient_id_and_recipient_type(
+      recipient = CampaignRecipient.find_or_create_by_campaign_id_and_subscriber_list_id_and_recipient_id_and_recipient_type(
         self.id, subscriber_list_id, element.id, element.class.to_s) # Lo doy de alta con el subscriber_list_id para facilitar el desmarcado de listas y puesta visible a 0
     end
 

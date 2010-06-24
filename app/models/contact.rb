@@ -1,6 +1,6 @@
 class Contact < ActiveRecord::Base
   acts_as_paranoid
-  record_activity_of :user, :if => Proc.new{|user| user.visibility != 'private'}
+  record_activity_of :user, :if => Proc.new{|contact| !contact.from_form }
 
   belongs_to :user
   belongs_to :company

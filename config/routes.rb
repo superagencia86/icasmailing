@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout   '/logout',   :controller => 'user_sessions', :action => 'destroy'
   map.register '/register', :controller => 'users',         :action => 'new'
   map.ajax     '/ajax/:action', :controller => 'ajax',      :action => 'update'
+  map.form     '/form',     :controller => 'public',        :action => 'create'
 
   map.resource  :user_session
   map.resource  :account, :controller => "users"
