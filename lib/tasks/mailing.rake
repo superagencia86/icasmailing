@@ -62,4 +62,10 @@ namespace :mailing do
     user.save!
     puts "Admin user has been created."
   end
+
+  desc "Start mail worker"
+  task :start_send_cycle => :environment do
+    Delayed::Job.destroy_all(:handler => "--- !ruby/object:SendMailsJob {}\n\n")
+    Delayed::Job.enqueue(SendMailsJob.new)
+  end
 end

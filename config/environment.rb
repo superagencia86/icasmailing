@@ -7,6 +7,7 @@ RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
+  config.gem "zip"
   config.gem "authlogic"
   config.gem "aasm"
   config.gem "haml"
@@ -17,6 +18,7 @@ Rails::Initializer.run do |config|
   config.gem "paperclip"
   config.gem "simple-daemon"
   config.gem 'hoptoad_notifier'
+  config.gem 'delayed_job'
   
   config.time_zone = 'Madrid'
   config.i18n.default_locale = :es

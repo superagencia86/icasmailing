@@ -6,7 +6,7 @@ class MailDaemon < SimpleDaemon::Base
 
   def self.start
     loop do
-      Mail.process(:limit => 100)
+      Mail.process(:limit => 50)
       sleep(30)
     end
   end

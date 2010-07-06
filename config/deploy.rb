@@ -32,6 +32,7 @@ set :repository,  "git@gitorius.beecoder.com:icas-maxwell/mainline.git"
 
 # before "deploy:stop_mail_daemon"
 after "deploy:update_code", "db:symlink" # , "deploy:restart_mail_daemon"
+after "deploy:symlink", "deploy:start_mail_cycle"
  
 namespace :db do
   desc "Make symlink for database yaml, mongrel cluster"
@@ -43,6 +44,11 @@ namespace :db do
 end
 
 namespace :deploy do
+  desc "start_mail_cycle"
+  task :start_mail_cycle, :roles => :db do
+    run "cd #{release_path} && rake orders:start_mail_cycle RAILS_ENV=production"
+  end
+
   # Restart passenger on deploy
   desc "Restarting mod_rails with restart.txt"
   task :restart, :roles => :app, :except => { :no_release => true } do

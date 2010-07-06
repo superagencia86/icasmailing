@@ -57,7 +57,7 @@ class CampaignsController < InheritedResources::Base
 
   def template
     unless request.get?
-      if @campaign.assets.html.present? || params[:campaign][:asset_html].present?
+      if @campaign.assets.html.present? || params[:campaign][:body].present?
         @campaign.update_attributes(params[:campaign])
         save_or_go_to(test_campaign_path(@campaign))
       else
@@ -75,7 +75,8 @@ class CampaignsController < InheritedResources::Base
       emails = []
       @campaign.campaign_recipients.valids.each do |campaign_recipient|
         if (email = campaign_recipient.recipient.email).present? && (emails & [email]).blank?
-          Mail.queue(EmailMailer.create_email(@campaign, campaign_recipient))
+          EmailMailer.queue(:email, @campaign, campaign_recipient)
+          # Mail.queue(EmailMailer.create_email(@campaign, campaign_recipient))
           emails << email
         end
       end
