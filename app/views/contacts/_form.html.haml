@@ -8,15 +8,27 @@
     %td(valign="top")
       .label.top.req= "Apellidos"
       = f.text_field :surname, :style => "width:224px"
-
+    %td= spacer
+    %td{ :valign => :top }
+      .label.top Profesión
+      = f.text_field :job, :style => "width:224px"
   %tr
+    %td{ :valign => :top }
+      .label.top Sexo
+
+      - for sex in SEX
+        = f.radio_button :sex_id, sex.idx
+        = f.label :sex_id, sex.name, :value => sex.idx
+
+    %td= spacer
     %td{ :valign => :top }
       .label.top.req Email
       = f.text_field :email, :style => "width:224px"
     %td= spacer
     %td{ :valign => :top }
-      .label.top Email (secundario)
-      = f.text_field :email_secondary, :style => "width:224px"
+      .label.top Web / blog
+      = f.text_field :web, :style => "width:224px"
+
   %tr
     %td{ :valign => :top }
       .label.top Teléfono móvil
@@ -25,14 +37,30 @@
     %td{ :valign => :top }
       .label.top Teléfono fijo
       = f.text_field :telephone, :style => "width:224px"
-  %tr
-    %td{ :valign => :top }
-      .label.top Cargo
-      = f.text_field :job, :style => "width:224px"
+
     %td= spacer
     %td{ :valign => :top }
-      .label.top Departamento
-      = f.text_field :section, :style => "width:224px"
+      .label.top Fecha de nacimiento
+      = f.date_select :birthday_at, :include_blank => true
+
+  %tr
+    %td{ :valign => :top, :colspan => 6 }
+      .label.top Dirección
+      = f.text_field :address, :size => 137
+
+  %tr
+    %td{ :valign => :top}
+      .label.top Provincia
+      = f.collection_select :province_id, PROVINCES, :idx, :name, {:include_blank => true}, :style => "width:224px"
+    %td= spacer
+    %td{ :valign => :top }
+      .label.top Localidad
+      = f.text_field :locality, :style => "width:224px"
+
+    %td= spacer
+    %td{ :valign => :top }
+      .label.top C.P.
+      = f.text_field :zip, :style => "width:224px"
 
   %tr
     %td
