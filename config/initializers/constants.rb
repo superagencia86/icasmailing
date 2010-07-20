@@ -44,8 +44,6 @@ PROPOSAL_STATE = os_array({
 
 SEX = os_array(["Hombre", "Mujer"])
 
-SUBSCRIBER_TYPES = os_array(["Usuario (publico general)", "Protocolo", "Medios de comunicación"])
-SUBSCRIBER_SUBTYPES = os_array(["Organismo público", "Responsable político", "Empresa privada", "Espacio cultural", "Artista", "ICAS"])
 
 PROVINCES = os_array(
 ["A Coru\303\261a\n", "\303\201lava\n", "Albacete\n", "Alicante\n", "Almer\303\255a\n", "Asturias\n", 

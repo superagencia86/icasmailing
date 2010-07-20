@@ -16,3 +16,7 @@ end
 %w(Agroalimentario Asesoría\ legal Banca\ y\ finanzas Construcción\ y\ autopistas Consultoría\ y\ abogados Cultura Deportes Diseño,\ ilustración\ y\ fotografía Distribución Energía Farmacia Formación Hostelería,\ restauración\ y\ catering Imprentas Informática Industria Ingeniería\ y\ arquitectura Inmobiliaria\ y\ construcción Medio\ ambiente Medios\ de\ comunicación Mensajería\ y\ transporte Motor Mobiliario\ y\ material\ de\ oficina Productoras\ audiovisuales Publicidad\ y\ marketing Salud\ y\ belleza Seguros Servicios Software\ y\ desarrollo Tecnología Telecomunicaciones Textil,\ moda\ y\ confección Traducción Transportes Turismo Ocio\ y\ tiempo\ libre Otros).each do |name|
   Sector.find_or_create_by_name(:name => name)
 end
+
+["Consejo cultura y empresa", "Consejo de publicaciones", "Foro de agentes culturales", "Danza", "Música", "Teatro", "Cine", "Artes plásticas", "Libros - poesía", "Archivo, Hemeroteca y Publicaciones", "Casino de la exposición", "Centro de las Artes de Sevilla", "Red Municipal de Bibliotecas", "Teatro Alameda", "Teatro Lope de Vega"].each do |name|
+  Hobby.find_or_create_by_name(:name => name)
+end

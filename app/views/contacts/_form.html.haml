@@ -62,29 +62,36 @@
       .label.top C.P.
       = f.text_field :zip, :style => "width:224px"
 
-  %tr
-    %td
-      .label.top.req= "Empresa"
-      #company
-        = render :partial => 'companies/company_select', :locals => {:f => f.object_name, :selected => @contact.company_id}
     
 
 %table{  :cellpadding => 0, :cellspacing => 0 }
   %tr
     %td{ :valign => :top }
       .label.top Tipo de contacto
-      = f.collection_select :contact_type_id, SUBSCRIBER_TYPES, :idx, :name, :include_blank => true
+      - for subscriber_type in Contact::SUBSCRIBER_TYPES[0..-2]
+        = f.radio_button :contact_type_id, subscriber_type.idx
+        = f.label :contact_type_id, subscriber_type.name, :value => subscriber_type.idx
+      %br/
+
+      #instituions{:style => 'float:left'}
+        = f.radio_button :contact_type_id, Contact::SUBSCRIBER_TYPES[-1].idx
+        = f.label :contact_type_id, Contact::SUBSCRIBER_TYPES[-1].name, :value => Contact::SUBSCRIBER_TYPES[-1].idx
+      #company{:style => 'margin-left:20px; float:left'}
+        = render :partial => 'companies/company_select', :locals => {:f => f.object_name, :selected => @contact.company_id}
+
     %td{ :valign => :top }
       #subscriber_subtypes{:style => 'display:none'}
         .label.top Subtipo de contacto
-        = f.collection_select :contact_subtype_id, SUBSCRIBER_SUBTYPES, :idx, :name, :include_blank => true
+        = f.collection_select :contact_subtype_id, Contact::SUBSCRIBER_SUBTYPES, :idx, :name, :include_blank => true
   %tr
     %td{ :valign => :top }
       .label.top Intereses
-      - for hobby in Hobby.find(:all)
-        = check_box_tag "contact[hobby_ids][]", hobby.id, @contact.hobbies.include?(hobby)
-        = hobby.name 
-        %br/          
+      - for hobbies in Hobby.find(:all).in_groups_of(5)
+        .hobbies{:style => 'float:left'}
+          - for hobby in hobbies
+            = check_box_tag "contact[hobby_ids][]", hobby.id, @contact.hobbies.include?(hobby)
+            = hobby.name 
+            %br/          
 %table
   %tr
     %td{:valign => :top}

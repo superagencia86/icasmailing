@@ -2,10 +2,10 @@
 
 #company_select
   = select f, :company_id, Company.all.map{|ot| [ot.name, ot.id]}, {:include_blank => "--", :selected => selected}
-  = link_to "Nueva empresa", '#', :id => 'new_company_link'
+  = link_to "Nueva institución", '#', :id => 'new_company_link'
 #company_div(style="display:none;")
   = text_field_tag "company[name]"
-  = submit_tag "Crear empresa", :id => 'company_submit'
+  = submit_tag "Crear institución", :id => 'company_submit'
 
   = hidden_field_tag "company[form]", f.respond_to?(:object_name) ? f.object_name : f
   = hidden_field_tag "company[user_id]", current_user.id

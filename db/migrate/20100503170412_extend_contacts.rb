@@ -15,9 +15,6 @@ class ExtendContacts < ActiveRecord::Migration
       t.string :name
     end
     
-    %w(Danza Música Teatro Cine Artes\ plásticas\ (pintura,\ escultura,\ fotografía...) Libros Otros).each do |name|
-      Hobby.create(:name => name)
-    end
     
     create_table :contacts_hobbies, :id => false do |t|
       t.references :contact, :hobby
