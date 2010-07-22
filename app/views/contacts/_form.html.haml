@@ -46,7 +46,7 @@
   %tr
     %td{ :valign => :top, :colspan => 6 }
       .label.top Dirección
-      = f.text_field :address, :size => 137
+      = f.text_field :address, :size => 93
 
   %tr
     %td{ :valign => :top}
@@ -98,3 +98,13 @@
     %td{:valign => :top}
       .label.top Comentarios
       = f.text_area :comments, :rows => 4, :cols => 60
+
+- if (subscriber_lists = SubscriberList.all).present?
+  %table
+    %tr
+      %td{:valign => :top}
+        .label.top Presencia en listas de envíos
+        - for subscriber_list in subscriber_lists
+          = check_box_tag "contact[subscriber_list_ids][]", subscriber_list.id, @contact.subscriber_lists.include?(subscriber_list)
+          = subscriber_list.name
+        
