@@ -18,7 +18,7 @@ Rails::Initializer.run do |config|
   config.gem "paperclip"
   config.gem "simple-daemon"
   config.gem 'hoptoad_notifier'
-  config.gem 'delayed_job'
+  config.gem 'delayed_job', :version => '2.0.1'
   
   config.time_zone = 'Madrid'
   config.i18n.default_locale = :es

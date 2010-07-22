@@ -3,9 +3,13 @@
 #############################################################
 
 require 'erb'
-require 'capistrano/ext/multistage'
-set :stages, %w(maxwell icas)
-set :default_stage, "icas"
+
+set :application, "icasmailing"
+set :domain, "icasmailing.superagencia86.es"
+server domain, :app, :web
+role :db, domain, :primary => true
+set :deploy_to, "/var/www/superage/#{application}"
+set :rails_env, 'production'
 
 #############################################################
 #	Settings
@@ -46,7 +50,7 @@ end
 namespace :deploy do
   desc "start_mail_cycle"
   task :start_mail_cycle, :roles => :db do
-    run "cd #{release_path} && rake orders:start_mail_cycle RAILS_ENV=production"
+    run "cd #{release_path} && rake mailing:start_send_cycle RAILS_ENV=production"
   end
 
   # Restart passenger on deploy
@@ -60,10 +64,10 @@ namespace :deploy do
     task t, :roles => :app do ; end
   end
 
-  desc "Restart mail daemon"
-  task :restart_mail_daemon, :roles => :app do
-    run "RAILS_ENV=production ruby #{release_path}/lib/mail_daemon.rb restart"
-  end
+  # desc "Restart mail daemon"
+  # task :restart_mail_daemon, :roles => :app do
+  #   run "RAILS_ENV=production ruby #{release_path}/lib/mail_daemon.rb restart"
+  # end
 end
 
 Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
