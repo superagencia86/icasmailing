@@ -1,0 +1,11 @@
+- selected = defined?(selected) ? selected : nil
+
+#institution_select
+  = select f, :institution_type_id, InstitutionType.all.map{|ot| [ot.name, ot.id]}, {:include_blank => "--", :selected => selected}
+  = link_to "Nueva institución", '#', :id => 'new_institution_link'
+#institution_div(style="display:none;")
+  = text_field_tag "institution_type[name]"
+  = submit_tag "Crear institución", :id => 'institution_submit'
+
+  = hidden_field_tag "institution_type[form]", f.respond_to?(:object_name) ? f.object_name : f
+  =# hidden_field_tag "institution_type[user_id]", current_user.id

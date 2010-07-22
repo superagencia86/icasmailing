@@ -76,8 +76,9 @@
       #instituions{:style => 'float:left'}
         = f.radio_button :contact_type_id, Contact::SUBSCRIBER_TYPES[-1].idx
         = f.label :contact_type_id, Contact::SUBSCRIBER_TYPES[-1].name, :value => Contact::SUBSCRIBER_TYPES[-1].idx
-      #company{:style => 'margin-left:20px; float:left'}
-        = render :partial => 'companies/company_select', :locals => {:f => f.object_name, :selected => @contact.company_id}
+      #institution_types{:style => 'margin-left:20px; float:left'}
+        =# render :partial => 'companies/company_select', :locals => {:f => f.object_name, :selected => @contact.company_id}
+        = render :partial => 'institution_types/institution_select', :locals => {:f => f.object_name, :selected => @contact.institution_type_id}
 
     %td{ :valign => :top }
       #subscriber_subtypes{:style => 'display:none'}

@@ -19,6 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :companies, :collection => {:search => :get}
+  map.resources :institution_types
   map.resources :contacts
   map.resources :projects
   map.resources :proposals

@@ -13,6 +13,10 @@ end
   CompanyType.find_or_create_by_name(:name => name)
 end
 
+["Instituciones públicas", "Fundaciones y obras sociales", "Empresa cultural", "Asociaciones culturales", "Museos-salas expositivas", "Salas escénicas", "Centros educativos", "Centros Cívicos", "Bibliotecas", "ICAS - Servicios centrales", "ICAS - Teatro Lope de Vega", "ICAS - CaS", "ICAS - Teatro Alameda", "ICAS - Red Municipal de Bibliotecas", "ICAS - Archivo, Hemeroteca y Publicaciones"].each do |name|
+  InstitutionType.find_or_create_by_name(name)
+end
+
 %w(Agroalimentario Asesoría\ legal Banca\ y\ finanzas Construcción\ y\ autopistas Consultoría\ y\ abogados Cultura Deportes Diseño,\ ilustración\ y\ fotografía Distribución Energía Farmacia Formación Hostelería,\ restauración\ y\ catering Imprentas Informática Industria Ingeniería\ y\ arquitectura Inmobiliaria\ y\ construcción Medio\ ambiente Medios\ de\ comunicación Mensajería\ y\ transporte Motor Mobiliario\ y\ material\ de\ oficina Productoras\ audiovisuales Publicidad\ y\ marketing Salud\ y\ belleza Seguros Servicios Software\ y\ desarrollo Tecnología Telecomunicaciones Textil,\ moda\ y\ confección Traducción Transportes Turismo Ocio\ y\ tiempo\ libre Otros).each do |name|
   Sector.find_or_create_by_name(:name => name)
 end
