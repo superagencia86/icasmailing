@@ -3,6 +3,20 @@ class ContactsController < InheritedResources::Base
   actions :all
   respond_to :html
 
+  def create
+    params[:contact][:hobby_ids] ||= []
+    params[:contact][:subscriber_list_ids] ||= []
+    
+    create!
+  end
+  
+  def update
+    params[:contact][:hobby_ids] ||= []
+    params[:contact][:subscriber_list_ids] ||= []
+    
+    update!
+  end
+
   def search
     @contacts = Contact.search(params[:query])
 

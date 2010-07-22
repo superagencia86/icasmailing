@@ -10,6 +10,8 @@ class Contact < ActiveRecord::Base
   has_many :comments, :as => :commentable
   
   has_and_belongs_to_many :hobbies
+  has_many :subscribers
+  has_many :subscriber_lists, :through => :subscribers
   
   validates_presence_of :name, :email
   validates_uniqueness_of :email
