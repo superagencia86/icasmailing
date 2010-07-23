@@ -67,6 +67,14 @@ $(document).ready(function() {
       $("#filter_contact_type_hobby").val("");
     }
   });
+
+  if((elem = $("#contact_filters #filter_contact_type:select")).length){
+    if(elem.val() == '1'){
+      $(".filters #general").show();
+    }else if(elem.val() == '4'){
+      $(".filters #institution").show();
+    } 
+  }
 });
 
 function submit_company(e) {

@@ -12,13 +12,16 @@
   .subtitle
     Contactos
   .filters
-    #contact_filters{:style => 'float:left'}
-      Filtrar por
-      = collection_select :filter, :contact_type, Contact::SUBSCRIBER_TYPES, :idx, :name, :include_blank => "Tipo de contacto"
-    #institution{:style => 'float:left;display:none'}
-      = collection_select :filter, :contact_type_institution_type, InstitutionType.all, :id, :name, :include_blank => "Tipo de institución"
-    #general{:style => 'float:left;display:none'}
-      = collection_select :filter, :contact_type_hobby, Hobby.find(:all, :conditions => ["name != 'otros'"]), :id, :name, :include_blank => "Intereses"
+    - form_for :filter, :html => {:method => :get} do |f|
+      #contact_filters{:style => 'float:left'}
+        Filtrar por
+        = f.collection_select :contact_type, Contact::SUBSCRIBER_TYPES, :idx, :name, {:include_blank => "Tipo de contacto", :selected => (params[:filter][:contact_type].to_i rescue nil)}
+      #institution{:style => 'float:left;display:none'}
+        = f.collection_select :contact_type_institution_type, InstitutionType.all, :id, :name, {:include_blank => "Tipo de institución", :selected => (params[:filter][:contact_type_institution_type].to_i rescue nil)}
+      #general{:style => 'float:left;display:none'}
+        = f.collection_select :contact_type_hobby, Hobby.find(:all, :conditions => ["name != 'otros'"]), :id, :name, {:include_blank => "Intereses", :selected => (params[:filter][:contact_type_hobby].to_i rescue nil)}
+
+      = f.submit "Filtrar"
     %div{:style =>'clear:both'}
   #contacts 
     = render :partial => 'contacts_list', :locals => {:contacts => @contacts}
