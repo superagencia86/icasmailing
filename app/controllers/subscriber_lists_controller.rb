@@ -62,8 +62,12 @@ class SubscriberListsController < InheritedResources::Base
   def update
     params[:subscriber_list][:hobby_ids] ||= []
     params[:subscriber_list][:institution_type_ids] ||= []
+
     update! do |success, failure|
-      success.html { redirect_to subscriber_list_path(@subscriber_list)}
+      success.html { 
+        @subscriber_list.update_assigned_contacts
+        redirect_to subscriber_list_path(@subscriber_list)
+      }
     end
   end
 

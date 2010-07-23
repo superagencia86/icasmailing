@@ -15,6 +15,7 @@ class Contact < ActiveRecord::Base
   
   validates_presence_of :name, :email
   validates_uniqueness_of :email
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
   default_scope :order => 'name ASC, surname ASC'
 
@@ -23,6 +24,12 @@ class Contact < ActiveRecord::Base
   named_scope :for, Proc.new{|user| {:conditions => ["user_id = ? and visibility = 'private' OR visibility = 'public'", user.id]}}
 
   simple_column_search :name, :surname, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
+
+  # Contact types
+  named_scope :general, :conditions => {:contact_type_id => 1}
+  named_scope :comunication, :conditions => {:contact_type_id => 2}
+  named_scope :artist, :conditions => {:contact_type_id => 3}
+  named_scope :institution, :conditions => {:contact_type_id => 4}
 
   def full_name
     "#{name} #{surname}"
