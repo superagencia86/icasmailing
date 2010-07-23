@@ -8,6 +8,10 @@ class SubscriberListsController < InheritedResources::Base
     index!
   end
   
+  def show
+    @contacts = @subscriber_list.active_contacts.paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
+  end
+
   def share
     @shared_list = SharedList.new
     @subscriber_list = SubscriberList.find(params[:id])

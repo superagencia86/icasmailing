@@ -1,10 +1,13 @@
 class SubscriberList < ActiveRecord::Base
+  CONTACTS_PER_PAGE = 30
   belongs_to :space
   belongs_to :shares_space, :class_name => 'Space'
   has_many :comments, :as => :commentable
   
   has_many :subscribers
   has_many :contacts, :through => :subscribers
+  has_many :active_subscribers, :class_name => 'Subscriber', :conditions => {:active => true}
+  has_many :active_contacts, :through => :active_subscribers, :source => :contact
 
   has_and_belongs_to_many :hobbies
   has_and_belongs_to_many :institution_types
@@ -32,7 +35,13 @@ class SubscriberList < ActiveRecord::Base
   def update_assigned_contacts
     contact_ids = []
     # General
-    # TODO
+      if self.all_general
+        contact_ids += Contact.general.find(:all, :select => :id).map(&:id)
+      else
+        if self.hobbies.present?
+          contact_ids += Contact.general.find(:all, :joins => :hobbies, :conditions => ["hobbies.id IN (#{self.hobbies.map(&:id).join(', ')})"]).map(&:id)
+        end
+      end
     # Comunication
       contact_ids += Contact.comunication.map(&:id) if self.all_comunication
     # Institutions

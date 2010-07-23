@@ -55,9 +55,20 @@ class ContactsController < InheritedResources::Base
   
   def destroy
     if params[:subscriber_list_id].present?
-      Subscriber.find_by_subscriber_list_id_and_contact_id(params[:subscriber_list_id], params[:id]).try(:destroy)
-      flash[:notice] = "Contacto eliminado de la lista de envío"
-      redirect_to subscriber_list_path(params[:subscriber_list_id])
+      @subscriber_list = SubscriberList.find(params[:subscriber_list_id])
+      # Subscriber.find_by_subscriber_list_id_and_contact_id(params[:subscriber_list_id], params[:id]).try(:destroy)
+      Subscriber.find_by_subscriber_list_id_and_contact_id(params[:subscriber_list_id], params[:id]).update_attribute(:active, false)
+      respond_to do |format|
+        format.js{
+          render :update do |page|
+            page[:contacts].replace_html(:partial => "subscriber_lists/contacts_list", :locals => {:contacts => @subscriber_list.active_contacts.paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])})
+          end 
+        }
+        format.html{
+          flash[:notice] = "Contacto eliminado de la lista de envío"
+          redirect_to subscriber_list_path(params[:subscriber_list_id])
+        }
+      end
     else
       destroy!
     end

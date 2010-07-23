@@ -23,13 +23,14 @@ class Contact < ActiveRecord::Base
   named_scope :private, :conditions => {:visibility => 'private'}
   named_scope :for, Proc.new{|user| {:conditions => ["user_id = ? and visibility = 'private' OR visibility = 'public'", user.id]}}
 
-  simple_column_search :name, :surname, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
-
   # Contact types
   named_scope :general, :conditions => {:contact_type_id => 1}
   named_scope :comunication, :conditions => {:contact_type_id => 2}
   named_scope :artist, :conditions => {:contact_type_id => 3}
   named_scope :institution, :conditions => {:contact_type_id => 4}
+
+
+  simple_column_search :name, :surname, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
 
   def full_name
     "#{name} #{surname}"

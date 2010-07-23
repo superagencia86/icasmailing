@@ -11,23 +11,14 @@
 .list#subscriber
   .subtitle
     Contactos
-    
-  - if (contacts = @subscriber_list.contacts).present?
-    %ul
-      - for contact in contacts
-        %li
-          .tools
-            = link_to("Eliminar", [@subscriber_list, contact], :method => :delete, :confirm => '¿Estás seguro?')
-
-          .indentslim
-            = contact.full_name << " - "
-            %tt
-              - unless contact.from_form
-                = t(:added_by, :time_ago => time_ago_in_words(contact.created_at), :user => (contact.user_id == current_user.id ? t(:me) : h(contact.user.full_name)))
-              - else
-                = t(:added_by, :time_ago => time_ago_in_words(contact.created_at), :user => "vía formulario")
-            %dt
-              = contact.email
-  - else
-    %p
-      No existen contactos en esta lista de envío aún.
+  .filters
+    #contact_filters{:style => 'float:left'}
+      Filtrar por
+      = collection_select :filter, :contact_type, Contact::SUBSCRIBER_TYPES, :idx, :name, :include_blank => "Tipo de contacto"
+    #institution{:style => 'float:left;display:none'}
+      = collection_select :filter, :contact_type_institution_type, InstitutionType.all, :id, :name, :include_blank => "Tipo de institución"
+    #general{:style => 'float:left;display:none'}
+      = collection_select :filter, :contact_type_hobby, Hobby.find(:all, :conditions => ["name != 'otros'"]), :id, :name, :include_blank => "Intereses"
+    %div{:style =>'clear:both'}
+  #contacts 
+    = render :partial => 'contacts_list', :locals => {:contacts => @contacts}

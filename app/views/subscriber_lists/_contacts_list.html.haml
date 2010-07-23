@@ -1,0 +1,20 @@
+- if contacts.present?
+  %ul
+    - for contact in contacts
+      %li
+        .tools
+          = link_to_remote("Eliminar de la lista", :url => subscriber_list_contact_path(:subscriber_list_id => @subscriber_list, :id => contact, :page => params[:page]), :method => :delete, :confirm => '¿Estás seguro?')
+
+        .indentslim
+          = contact.full_name << " - "
+          %tt
+            - unless contact.from_form
+              = t(:added_by, :time_ago => time_ago_in_words(contact.created_at), :user => (contact.user_id == current_user.id ? t(:me) : h(contact.user.full_name)))
+            - else
+              = t(:added_by, :time_ago => time_ago_in_words(contact.created_at), :user => "vía formulario")
+          %dt
+            = contact.email
+  = will_paginate contacts 
+- else
+  %p
+    No existen contactos en esta lista de envío aún.

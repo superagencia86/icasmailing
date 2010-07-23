@@ -24,22 +24,11 @@ $(document).ready(function() {
   
   $("#campaign_body").wysiwyg();
 
-  // Subscription list general users
-  $("#subscriber_list_all_general").click(function(){
-    if($(this).is(":checked")){
-      $(".hobby_checkbox").attr("checked", false);
-    }    
-  });
-
-  $(".hobby_checkbox").click(function(){
-    var checked = $(".hobby_checkbox:checked").length == 0 ? true : false;
-    $("#subscriber_list_all_general").attr("checked", checked);
-  })
-
   // Institutions
-  $(" #subscriber_list_all_institutions").click(function(){
+  $("#subscriber_list_all_institutions, #subscriber_list_all_general").click(function(){
     var checked = $(this).is(":checked") ? true : false;
-    $(".institution_type_checkbox").attr("checked", checked);
+    var elem = $(this).attr("id") == "subscriber_list_all_general" ? ".hobby_checkbox" : ".institution_type_checkbox"
+    $(elem).attr("checked", checked);
   });
 
   $(".institution_type_checkbox").click(function(){
@@ -49,6 +38,33 @@ $(document).ready(function() {
       }
     }else{
       $("#subscriber_list_all_institutions").attr("checked", false);
+    }
+  });
+  $(".hobby_checkbox").click(function(){
+    if($(this).is(":checked")){
+      if($(".hobby_checkbox").not(":checked").length == 0){
+        $("#subscriber_list_all_general").attr("checked", true);
+      }
+    }else{
+      $("#subscriber_list_all_general").attr("checked", false);
+    }
+  });
+
+  // Subscriber list contact listing
+  $("#contact_filters #filter_contact_type:select").change(function(){
+    if($(this).val() == '1'){
+      $(".filters #general").show();
+      $(".filters #institution").hide();
+      $("#filter_contact_type_institution_type").val("");
+    }else if($(this).val() == '4'){
+      $(".filters #general").hide();
+      $(".filters #institution").show();
+      $("#filter_contact_type_hobby").val("");
+    }else{
+      $(".filters #general").hide();
+      $(".filters #institution").hide();
+      $("#filter_contact_type_institution_type").val("");
+      $("#filter_contact_type_hobby").val("");
     }
   });
 });
