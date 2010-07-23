@@ -99,7 +99,7 @@
       .label.top Comentarios
       = f.text_area :comments, :rows => 4, :cols => 60
 
-- if (subscriber_lists = SubscriberList.all).present?
+- if (subscriber_lists = current_space.subscriber_lists.all).present?
   %table
     %tr
       %td{:valign => :top}
@@ -107,4 +107,5 @@
         - for subscriber_list in subscriber_lists
           = check_box_tag "contact[subscriber_list_ids][]", subscriber_list.id, @contact.subscriber_lists.include?(subscriber_list)
           = subscriber_list.name
+          %br/
         
