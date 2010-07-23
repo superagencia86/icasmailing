@@ -7,6 +7,7 @@ class SubscriberList < ActiveRecord::Base
   has_many :contacts, :through => :subscribers
 
   has_and_belongs_to_many :hobbies
+  has_and_belongs_to_many :institution_types
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :space_id

@@ -23,6 +23,34 @@ $(document).ready(function() {
   });
   
   $("#campaign_body").wysiwyg();
+
+  // Subscription list general users
+  $("#subscriber_list_all_general").click(function(){
+    if($(this).is(":checked")){
+      $(".hobby_checkbox").attr("checked", false);
+    }    
+  });
+
+  $(".hobby_checkbox").click(function(){
+    var checked = $(".hobby_checkbox:checked").length == 0 ? true : false;
+    $("#subscriber_list_all_general").attr("checked", checked);
+  })
+
+  // Institutions
+  $(" #subscriber_list_all_institutions").click(function(){
+    var checked = $(this).is(":checked") ? true : false;
+    $(".institution_type_checkbox").attr("checked", checked);
+  });
+
+  $(".institution_type_checkbox").click(function(){
+    if($(this).is(":checked")){
+      if($(".institution_type_checkbox").not(":checked").length == 0){
+        $("#subscriber_list_all_institutions").attr("checked", true);
+      }
+    }else{
+      $("#subscriber_list_all_institutions").attr("checked", false);
+    }
+  });
 });
 
 function submit_company(e) {
