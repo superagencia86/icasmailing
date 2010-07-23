@@ -60,8 +60,9 @@ class ContactsController < InheritedResources::Base
       Subscriber.find_by_subscriber_list_id_and_contact_id(params[:subscriber_list_id], params[:id]).update_attribute(:active, false)
       respond_to do |format|
         format.js{
+          @contacts = @subscriber_list.active_contacts.find(:all, :include => :hobbies, :conditions => load_subscription_list_conditions).paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
           render :update do |page|
-            page[:contacts].replace_html(:partial => "subscriber_lists/contacts_list", :locals => {:contacts => @subscriber_list.active_contacts.paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])})
+            page[:contacts].replace_html(:partial => "subscriber_lists/contacts_list", :locals => {:contacts => @contacts})
           end 
         }
         format.html{

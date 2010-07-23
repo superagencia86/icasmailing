@@ -17,7 +17,7 @@ class Contact < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
-  default_scope :order => 'name ASC, surname ASC'
+  default_scope :order => 'contacts.name ASC, surname ASC'
 
   named_scope :public, :conditions => {:visibility => 'public'}
   named_scope :private, :conditions => {:visibility => 'private'}

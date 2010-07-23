@@ -66,4 +66,18 @@ class ApplicationController < ActionController::Base
       session[:return_to] = nil
     end
     
+    def load_subscription_list_conditions
+      conditions = ""
+      if params[:filter] && params[:filter][:contact_type].present?
+        conditions = "contact_type_id = #{params[:filter][:contact_type]}"
+        case(params[:filter][:contact_type])
+        when('1') # general
+          conditions += " AND hobbies.id = #{params[:filter][:contact_type_hobby]}" if params[:filter][:contact_type_hobby].present?
+        when('4') # instituciones
+          conditions += " AND institution_type_id = #{params[:filter][:contact_type_institution_type]}" if params[:filter][:contact_type_institution_type].present?
+        end
+      end
+
+      conditions
+    end
 end

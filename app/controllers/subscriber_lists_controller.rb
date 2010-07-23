@@ -9,7 +9,8 @@ class SubscriberListsController < InheritedResources::Base
   end
   
   def show
-    @contacts = @subscriber_list.active_contacts.paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
+    conditions = load_subscription_list_conditions
+    @contacts = @subscriber_list.active_contacts.find(:all, :include => :hobbies, :conditions => conditions).paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
   end
 
   def share
