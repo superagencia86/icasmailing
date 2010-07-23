@@ -38,7 +38,7 @@ class ContactsController < InheritedResources::Base
     @subscriber_list = SubscriberList.find(params[:subscriber_list_id])
 
     if request.get?
-      if params[:contact_type] && [1, 2, 3].include?(params[:contact_type].to_i)
+      if params[:contact_type] && [1, 2, 3, 4].include?(params[:contact_type].to_i)
         @contacts = Contact.find_all_by_contact_type_id(params[:contact_type])
       end
     else

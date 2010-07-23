@@ -7,6 +7,7 @@ class SubscriberList < ActiveRecord::Base
   has_many :contacts, :through => :subscribers
 
   has_and_belongs_to_many :hobbies
+  has_and_belongs_to_many :institution_types
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :space_id
@@ -26,5 +27,26 @@ class SubscriberList < ActiveRecord::Base
   
   def before_save
     self.contact_subtype_id = nil if self.contact_type_id != 2
+  end
+
+  def update_assigned_contacts
+    contact_ids = []
+    # General
+    # TODO
+    # Comunication
+      contact_ids += Contact.comunication.map(&:id) if self.all_comunication
+    # Institutions
+      institutions = self.institution_types
+      if self.all_institutions
+        contact_ids += Contact.institution.map(&:id)
+      else
+        if institutions.present?
+          contact_ids += Contact.institution.find(:all, :conditions => ["institution_type_id IN (#{institutions.map(&:id).join(', ')})"], :select => 'id').map(&:id)
+        end
+      end
+    # Artists
+      contact_ids += Contact.artist.map(&:id) if self.all_artists
+
+    self.update_attribute(:contact_ids, contact_ids)
   end
 end

@@ -47,7 +47,7 @@ class SubscriberListsController < InheritedResources::Base
         Subscriber.find_or_create_by_subscriber_list_id_and_contact_id(@subscriber_list.id, contact.id)
       end
 
-      flash[:notice] = "Todos los #{SUBSCRIBER_TYPES.select{|x| x.idx == params[:contact_type].to_i}.first.name} han sido añadidos."
+      flash[:notice] = "Todos los #{Contact::SUBSCRIBER_TYPES.select{|x| x.idx == params[:contact_type].to_i}.first.name} han sido añadidos."
     end
 
     redirect_to :back
@@ -61,8 +61,13 @@ class SubscriberListsController < InheritedResources::Base
   
   def update
     params[:subscriber_list][:hobby_ids] ||= []
+    params[:subscriber_list][:institution_type_ids] ||= []
+
     update! do |success, failure|
-      success.html { redirect_to subscriber_list_subscribers_path(@subscriber_list)}
+      success.html { 
+        @subscriber_list.update_assigned_contacts
+        redirect_to subscriber_list_path(@subscriber_list)
+      }
     end
   end
 
