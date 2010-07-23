@@ -25,3 +25,4 @@
     %div{:style =>'clear:both'}
   #contacts 
     = render :partial => 'contacts_list', :locals => {:contacts => @contacts}
+  = will_paginate @contacts if @contacts.present?

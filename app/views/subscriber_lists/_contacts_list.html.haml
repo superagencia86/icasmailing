@@ -14,7 +14,6 @@
               = t(:added_by, :time_ago => time_ago_in_words(contact.created_at), :user => "vía formulario")
           %dt
             = contact.email
-  = will_paginate contacts 
 - else
   %p
     No existen contactos en esta lista de envío aún.
