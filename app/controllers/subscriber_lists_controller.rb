@@ -10,7 +10,14 @@ class SubscriberListsController < InheritedResources::Base
   
   def show
     conditions = load_subscription_list_conditions
-    @contacts = @subscriber_list.active_contacts.find(:all, :include => :hobbies, :conditions => conditions).paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
+
+    # if listing contacts not added to the subscription list
+    if params[:filter] && params[:filter][:active] == 'false'
+      @contacts = Contact.find(:all, :conditions => [conditions, @subscriber_list.id, @subscriber_list.id], :joins => "LEFT JOIN subscribers on contacts.id = subscribers.contact_id", :include => :hobbies).paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
+    else
+      @contacts = @subscriber_list.active_contacts.find(:all, :include => :hobbies, :conditions => conditions).paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
+    end
+
   end
 
   def share

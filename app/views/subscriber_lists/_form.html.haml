@@ -41,7 +41,7 @@
             = f.check_box :all_institutions
             Todas las instituciones
             %br/
-            - for institution_types in InstitutionType.all.in_groups_of(5, false)
+            - for institution_types in InstitutionType.all.in_groups_of(6, false)
               %div{:style => 'float:left; margin-right: 80px'}
                 - for institution_type in institution_types
                   = check_box_tag "subscriber_list[institution_type_ids][]", institution_type.id, @subscriber_list.institution_types.include?(institution_type), :class => 'institution_type_checkbox'
@@ -70,7 +70,7 @@
           %td
             Esta lista tiene
             %b
-              = @subscriber_list.subscribers.count
+              = @subscriber_list.subscribers.count(:all, :conditions => {:active => true})
             contacto/s
         -#%tr
         -#  %td

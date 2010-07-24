@@ -3,7 +3,10 @@
     - for contact in contacts
       %li
         .tools
-          = link_to_remote("Eliminar de la lista", :url => subscriber_list_contact_path(:subscriber_list_id => @subscriber_list, :id => contact, :page => params[:page], :filter => params[:filter]), :method => :delete, :confirm => '¿Estás seguro?')
+          - if @subscriber_list.subscribers.find_by_contact_id_and_active(contact.id, true)
+            = link_to_remote("Eliminar de la lista", :url => subscriber_list_contact_path(:subscriber_list_id => @subscriber_list, :id => contact, :page => params[:page], :filter => params[:filter]), :method => :delete, :confirm => '¿Estás seguro?')
+          - else
+            = link_to_remote("Añadir a la lista", :url => add_to_list_subscriber_list_contacts_path(:subscriber_list_id => @subscriber_list, :id => contact, :page => params[:page], :filter => params[:filter])) 
 
         .indentslim
           = contact.full_name << " - "

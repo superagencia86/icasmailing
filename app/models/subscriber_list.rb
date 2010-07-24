@@ -1,4 +1,5 @@
 class SubscriberList < ActiveRecord::Base
+  attr_accessor :active
   CONTACTS_PER_PAGE = 30
   belongs_to :space
   belongs_to :shares_space, :class_name => 'Space'
