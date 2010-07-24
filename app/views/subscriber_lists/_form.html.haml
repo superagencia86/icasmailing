@@ -5,18 +5,13 @@
         %td(valign="top")
           .label.top.req= "Nombre de la lista"
           = f.text_field :name, :style => "width:224px"
+          = f.hidden_field :user_id, :value => @subscriber_list.user_id || current_user.id
 
     - if !@subscriber_list.new_record?
       %table
         %tr
           %td
             Añadir usuarios generales
-        -#%tr
-        -#  %td
-        -#    = link_to "Todos los usuarios generales", add_all_to_subscriber_list_path(@subscriber_list, :contact_type => 1), :class => 'btn'
-        -#  %td= spacer
-        -#  %td
-        -#    = link_to "Añadir usuarios manualmente", add_by_type_to_subscriber_list_contacts_path(@subscriber_list, :contact_type => 1), :class => 'btn'
 
       %table
         %tr

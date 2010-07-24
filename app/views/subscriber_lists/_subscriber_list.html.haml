@@ -16,27 +16,22 @@
     - unless shared_list || share
       %tt
         = " &ndash; "
-        = t(:added, :time_ago => time_ago_in_words(subscriber_list.created_at))
+        = t(:added_by, :time_ago => time_ago_in_words(subscriber_list.created_at), :user => (subscriber_list.user_id == current_user.id ? t(:me) : h(subscriber_list.user.full_name)))
       %dt
-        - if subscriber_list.has_finder?
-          Lista inteligente
-          = "(#{subscriber_list.contacts.length})"
+        = pluralize(subscriber_list.contacts.length, "contacto", "contactos")
+      - if (shared_lists = subscriber_list.active_shared_lists).present?
+        %dt
+          Compartida con 
+          - shared_lists.each_with_index do |sl, index|
+            = ", " if index != 0
+            = link_to(sl.space.name, unshare_subscriber_list_path(subscriber_list, :idx => sl.id), :confirm => "¿Quiere dejar de compartir esta lista con #{sl.space.name}?", :style => 'color:#B71739;')
+            = "hasta el #{l(sl.expires_at, :format => :long)}"
     - else
       - if share
         %tt
           = " &ndash; "
-          = "Hasta el #{l(subscriber_list.expires_at.to_date, :format => :long)}"
+          = t(:added_by, :time_ago => time_ago_in_words(subscriber_list.created_at), :user => (subscriber_list.user_id == current_user.id ? t(:me) : h(subscriber_list.user.full_name)))
+        %dt= pluralize(subscriber_list.contacts.length, "contacto", "contactos")
         %dt
-          = "del espacio <b>#{subscriber_list.shares_space.name}</b>"
-          - if subscriber_list.has_finder?
-            Lista inteligente
-            = "(#{subscriber_list.contacts.length})"
-      - else
-        %tt
-          = " &ndash; "
-          = "Hasta el #{l(shared_list.expires_at, :format => :long)}"
-        %dt
-          = "al espacio <b>#{shared_list.space.name}</b>"
-          - if subscriber_list.has_finder?
-            Lista inteligente
-            = "(#{subscriber_list.contacts.length})"
+          = "Compartida por el espacio <b>#{subscriber_list.shares_space.name}</b>"
+          = "hasta el #{l(subscriber_list.expires_at.to_date, :format => :long)}"

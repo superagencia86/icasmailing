@@ -5,6 +5,7 @@ class SubscriberList < ActiveRecord::Base
   belongs_to :shares_space, :class_name => 'Space'
   has_many :comments, :as => :commentable
   
+  belongs_to :user
   has_many :subscribers
   has_many :contacts, :through => :subscribers
   has_many :active_subscribers, :class_name => 'Subscriber', :conditions => {:active => true}
@@ -12,6 +13,9 @@ class SubscriberList < ActiveRecord::Base
 
   has_and_belongs_to_many :hobbies
   has_and_belongs_to_many :institution_types
+
+  has_many :shared_lists
+  has_many :active_shared_lists, :conditions => ["expires_at >= ?", Date.today.to_s(:db)], :class_name => 'SharedList'
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :space_id

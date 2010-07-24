@@ -2,7 +2,7 @@
   = link_to("Crear lista de subscripción", new_subscriber_list_path, :title => "Crear lista de subscripción") 
 
 .title
-  %span= "Listas de subscripción"
+  %span Listas de envío
 
 .list#subscriber_lists
   - unless @subscriber_lists.empty?
@@ -11,17 +11,17 @@
     = render :partial => "common/empty"
 #paginate= render :partial => "common/paginate"
 
-%br/
-.subtitle Listas compartidas
-.list#contacts
-  - if current_space.shares_lists.present?
-    - for shared_list in current_space.shares_lists
-      = render :partial => "subscriber_list", :object => shared_list.subscriber_list, :locals => {:shared_list => shared_list}
-  - else
-    Ninguna
+-#%br/
+-#.subtitle Listas compartidas
+-#.list#contacts
+-#  - if current_space.shares_lists.present?
+-#    - for shared_list in current_space.shares_lists
+-#      = render :partial => "subscriber_list", :object => shared_list.subscriber_list, :locals => {:shared_list => shared_list}
+-#  - else
+-#    Ninguna
 
-%br/
-.subtitle Listas que me comparten
+.title
+  %span Listas de envío que me comparten
 .list#contacts
   - if current_space.shared_lists.present?
     = render :partial => "subscriber_list", :collection => current_space.shared_lists, :locals => {:share => true}
