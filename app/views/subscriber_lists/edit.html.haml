@@ -1,5 +1,7 @@
 .title
-  %span= "Editar lista de envío"
+  %span 
+    Añadir contactos a la lista de envío
+    = @subscriber_list.name
 
 - form_for @subscriber_list do |f|
   = f.error_messages 
