@@ -9,9 +9,10 @@
 = render :partial => "comments/comment", :collection => @subscriber_list.comments
 
 .list#subscriber
-  .subtitle
-    Contactos
   = render :partial => 'contacts_filters'
+  = render :partial => 'contacts_import'
+
+  %div{:style =>'clear:both'}
 
   #contacts 
     = render :partial => 'contacts_list', :locals => {:contacts => @contacts}

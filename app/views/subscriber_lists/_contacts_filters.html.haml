@@ -1,26 +1,35 @@
-.filters
-  - form_for :filter, :html => {:method => :get} do |f|
-    #search_box{:style => 'float:left'}
-      Nombre o email:
-      %br/
-      = f.text_field :query, :value => (params[:filter][:query] rescue nil)    
-    #contact_filters{:style => 'float:left'}
-      Tipo de contacto:
-      %br/
-      = f.collection_select :contact_type, Contact::SUBSCRIBER_TYPES, :idx, :name, {:include_blank => true, :selected => (params[:filter][:contact_type].to_i rescue nil)}
-    #institution{:style => 'float:left;display:none'}
-      Tipo de institución
-      %br/
-      = f.collection_select :contact_type_institution_type, InstitutionType.all, :id, :name, {:include_blank => true, :selected => (params[:filter][:contact_type_institution_type].to_i rescue nil)}
-    #general{:style => 'float:left;display:none'}
-      Intereses
-      %br/
-      = f.collection_select :contact_type_hobby, Hobby.find(:all, :conditions => ["name != 'otros'"]), :id, :name, {:include_blank => true, :selected => (params[:filter][:contact_type_hobby].to_i rescue nil)}
-    #status{:style => 'float:left;'}
-      Estado:
-      %br/
-      = f.select :active, [["Añadido a la lista", 'true'], ["No añadido a la lista", 'false']], {:selected => (params[:filter][:active] rescue nil)}
+.filters{:style => 'float:left; width: 510px'}
+  .subtitle
+    Filtrar contactos
 
-    %br/
-    = f.submit "Filtrar"
-    %div{:style =>'clear:both'}
+  %p
+    - form_for :filter, :html => {:method => :get} do |f|
+      #search_box
+        Nombre o email:
+        %br/
+        = f.text_field :query, :value => (params[:filter][:query] rescue nil)    
+
+      %p
+        #contact_filters{:style => 'float:left'}
+          Tipo de contacto:
+          %br/
+          = f.collection_select :contact_type, Contact::SUBSCRIBER_TYPES, :idx, :name, {:include_blank => true, :selected => (params[:filter][:contact_type].to_i rescue nil)}
+        #institution{:style => 'float:left; margin-left:20px; display:none'}
+          Tipo de institución
+          %br/
+          = f.collection_select :contact_type_institution_type, InstitutionType.all, :id, :name, {:include_blank => true, :selected => (params[:filter][:contact_type_institution_type].to_i rescue nil)}
+        #general{:style => 'float:left; margin-left:20px; display:none'}
+          Intereses
+          %br/
+          = f.collection_select :contact_type_hobby, Hobby.find(:all, :conditions => ["name != 'otros'"]), :id, :name, {:include_blank => true, :selected => (params[:filter][:contact_type_hobby].to_i rescue nil)}
+
+        %div{:style =>'clear:both'}
+      %p
+        #status
+          Estado:
+          %br/
+          = f.select :active, [["Añadido a la lista", 'true'], ["No añadido a la lista", 'false']], {:selected => (params[:filter][:active] rescue nil)}
+
+      %br/
+      = f.submit "Filtrar"
+      %div{:style =>'clear:both'}

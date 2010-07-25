@@ -625,8 +625,7 @@ p {
   -moz-border-radius: 5px;
   width: 96%;
   margin: 10px auto;
-  font-weight: bold;
-  font-size: 14px; }
+  }
   p.flash_warning, p.flash_error {
     background: lightpink;
     color: maroon;
