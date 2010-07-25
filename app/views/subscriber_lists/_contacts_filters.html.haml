@@ -7,13 +7,15 @@
     #contact_filters{:style => 'float:left'}
       Tipo de contacto:
       %br/
-      = f.collection_select :contact_type, Contact::SUBSCRIBER_TYPES, :idx, :name, {:include_blank => "Tipo de contacto", :selected => (params[:filter][:contact_type].to_i rescue nil)}
+      = f.collection_select :contact_type, Contact::SUBSCRIBER_TYPES, :idx, :name, {:include_blank => true, :selected => (params[:filter][:contact_type].to_i rescue nil)}
     #institution{:style => 'float:left;display:none'}
+      Tipo de institución
       %br/
-      = f.collection_select :contact_type_institution_type, InstitutionType.all, :id, :name, {:include_blank => "Tipo de institución", :selected => (params[:filter][:contact_type_institution_type].to_i rescue nil)}
+      = f.collection_select :contact_type_institution_type, InstitutionType.all, :id, :name, {:include_blank => true, :selected => (params[:filter][:contact_type_institution_type].to_i rescue nil)}
     #general{:style => 'float:left;display:none'}
+      Intereses
       %br/
-      = f.collection_select :contact_type_hobby, Hobby.find(:all, :conditions => ["name != 'otros'"]), :id, :name, {:include_blank => "Intereses", :selected => (params[:filter][:contact_type_hobby].to_i rescue nil)}
+      = f.collection_select :contact_type_hobby, Hobby.find(:all, :conditions => ["name != 'otros'"]), :id, :name, {:include_blank => true, :selected => (params[:filter][:contact_type_hobby].to_i rescue nil)}
     #status{:style => 'float:left;'}
       Estado:
       %br/
