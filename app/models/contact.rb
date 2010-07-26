@@ -7,12 +7,13 @@ class Contact < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :company
+  belongs_to :space
   
   has_and_belongs_to_many :hobbies
   has_many :subscribers
   has_many :subscriber_lists, :through => :subscribers
   
-  validates_presence_of :name, :email
+  validates_presence_of :name, :email, :user_id, :space_id
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
@@ -74,6 +75,7 @@ class Contact < ActiveRecord::Base
     if !contact[0].nil? && !contact[2].nil?
       new_contact = { 
         :user => options[:user],
+        :space => options[:user].space,
         :name => contact[0],
         :surname => contact[1],
         :email => contact[2],
