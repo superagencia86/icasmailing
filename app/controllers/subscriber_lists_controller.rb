@@ -50,6 +50,13 @@ class SubscriberListsController < InheritedResources::Base
       end
     end
   end
+
+  def import
+    user_added, user_no_added = Contact.import(params[:excel], current_user)
+    Subscriber    
+    
+    redirect_to :back
+  end
   
   # This method add all contacts of a type
   def add_all_to

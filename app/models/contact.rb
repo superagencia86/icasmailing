@@ -1,5 +1,5 @@
 class Contact < ActiveRecord::Base
-  SUBSCRIBER_TYPES = os_array(["Publico general", "Medios de comunicación", "Artista - profesional", "Instituciones"])
+  SUBSCRIBER_TYPES = os_array(["Público general", "Medios de comunicación", "Artista - profesional", "Instituciones"])
   SUBSCRIBER_SUBTYPES = os_array(["Organismo público", "Responsable político", "Empresa privada", "Espacio cultural", "Artista", "ICAS"])
 
   acts_as_paranoid
@@ -7,7 +7,6 @@ class Contact < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :company
-  has_many :comments, :as => :commentable
   
   has_and_belongs_to_many :hobbies
   has_many :subscribers
@@ -55,5 +54,62 @@ class Contact < ActiveRecord::Base
   
   def before_save
     self.contact_subtype_id = nil if self.contact_type_id != 2
+  end
+
+  def self.import(excel, user)
+    excel = Spreadsheet.open(excel)
+    values = excel.worksheet 0
+    user_added = []
+    user_no_added = []
+
+    values.each_with_index do |contact, index|
+      next if index == 0
+      import_contact(contact, :hobbies => Hobby.all, :user => user, :user_added => user_added, :user_no_added => user_no_added)      
+    end
+
+    [user_added, user_no_added]
+  end
+
+  def self.import_contact(contact, options = {})
+    if !contact[0].nil? && !contact[2].nil?
+      new_contact = { 
+        :user => options[:user],
+        :name => contact[0],
+        :surname => contact[1],
+        :email => contact[2],
+        :contact_type_id => SUBSCRIBER_TYPES.detect{|x| x.name == contact[3]}.try(:idx),
+        :institution_type_id => InstitutionType.find_by_name(contact[4]),
+        :hobby_ids => set_hobbies(contact[5], options[:hobbies]),
+        :job => contact[6],
+        :sex_id => SEX.detect{|x| x.name == contact[7]}.try(:idx),
+        :web => contact[8],
+        :celular => contact[9].to_i,
+        :telephone => contact[10].to_i,
+        :birthday_at => contact.date(11),
+        :address => contact[12],
+        :province_id => PROVINCES.detect{|x| x.name == contact[13]}.try(:idx),
+        :locality => contact[14],
+        :zip => contact[15].to_i,
+        :comments => contact[16]
+      }
+
+      contact = Contact.new(new_contact)
+      if contact.save
+        options[:user_added] << contact
+      else
+        options[:user_no_added] << contact
+      end
+    end
+  end
+
+  def self.set_hobbies(hobbies_from_excel, hobbies_from_db)
+    ids = []
+
+    hobbies_from_excel.split(",").each do |hobby|
+      value = Hobby::FROM_EXCEL[hobby]
+      ids << hobbies_from_db.detect{|x| x.name == value}.try(:id)
+    end
+
+    ids
   end
 end

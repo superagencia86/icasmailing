@@ -103,7 +103,8 @@ class ContactsController < InheritedResources::Base
     end
 
     def begin_of_association_chain
-      Company.find(params[:company_id]) if params[:company_id]
+      # Company.find(params[:company_id]) if params[:company_id]
+      current_space
     end  
 
     def collection

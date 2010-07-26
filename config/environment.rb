@@ -14,6 +14,7 @@ Rails::Initializer.run do |config|
   config.gem "inherited_resources", :version => '=1.0.3'
   config.gem "easy_roles", :version => '=0.4.2'
   config.gem "cancan"
+  config.gem "spreadsheet"
   config.gem "will_paginate"
   config.gem "paperclip"
   config.gem "simple-daemon"
