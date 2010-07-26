@@ -75,6 +75,12 @@ $(document).ready(function() {
       $(".filters #institution").show();
     } 
   }
+
+  $(".share_list_link").click(function(e){
+    $(".share_form").hide();
+    $(this).next().next().next().show();
+    e.preventDefault();
+  });
 });
 
 function submit_company(e) {

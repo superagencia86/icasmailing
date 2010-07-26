@@ -28,6 +28,7 @@ class Contact < ActiveRecord::Base
   named_scope :comunication, :conditions => {:contact_type_id => 2}
   named_scope :artist, :conditions => {:contact_type_id => 3}
   named_scope :institution, :conditions => {:contact_type_id => 4}
+  named_scope :for_space, Proc.new{|space_id| {:conditions => ["contacts.space_id = ?", space_id]}}
 
 
   simple_column_search :name, :surname, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
