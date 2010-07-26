@@ -2,6 +2,7 @@ class Space < ActiveRecord::Base
   authenticates_many :user_sessions
 
   has_many :companies
+  has_many :contacts
   has_many :users
   has_many :subscriber_lists
   has_and_belongs_to_many :shared_lists, :join_table => 'shared_lists', :select => 'shared_lists.expires_at, subscriber_lists.space_id as shares_space_id, subscriber_lists.*', :conditions => ["expires_at >= ?", Date.today.to_s(:db)], :foreign_key => 'space_id', :association_foreign_key => 'subscriber_list_id', :class_name => "SubscriberList"

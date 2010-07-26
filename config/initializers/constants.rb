@@ -46,14 +46,14 @@ SEX = os_array(["Hombre", "Mujer"])
 
 
 PROVINCES = os_array(
-["A Coru\303\261a\n", "\303\201lava\n", "Albacete\n", "Alicante\n", "Almer\303\255a\n", "Asturias\n", 
-"\303\201vila\n", "Badajoz\n", "Barcelona\n", "Burgos\n", "C\303\241ceres\n", "C\303\241diz\n", 
-"Cantabria\n", "Castell\303\263n\n", "Ciudad Real\n", "C\303\263rdoba\n", "Cuenca\n", "Gerona\n", 
-"Granada\n", "Guadalajara\n", "Guip\303\272zcoa\n", "Huelva\n", "Huesca\n", "Baleares\n", "Ja\303\251n\n", 
-"Le\303\263n\n", "L\303\251rida\n", "Lugo\n", "Madrid\n", "M\303\241laga\n", "Murcia\n", "Navarra\n", 
-"Ourense\n", "Palencia\n", "Las Palmas\n", "Pontevedra\n", "La Rioja\n", "Salamanca\n", "Santa Cruz de Tenerife\n", 
-"Segovia\n", "Sevilla\n", "Soria\n", "Tarragona\n", "Teruel\n", "Toledo\n", "Valencia\n",
-"Valladolid\n", "Vizcaya\n", "Zamora\n", "Zaragoza\n", "Ceuta\n", "Melilla\n"])
+["A Coru\303\261a", "\303\201lava", "Albacete", "Alicante", "Almer\303\255a", "Asturias", 
+"\303\201vila", "Badajoz", "Barcelona", "Burgos", "C\303\241ceres", "C\303\241diz", 
+"Cantabria", "Castell\303\263n", "Ciudad Real", "C\303\263rdoba", "Cuenca", "Gerona", 
+"Granada", "Guadalajara", "Guip\303\272zcoa", "Huelva", "Huesca", "Baleares", "Ja\303\251n", 
+"Le\303\263n", "L\303\251rida", "Lugo", "Madrid", "M\303\241laga", "Murcia", "Navarra", 
+"Ourense", "Palencia", "Las Palmas", "Pontevedra", "La Rioja", "Salamanca", "Santa Cruz de Tenerife", 
+"Segovia", "Sevilla", "Soria", "Tarragona", "Teruel", "Toledo", "Valencia",
+"Valladolid", "Vizcaya", "Zamora", "Zaragoza", "Ceuta", "Melilla"])
 
 
 
