@@ -18,10 +18,13 @@ Rails::Initializer.run do |config|
   config.gem "will_paginate"
   config.gem "paperclip"
   config.gem "simple-daemon"
-  config.gem 'hoptoad_notifier'
   config.gem 'delayed_job', :version => '2.0.1'
+  config.gem 'exception_notification'
   
   config.time_zone = 'Madrid'
   config.i18n.default_locale = :es
 end
+
+ExceptionNotification::Notifier.email_prefix = "[icas-maxwell] "
+ExceptionNotification::Notifier.exception_recipients = %w(bugger@beecoder.com)
 
