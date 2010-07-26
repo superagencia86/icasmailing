@@ -63,10 +63,11 @@ class Contact < ActiveRecord::Base
     values = excel.worksheet 0
     user_added = []
     user_no_added = []
+    hobbies = Hobby.all
 
     values.each_with_index do |contact, index|
       next if index == 0
-      import_contact(contact, :hobbies => Hobby.all, :user => user, :user_added => user_added, :user_no_added => user_no_added)      
+      import_contact(contact, :hobbies => hobbies, :user => user, :user_added => user_added, :user_no_added => user_no_added)      
     end
 
     [user_added, user_no_added]
@@ -98,9 +99,9 @@ class Contact < ActiveRecord::Base
 
       contact = Contact.new(new_contact)
       if contact.save
-        options[:user_added] << contact
+        options[:user_added] << contact.id
       else
-        options[:user_no_added] << contact
+        options[:user_no_added] << contact.id
       end
     end
   end
