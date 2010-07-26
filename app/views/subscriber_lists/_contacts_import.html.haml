@@ -1,19 +1,9 @@
-.filters{:style => 'float:left; width:400px; margin-left: 20px'}
-  .subtitle
-    Importar/exportar
+/
+  .filters{:style => 'float:left; width:400px; margin-left: 20px'}
+    .subtitle
+      Exportar
 
-  %p
-    %b
-      Importar lista
-    %br/
-    Ver plantilla ejemplo documento EXCEL
-    = image_tag('excel.png')
 
-    - form_tag import_subscriber_list_path(@subscriber_list), {:multipart => true} do
-      = file_field_tag :excel
-      = submit_tag "Importar"
-
-  /
     %p{:style => 'margin-top:26px'}
       %b
         Exportar lista:

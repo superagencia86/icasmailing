@@ -13,11 +13,10 @@ class SubscriberListsController < InheritedResources::Base
 
     # if listing contacts not added to the subscription list
     if params[:filter] && params[:filter][:active] == 'false'
-      @contacts = Contact.find(:all, :conditions => [conditions, @subscriber_list.id, @subscriber_list.id], :joins => "LEFT JOIN subscribers on contacts.id = subscribers.contact_id LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id").paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
+      @contacts = Contact.find(:all, :select => 'DISTINCT(contacts.id), contacts.*', :conditions => [conditions, @subscriber_list.id, @subscriber_list.id], :joins => "LEFT JOIN subscribers on contacts.id = subscribers.contact_id LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id").paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
     else
-      @contacts = @subscriber_list.active_contacts.find(:all, :joins => "LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id", :conditions => conditions).paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
+      @contacts = @subscriber_list.active_contacts.find(:all, :select => 'DISTINCT(contacts.id), contacts.*', :joins => "LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id", :conditions => conditions).paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
     end
-
   end
 
   def share
@@ -51,13 +50,6 @@ class SubscriberListsController < InheritedResources::Base
     end
   end
 
-  def import
-    user_added, user_no_added = Contact.import(params[:excel], current_user)
-    Subscriber    
-    
-    redirect_to :back
-  end
-  
   # This method add all contacts of a type
   def add_all_to
     if params[:contact_type] && [1, 2, 3].include?(params[:contact_type].to_i)
@@ -82,9 +74,17 @@ class SubscriberListsController < InheritedResources::Base
     params[:subscriber_list][:hobby_ids] ||= []
     params[:subscriber_list][:institution_type_ids] ||= []
 
+    
     update! do |success, failure|
       success.html { 
         @subscriber_list.update_assigned_contacts
+
+        if params[:excel]
+          user_added, user_no_added = Contact.import(params[:excel], current_user)
+          @subscriber_list.contact_ids = @subscriber_list.contact_ids | user_added
+          @subscriber_list.save!
+        end
+
         redirect_to subscriber_list_path(@subscriber_list)
       }
     end

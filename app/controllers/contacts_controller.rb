@@ -45,7 +45,7 @@ class ContactsController < InheritedResources::Base
     end
 
     # Load contacts
-    @contacts = Contact.find(:all, :conditions => [conditions, @subscriber_list.id, @subscriber_list.id], :joins => "LEFT JOIN subscribers on contacts.id = subscribers.contact_id LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id").paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
+    @contacts = Contact.find(:all, :select => 'DISTINCT(contacts.id), contacts.*', :conditions => [conditions, @subscriber_list.id, @subscriber_list.id], :joins => "LEFT JOIN subscribers on contacts.id = subscribers.contact_id LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id").paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
 
     respond_to do |format|
       format.js{
@@ -82,7 +82,7 @@ class ContactsController < InheritedResources::Base
       Subscriber.find_by_subscriber_list_id_and_contact_id(params[:subscriber_list_id], params[:id]).update_attribute(:active, false)
       respond_to do |format|
         format.js{
-          @contacts = @subscriber_list.active_contacts.find(:all, :joins => "LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id", :conditions => load_subscription_list_conditions).paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
+          @contacts = @subscriber_list.active_contacts.find(:all, :select => 'DISTINCT(contacts.id), contacts.*', :joins => "LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id", :conditions => load_subscription_list_conditions).paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
           render :update do |page|
             page[:contacts].replace_html(:partial => "subscriber_lists/contacts_list", :locals => {:contacts => @contacts})
           end 

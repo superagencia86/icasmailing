@@ -59,6 +59,18 @@
           %td{ :valign => :top }
             = f.check_box :all_artists
             Todos los contactos
+      %table
+        %tr
+          %td
+            Importar desde Excel
+        %tr
+          %td
+            Ver plantilla ejemplo documento EXCEL
+            = image_tag('excel.png')
+
+        %tr
+          %td
+            = file_field_tag :excel
 
       %table
         %tr
