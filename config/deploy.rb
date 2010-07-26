@@ -69,9 +69,3 @@ namespace :deploy do
   #   run "RAILS_ENV=production ruby #{release_path}/lib/mail_daemon.rb restart"
   # end
 end
-
-Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
-  $: << File.join(vendored_notifier, 'lib')
-end
-
-require 'hoptoad_notifier/capistrano'
