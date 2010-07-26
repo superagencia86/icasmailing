@@ -41,25 +41,25 @@ class SubscriberList < ActiveRecord::Base
     contact_ids = []
     # General
       if self.all_general
-        contact_ids += Contact.general.find(:all, :select => :id).map(&:id)
+        contact_ids += Contact.for_space(self.space.id).general.find(:all, :select => :id).map(&:id)
       else
         if self.hobbies.present?
-          contact_ids += Contact.general.find(:all, :joins => :hobbies, :conditions => ["hobbies.id IN (#{self.hobbies.map(&:id).join(', ')})"]).map(&:id)
+          contact_ids += Contact.for_space(self.space.id).general.find(:all, :joins => :hobbies, :conditions => ["hobbies.id IN (#{self.hobbies.map(&:id).join(', ')})"]).map(&:id)
         end
       end
     # Comunication
-      contact_ids += Contact.comunication.map(&:id) if self.all_comunication
+      contact_ids += Contact.for_space(self.space.id).comunication.map(&:id) if self.all_comunication
     # Institutions
       institutions = self.institution_types
       if self.all_institutions
-        contact_ids += Contact.institution.map(&:id)
+        contact_ids += Contact.for_space(self.space.id).institution.map(&:id)
       else
         if institutions.present?
-          contact_ids += Contact.institution.find(:all, :conditions => ["institution_type_id IN (#{institutions.map(&:id).join(', ')})"], :select => 'id').map(&:id)
+          contact_ids += Contact.for_space(self.space.id).institution.find(:all, :conditions => ["institution_type_id IN (#{institutions.map(&:id).join(', ')})"], :select => 'id').map(&:id)
         end
       end
     # Artists
-      contact_ids += Contact.artist.map(&:id) if self.all_artists
+      contact_ids += Contact.for_space(self.space.id).artist.map(&:id) if self.all_artists
 
     self.update_attribute(:contact_ids, contact_ids)
   end
