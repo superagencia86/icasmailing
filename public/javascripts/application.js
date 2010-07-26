@@ -78,7 +78,7 @@ $(document).ready(function() {
 
   $(".share_list_link").click(function(e){
     $(".share_form").hide();
-    $(this).next().next().show();
+    $(this).next().next().next().show();
     e.preventDefault();
   });
 });
