@@ -1,19 +1,25 @@
-.title_tools#menu
-  = link_to("Editar", edit_subscriber_list_path(@subscriber_list))
-  = link_to("Eliminar", @subscriber_list, :method => :delete)
+- if current_space.id == @subscriber_list.space_id
+  .title_tools#menu
+    = link_to("Editar", edit_subscriber_list_path(@subscriber_list))
+    |
+    = link_to("Eliminar", @subscriber_list, :method => :delete, :confirm => '¿Estás seguro que quieres eliminar la lista?')
 
 .title
-  %span= @subscriber_list.name
+  %span
+    = "#{@subscriber_list.name} - listado y edición de contactos"
+    = "(Compartida, sólo lectura)" unless current_space.id == @subscriber_list.space_id
   
-= render :partial => "comments/new", :locals => { :commentable => @subscriber_list }
-= render :partial => "comments/comment", :collection => @subscriber_list.comments
+- if current_space.id == @subscriber_list.space_id
+  = render :partial => "comments/new", :locals => { :commentable => @subscriber_list }
+  = render :partial => "comments/comment", :collection => @subscriber_list.comments
 
 .list#subscriber
-  = render :partial => 'contacts_filters'
-  = render :partial => 'contacts_import'
+  - if current_space.id == @subscriber_list.space_id
+    = render :partial => 'contacts_filters'
+    = render :partial => 'contacts_import'
 
   %div{:style =>'clear:both'}
 
   #contacts 
-    = render :partial => 'contacts_list', :locals => {:contacts => @contacts}
+    = render :partial => 'contacts_list', :locals => {:contacts => @contacts, :allow_edit => current_space.id == @subscriber_list.space_id}
   = will_paginate @contacts if @contacts.present?

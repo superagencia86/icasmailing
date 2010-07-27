@@ -7,8 +7,12 @@
       - unless shared_list
         = link_to("Ver Contactos", subscriber_list_path(subscriber_list)) + " | " 
         = link_to("Compartir", share_subscriber_list_path(subscriber_list), :class => 'share_list_link') + " | " if current_user.is_superadmin?
-        = link_to("Editar", edit_subscriber_list_path(subscriber_list)) + " | "
-        = link_to("Eliminar", subscriber_list, :method => :delete, :confirm => '¿Estás seguro?')
+        - if subscriber_list.space_id == current_space.id
+          = link_to("Editar", edit_subscriber_list_path(subscriber_list)) + " | "
+          = link_to("Eliminar", subscriber_list, :method => :delete, :confirm => '¿Estás seguro?')
+        - else
+          %span
+          %span
         - form_for :shared_list, :url => share_subscriber_list_path(subscriber_list), :html => {:class => 'share_form', :style => 'display:none'} do |f|
           - if subscriber_list.shared_lists.present?
             - spaces = Space.find(:all, :conditions => ["id NOT IN (#{(subscriber_list.shared_lists.map(&:space_id) << current_space.id).join(', ')})"])
@@ -20,15 +24,13 @@
           - else
             No existen más espacios a los que compartir
 
-      - else
-        =# link_to("Dejar de compartir", unshare_subscriber_list_path(subscriber_list, :idx => shared_list.id))
-
   .indentslim
     = link_to h(subscriber_list.name), subscriber_list_path(subscriber_list)
     - unless shared_list || share
       %tt
         = " &ndash; "
         = t(:added_by, :time_ago => time_ago_in_words(subscriber_list.created_at), :user => (subscriber_list.user_id == current_user.id ? t(:me) : h(subscriber_list.user.full_name)))
+        = ", espacio <b>#{subscriber_list.space.name}</b>" if current_user.is_superadmin?
       %dt
         = pluralize(subscriber_list.contacts.length, "contacto", "contactos")
       - if (shared_lists = subscriber_list.shared_lists).present?
@@ -36,10 +38,12 @@
           Compartida con 
           - shared_lists.each_with_index do |sl, index|
             = ", " if index != 0
-            = link_to("#{sl.space.name} |X|", unshare_subscriber_list_path(subscriber_list, :idx => sl.id), :confirm => "¿Quiere dejar de compartir esta lista con #{sl.space.name}?", :style => 'color:#B71739;')
+            %b= sl.space.name
+            = link_to("(Dejar de compartir)", unshare_subscriber_list_path(subscriber_list, :idx => sl.id), :confirm => "¿Quiere dejar de compartir esta lista con #{sl.space.name}?", :style => 'color:#B71739;')
             = "hasta el #{l(sl.expires_at, :format => :long)}" if sl.expires_at.present?
     - else
       - if share
+        .tools= link_to("Ver Contactos", subscriber_list_path(subscriber_list)) 
         %tt
           = " &ndash; "
           = t(:added_by, :time_ago => time_ago_in_words(subscriber_list.created_at), :user => (subscriber_list.user_id == current_user.id ? t(:me) : h(subscriber_list.user.full_name)))

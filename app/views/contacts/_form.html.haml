@@ -44,9 +44,12 @@
       = f.date_select :birthday_at, :include_blank => true, :start_year => 1900
 
   %tr
-    %td{ :valign => :top, :colspan => 6 }
+    %td{ :valign => :top, :colspan => 2 }
+      .label.top Entidad
+      = f.text_field :entidad, :style => "width:224px"
+    %td{ :valign => :top, :colspan => 4 }
       .label.top Dirección
-      = f.text_field :address, :size => 93
+      = f.text_field :address, :size => 63
 
   %tr
     %td{ :valign => :top}
@@ -69,14 +72,14 @@
     %td{ :valign => :top }
       .label.top Tipo de contacto
       - for subscriber_type in Contact::SUBSCRIBER_TYPES[0..-2]
-        = f.radio_button :contact_type_id, subscriber_type.idx
+        = f.radio_button :contact_type_id, subscriber_type.idx, :class => 'contact_type_select_radio'
         = f.label :contact_type_id, subscriber_type.name, :value => subscriber_type.idx
       %br/
 
-      #instituions{:style => 'float:left'}
-        = f.radio_button :contact_type_id, Contact::SUBSCRIBER_TYPES[-1].idx
+      #institutions{:style => 'float:left'}
+        = f.radio_button :contact_type_id, Contact::SUBSCRIBER_TYPES[-1].idx, :class => 'contact_type_select_radio'
         = f.label :contact_type_id, Contact::SUBSCRIBER_TYPES[-1].name, :value => Contact::SUBSCRIBER_TYPES[-1].idx
-      #institution_types{:style => 'margin-left:20px; float:left'}
+      #institution_types{:style => 'margin-left:20px; float:left;display:none'}
         =# render :partial => 'companies/company_select', :locals => {:f => f.object_name, :selected => @contact.company_id}
         = render :partial => 'institution_types/institution_select', :locals => {:f => f.object_name, :selected => @contact.institution_type_id}
 
@@ -86,13 +89,14 @@
         = f.collection_select :contact_subtype_id, Contact::SUBSCRIBER_SUBTYPES, :idx, :name, :include_blank => true
   %tr
     %td{ :valign => :top }
-      .label.top Intereses
-      - for hobbies in Hobby.find(:all).in_groups_of(5)
-        .hobbies{:style => 'float:left'}
-          - for hobby in hobbies
-            = check_box_tag "contact[hobby_ids][]", hobby.id, @contact.hobbies.include?(hobby)
-            = hobby.name 
-            %br/          
+      #hobbies{:style => 'display:none'}
+        .label.top Intereses
+        - for hobbies in Hobby.find(:all).in_groups_of(5)
+          .hobbies{:style => 'float:left'}
+            - for hobby in hobbies
+              = check_box_tag "contact[hobby_ids][]", hobby.id, @contact.hobbies.include?(hobby)
+              = hobby.name 
+              %br/          
 %table
   %tr
     %td{:valign => :top}

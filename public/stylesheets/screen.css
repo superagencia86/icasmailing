@@ -627,7 +627,8 @@ p {
   margin: 10px auto;
   }
   p.flash_warning, p.flash_error {
-    background: lightpink;
+    /* background: lightpink; */
+    background: #BFBFBF;
     color: maroon;
     padding: 5px 0px 5px 16px; }
   p.flash_notice, p.flash_message {

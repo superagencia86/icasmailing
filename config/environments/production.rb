@@ -31,4 +31,5 @@ ActionMailer::Base.raise_delivery_errors = true
 config.action_mailer.smtp_settings = {
    :domain  => 'superagencia86.es'
  }
+ActionMailer::Base.default_url_options[:host] = 'icasmailing.superagencia86.es'
 

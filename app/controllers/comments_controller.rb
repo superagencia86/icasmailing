@@ -10,4 +10,13 @@ class CommentsController < ApplicationController
 
     redirect_to polymorphic_path(eval("#{@comment.commentable_type}").find(@comment.commentable_id))
   end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.try(:destroy)
+    flash[:notice] = "Comentario eliminado!"
+
+    redirect_to polymorphic_path(eval("#{@comment.commentable_type}").find(@comment.commentable_id))
+
+  end
 end

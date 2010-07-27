@@ -23,6 +23,10 @@ class Ability
         end
       end
 
+      can :destroy, Comment do |comment|
+        comment.user_id == current_user.id || current_user.is_superadmin?
+      end
+
       can :manage, SubscriberList do |action, subscriber_list|
         subscriber_list.space_id == current_user.space_id
       end
