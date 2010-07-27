@@ -94,7 +94,7 @@ class SubscriberListsController < InheritedResources::Base
     def authorized
       if params[:id]
         @subscriber_list = SubscriberList.find(params[:id])
-        unauthorized! if cannot?(:manage, @subscriber_list) && !current_space.shared_lists.find(@subscriber_list.id)
+        unauthorized! if cannot?(:manage, @subscriber_list) && !current_space.shared_lists.find_by_id(@subscriber_list.id)
       end
     end
 

@@ -28,7 +28,7 @@ class Ability
       end
 
       can :manage, SubscriberList do |action, subscriber_list|
-        subscriber_list.space_id == current_user.space_id
+        (subscriber_list.space_id == current_user.space_id) || current_user.is_superadmin?
       end
 
       can :manage, Campaign do |action, campaign|
