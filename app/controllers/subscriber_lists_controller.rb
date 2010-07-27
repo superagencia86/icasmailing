@@ -42,7 +42,7 @@ class SubscriberListsController < InheritedResources::Base
 
   def unshare
     if params[:idx] && shared_list = SharedList.find(params[:idx])
-      if current_space.subscriber_lists.include?(shared_list.subscriber_list)
+      if current_space.subscriber_lists.include?(shared_list.subscriber_list) || current_user.is_superadmin?
         shared_list.destroy
         flash[:notice] = "Has dejado de compartir #{shared_list.subscriber_list.name}"
         redirect_to :back
