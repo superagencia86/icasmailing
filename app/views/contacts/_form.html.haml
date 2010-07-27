@@ -41,7 +41,7 @@
     %td= spacer
     %td{ :valign => :top }
       .label.top Fecha de nacimiento
-      = f.date_select :birthday_at, :include_blank => true
+      = f.date_select :birthday_at, :include_blank => true, :start_year => 1900
 
   %tr
     %td{ :valign => :top, :colspan => 6 }

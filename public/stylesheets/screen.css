@@ -631,7 +631,8 @@ p {
     color: maroon;
     padding: 5px 0px 5px 16px; }
   p.flash_notice, p.flash_message {
-    background: #7cae1d;
+    /* background: #7cae1d; */
+    background: #BFBFBF;
     color: #fff;
     padding: 5px 0px 5px 16px; }
   p.flash_exception {
