@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
         end
         
         if params[:filter][:active] == 'false'
-          conditions << "((subscribers.active = 0 AND subscribers.subscriber_list_id = ?) OR (subscribers.subscriber_list_id IS NULL OR subscribers.subscriber_list_id != ?))"
+          conditions << "(contacts.id NOT IN (Select contact_id from subscribers where subscribers.subscriber_list_id = ? AND subscribers.active = 1))"
         end
       end
       conditions.join(" AND ")
