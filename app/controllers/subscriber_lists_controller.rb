@@ -13,7 +13,7 @@ class SubscriberListsController < InheritedResources::Base
 
     # if listing contacts not added to the subscription list
     if params[:filter] && params[:filter][:active] == 'false'
-      @contacts = Contact.find(:all, :select => 'DISTINCT(contacts.id), contacts.*', :conditions => [conditions, @subscriber_list.id, @subscriber_list.id], :joins => "LEFT JOIN subscribers on contacts.id = subscribers.contact_id LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id").paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
+      @contacts = Contact.find(:all, :select => 'DISTINCT(contacts.id), contacts.*', :conditions => [conditions, @subscriber_list.id], :joins => "LEFT JOIN subscribers on contacts.id = subscribers.contact_id LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id").paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
     else
       @contacts = @subscriber_list.active_contacts.find(:all, :select => 'DISTINCT(contacts.id), contacts.*', :joins => "LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id", :conditions => conditions).paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
     end
@@ -42,7 +42,7 @@ class SubscriberListsController < InheritedResources::Base
 
   def unshare
     if params[:idx] && shared_list = SharedList.find(params[:idx])
-      if current_space.subscriber_lists.include?(shared_list.subscriber_list)
+      if current_space.subscriber_lists.include?(shared_list.subscriber_list) || current_user.is_superadmin?
         shared_list.destroy
         flash[:notice] = "Has dejado de compartir #{shared_list.subscriber_list.name}"
         redirect_to :back
@@ -94,12 +94,12 @@ class SubscriberListsController < InheritedResources::Base
     def authorized
       if params[:id]
         @subscriber_list = SubscriberList.find(params[:id])
-        authorize! :manage, @subscriber_list
+        unauthorized! if cannot?(:manage, @subscriber_list) && !current_space.shared_lists.find_by_id(@subscriber_list.id)
       end
     end
 
     def begin_of_association_chain
-      current_space
+      current_space if !current_user.is_superadmin? 
     end  
     
     def collection

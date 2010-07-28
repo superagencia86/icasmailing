@@ -1,0 +1,13 @@
+.standalone#standalone
+  .title Reestablecer contraseña
+  %p Por favor, inserte la nueva contraseña y luego presione "Actualizar contraseña".
+
+  - form_tag password_reset_path, :method => :put do
+    %p
+      = label_tag "Contraseña"
+      = password_field_tag :password
+    %p
+      = label_tag "Repetir contraseña"
+      = password_field_tag :password_confirmation
+    %p
+      = submit_tag "Actualizar contraseña", :class=>'btn'

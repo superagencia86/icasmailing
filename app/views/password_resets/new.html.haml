@@ -1,0 +1,11 @@
+.standalone#standalone
+  .title Recuperar la contraseña
+
+  %p Por favor, inserte su dirección de email y luego presione "Recuperar contraseña"
+
+  - form_tag password_resets_path do
+    %p
+      = label_tag "Dirección de email"
+      = text_field_tag :email
+    %p
+      = submit_tag "Recuperar contraseña", :class=>'btn'

@@ -81,6 +81,31 @@ $(document).ready(function() {
     $(this).next().next().next().show();
     e.preventDefault();
   });
+
+  // Contact form hide contact type
+  $(".contact_type_select_radio").click(function(){
+    if($(this).val() == '1'){
+      $("#hobbies").show();
+      $("#institution_types").hide();
+    }else if($(this).val() == '4'){
+      $("#hobbies").hide();
+      $("#institution_types").show();
+    }else{
+      $("#hobbies").hide();
+      $("#institution_types").hide();
+    }
+  });
+
+  if($(".contact_type_select_radio:checked").length){
+    var elem = $(".contact_type_select_radio:checked");
+    if(elem.val() == '1'){
+      $("#hobbies").show();
+      $("#institution_types").hide();
+    }else if(elem.val() == '4'){
+      $("#hobbies").hide();
+      $("#institution_types").show();
+    }
+  }
 });
 
 function submit_company(e) {

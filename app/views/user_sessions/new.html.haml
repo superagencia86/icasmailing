@@ -12,7 +12,10 @@
       .label= "Contraseña:"
       = f.password_field :password
 
-    %div(style="margin-left:12px") #{f.check_box(:remember_me)} Recuérdame la contraseña cada vez que inicie
+    %div(style="margin-left:12px")
+      #{f.check_box(:remember_me)} Recuérdame la contraseña cada vez que inicie
+      %br/
+      = link_to "¿Has olvidado tu contraseña?", new_password_reset_path
     %br
     = f.submit "Acceder", :class => "btn"
 

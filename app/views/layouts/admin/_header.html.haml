@@ -1,10 +1,11 @@
 #header
   #welcome
-    %span Welcome, #{current_user.name}
-    %span> !&nbsp;&nbsp;
+    %span Bienvenido #{current_user.name}
+    %span> &nbsp;&nbsp;
+    |
 
-    = link_to("Volver a Maxwell", root_path) << " |"
-    = link_to("Logout", logout_path)
+    = link_to("Volver al gestor de contactos ICAS", root_path) << " |"
+    = link_to("Cerrar sesión", logout_path)
 
   #slogan
     %span Sistema de gestión de contactos y difusión online
