@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale_from_url
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :current_space, :current_user, :logged_in?
+  include ExceptionNotification::Notifiable
 
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
