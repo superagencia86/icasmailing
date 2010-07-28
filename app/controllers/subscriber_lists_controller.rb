@@ -66,6 +66,7 @@ class SubscriberListsController < InheritedResources::Base
 
   def create
     create! do |success, failure|
+      @subscriber_list.update_attribute(:space_id, current_user.space_id)
       success.html { redirect_to edit_subscriber_list_path(@subscriber_list)}
     end
   end

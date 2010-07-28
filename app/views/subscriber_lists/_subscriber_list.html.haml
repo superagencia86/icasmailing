@@ -30,7 +30,7 @@
       %tt
         = " &ndash; "
         = t(:added_by, :time_ago => time_ago_in_words(subscriber_list.created_at), :user => (subscriber_list.user_id == current_user.id ? t(:me) : h(subscriber_list.user.full_name)))
-        =# ", espacio <b>#{subscriber_list.space.name}</b>" if current_user.is_superadmin?
+        = ", espacio <b>#{subscriber_list.space.name}</b>" if current_user.is_superadmin?
       %dt
         = pluralize(subscriber_list.contacts.length, "contacto", "contactos")
       - if (shared_lists = subscriber_list.shared_lists).present?
