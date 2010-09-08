@@ -1,6 +1,6 @@
 .title_tools#menu
   = link_to("Editar", edit_proposal_path(@proposal))
-  = link_to("Eliminar?", @proposal, :method => :delete)
+  = link_to("eliminar", @proposal, :method => :delete)
 
 .title
   %span= @proposal.name

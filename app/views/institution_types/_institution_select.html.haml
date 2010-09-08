@@ -6,6 +6,7 @@
 #institution_div(style="display:none;")
   = text_field_tag "institution_type[name]"
   = submit_tag "Crear institución", :id => 'institution_submit'
+  = link_to_function "Cancelar", '$("#institution_div").hide(); $("#institution_type_name").val(""); $("#institution_select").show();'
 
   = hidden_field_tag "institution_type[form]", f.respond_to?(:object_name) ? f.object_name : f
   =# hidden_field_tag "institution_type[user_id]", current_user.id

@@ -91,6 +91,37 @@ class SubscriberListsController < InheritedResources::Base
     end
   end
 
+  def generate_pdf
+    @contacts = @subscriber_list.contacts
+    tmp_dir = File.join(Rails.root, 'tmp')
+    html = render_to_string :template => 'layouts/pdf.html.erb', :layout => false
+    
+    xhtml_file = File.join(tmp_dir, "#{@subscriber_list.name}.html")
+    pdf_file = File.join(tmp_dir, "#{@subscriber_list.name}.pdf")
+    
+    File.open(xhtml_file, "w") do |file|
+      file << html
+    end
+        
+    xhtml2pdf(xhtml_file, pdf_file)
+    
+    send_file(pdf_file)
+  end
+
+  def generate_excel
+    book = Spreadsheet::Workbook.new
+    sheet1 = book.create_worksheet
+    sheet1.row(0).concat %w{Name Email}
+
+    @subscriber_list.contacts.each_with_index do |contact, index|
+      sheet1.row(index + 1).replace [contact.name, contact.email]
+    end
+    
+    tmp_dir = File.join(Rails.root, 'tmp')
+    book.write (excel_file = File.join(tmp_dir, "#{@subscriber_list.name}.xls"))
+    send_file(excel_file)
+  end
+
   protected
     def authorized
       if params[:id]

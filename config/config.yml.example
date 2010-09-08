@@ -1,9 +1,15 @@
 :gmail:
-  :username: "test@beecoder.com"
-  :password: ".testmail"
+  :username: ""
+  :password: ""
 
 :host: "localhost:3000" 
-:crm: true
-:mailing:
-  :contacts: 'superagencia86'
 
+:has_crm?: false
+:has_mailing?: true
+
+:mailing:
+  :contact_type: 'icas'
+
+:messages:
+  :login:
+    :access: "Sistema de gestión de contactos y difusión on-line ICAS"

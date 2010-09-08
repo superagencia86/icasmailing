@@ -14,7 +14,7 @@ class UserSessionsController < ApplicationController
       redirect_back_or_default root_url
     else
       @user_session = UserSession.new
-      flash.now[:error] = "Existen errores en el formulario de login"
+      flash.now[:error] = "Existen errores en el formulario de acceso."
       render :action => :new
     end
   end

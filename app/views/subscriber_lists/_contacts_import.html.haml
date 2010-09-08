@@ -1,14 +1,10 @@
-/
-  .filters{:style => 'float:left; width:400px; margin-left: 20px'}
-    .subtitle
-      Exportar
+.filters{:style => 'float:left; width:400px; margin-left: 20px'}
+  .subtitle
+    Exportar
 
-
-    %p{:style => 'margin-top:26px'}
-      %b
-        Exportar lista:
-      %br/
-      Como documento Excel
-      = image_tag('excel.png')
-      Como PDF
-      = image_tag('pdf.png')
+  %p{:style => 'margin-top:26px'}
+    %b
+      Exportar lista:
+    %br/
+    = link_to "Como documento Excel #{image_tag('excel.png')}", generate_excel_subscriber_list_path(@subscriber_list.id)
+    = link_to "Como PDF #{image_tag('pdf.png')}", generate_pdf_subscriber_list_path(@subscriber_list.id)

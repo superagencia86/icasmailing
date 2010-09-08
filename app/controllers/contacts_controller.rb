@@ -19,14 +19,15 @@ class ContactsController < InheritedResources::Base
 
   def search
     @contacts = Contact.search(params[:query])
+    
 
     respond_to do |format|
       format.js   { 
         render :update do |page|
           if @contacts.present?
-            page["contacts"].replace_html(:partial => 'contact', :collection => @contacts)
+            page["contacts-list"].replace_html(:partial => 'contact', :collection => @contacts)
           else
-            page["contacts"].replace_html(:partial => 'common/empty_search')
+            page["contacts-list"].replace_html(:partial => 'common/empty_search')
           end
           page["paginate"].hide
         end

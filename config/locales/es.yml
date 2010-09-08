@@ -55,10 +55,13 @@ es:
 
   # Company
   # -------------------------------------------------------
-  user_updated: "El usuario <b>'{{value}}'</b> ha sido actualizada."
-  user_created: "El usuario <b>'{{value}}'</b> ha sido creada."
-  user_destroyed: "El usuario <b>'{{value}}'</b> ha sido eliminada."
-
+  user_updated: "El usuario <b>'{{value}}'</b> ha sido actualizado."
+  user_created: "El usuario <b>'{{value}}'</b> ha sido creado."
+  user_destroyed: "El usuario <b>'{{value}}'</b> ha sido eliminado."
+  
+  space_updated: "El espacio ha sido actualizado."
+  space_created: "El espacio ha sido creado."
+  space_destroyed: "El espacio ha sido eliminado."
 
   number:
     # Used in number_with_delimiter()

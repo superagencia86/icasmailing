@@ -1,6 +1,6 @@
 .title_tools#menu
   = link_to("Editar", edit_admin_space_path(@space))
-  = link_to("Eliminar?", [:admin, @space], :method => :delete)
+  = link_to("eliminar", [:admin, @space], :method => :delete)
 
 .title
   %span= @space.name

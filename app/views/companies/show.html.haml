@@ -1,6 +1,6 @@
 .title_tools#menu
   = link_to("Editar", edit_company_path(@company))
-  = link_to("Eliminar?", @company, :method => :delete)
+  = link_to("eliminar", @company, :method => :delete)
 
 .title
   %span= @company.name

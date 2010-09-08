@@ -9,14 +9,23 @@
   </head>   
   <body>
     <p>
-      <span class="text">
-        <%= @texto %>
-      </span>      
+      <table>
+        <tr>
+          <td>Nombre</td>
+          <td>Email</td>
+        </tr>
+
+        <%- for contact in @contacts -%>
+          <tr>
+            <td>
+              <%= contact.name %>
+            </td>
+            <td>
+              <%= contact.email %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
     </p>
-    <p>
-      <span class="info">
-        -- PDF enviado a través de GMail/PDF :P --
-      </span>      
-    </p>    
   </body>
 </html>
