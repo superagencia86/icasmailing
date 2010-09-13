@@ -1,5 +1,6 @@
 .title_tools
-  = link_to("Crear lista de subscripción", new_subscriber_list_path, :title => "Crear lista de subscripción") 
+  - if current_user.is_subscriber_lists_manager?
+    = link_to("Crear lista de subscripción", new_subscriber_list_path, :title => "Crear lista de subscripción") 
 
 .title
   %span 

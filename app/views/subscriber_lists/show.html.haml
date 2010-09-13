@@ -1,7 +1,7 @@
-- if current_space.id == @subscriber_list.space_id
-  .title_tools#menu
-    %span#subscribers_count= @subscriber_list.subscribers.count(:all, :conditions => {:active => true})
-    contactos
+.title_tools#menu
+  %span#subscribers_count= @subscriber_list.subscribers.count(:all, :conditions => {:active => true})
+  contactos
+  - if can? :manage, @subscriber_list
     |
     = link_to("Volver", edit_subscriber_list_path(@subscriber_list))
     =# link_to("Eliminar", @subscriber_list, :method => :delete, :confirm => '¿Estás seguro que quieres eliminar la lista?')
@@ -11,12 +11,12 @@
     = "#{@subscriber_list.name} - listado y edición de contactos"
     = "(Compartida, sólo lectura)" unless current_space.id == @subscriber_list.space_id
   
-- if current_space.id == @subscriber_list.space_id
+- if can? :manage, @subscriber_list
   = render :partial => "comments/new", :locals => { :commentable => @subscriber_list }
-  = render :partial => "comments/comment", :collection => @subscriber_list.comments
+= render :partial => "comments/comment", :collection => @subscriber_list.comments
 
 .list#subscriber
-  - if current_space.id == @subscriber_list.space_id
+  - if can? :read, @subscriber_list
     = render :partial => 'contacts_filters'
     = render :partial => 'contacts_import'
 

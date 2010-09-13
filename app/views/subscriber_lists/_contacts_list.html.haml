@@ -1,9 +1,8 @@
-- allow_edit = current_space.id == @subscriber_list.space_id
 - if contacts.present?
   %ul
     - for contact in contacts
       %li
-        - if allow_edit
+        - if can? :manage, @subscriber_list
           .tools
             - if @subscriber_list.subscribers.find_by_contact_id_and_active(contact.id, true)
               = link_to_remote("Eliminar de la lista", :url => subscriber_list_contact_path(:subscriber_list_id => @subscriber_list, :id => contact, :page => params[:page], :filter => params[:filter]), :method => :delete, :confirm => '¿Estás seguro?')

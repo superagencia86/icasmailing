@@ -57,7 +57,7 @@ namespace :mailing do
     end
     space = Space.find_or_create_by_name(space_name)
     user = space.users.find_by_email(email) || space.users.build
-    user.roles += ["superadmin", "admin"]
+    user.roles += ["superadmin", "admin", "users_manager", 'contacts_manager', 'subscriber_lists_manager', 'mailing_manager']
     user.attributes = {:name => name, :surname => surname, :password => password, :password_confirmation => password, :email => email}
     user.save!
     puts "Admin user has been created."

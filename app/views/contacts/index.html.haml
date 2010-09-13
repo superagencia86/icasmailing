@@ -1,5 +1,8 @@
 .title_tools
-  = link_to("Crear contacto", new_contact_path, :title => "Crear contacto") 
+  - if can? :manage, Contact
+    = link_to("Crear contacto", new_contact_path, :title => "Crear contacto") 
+  - else
+    Sólo lectura
 
 .title
   %span= "Contactos"

@@ -2,7 +2,7 @@
   %ul
     %li= link_to("Inicio",         root_path,             :class => active?(:root))
 
-    %li= link_to("Contactos",      contacts_path,         :class => active?("contactos") || active?("instituciones"))
+    %li= link_to("Contactos",      contacts_path,         :class => active?("contactos"))
 
     - if APP.has_crm?
       %li= link_to("Proyectos",      projects_path,         :class => active?("proyectos"))
@@ -10,7 +10,12 @@
 
     - if APP.has_mailing?
       %li= link_to("Listas de envío", subscriber_lists_path, :class => active?("listas")) 
-      %li= link_to("Mailing",       campaigns_path,        :class => active?("campanias")) 
+      - if current_user.is_mailing_manager?
+        %li= link_to("Mailing",       campaigns_path,        :class => active?("campanias")) 
     %li &nbsp
-    %li= link_to("Espacios", admin_spaces_path, :class => active?("admin/espacios"), :style=>'background-color:#793141')  if current_user.is_superadmin?
-    %li= link_to("Usuarios", admin_users_path, :class => active?("admin/usuarios"), :style=>'background-color:#793141')  if current_user.is_admin?
+    - if can? :manage, Space # Only Superadmin
+      %li.admin_tab= link_to("Espacios", admin_spaces_path, :class => active?("admin/espacios")) 
+    - if can? :manage, Contact
+      %li.admin_tab= link_to("Instituciones", institution_types_path, :class => active?("instituciones")) 
+    - if can? :manage, User
+      %li= link_to("Usuarios", admin_users_path, :class => active?("admin/usuarios")) 

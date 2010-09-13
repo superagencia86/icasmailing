@@ -13,7 +13,8 @@ class Contact < ActiveRecord::Base
   has_many :subscribers
   has_many :subscriber_lists, :through => :subscribers
   
-  validates_presence_of :name, :email, :user_id, :space_id
+  # validates_presence_of :name, :email, :user_id, :space_id
+  validates_presence_of :email, :user_id, :space_id
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
@@ -31,10 +32,11 @@ class Contact < ActiveRecord::Base
   named_scope :for_space, Proc.new{|space_id| {:conditions => ["contacts.space_id = ?", space_id]}}
 
 
-  simple_column_search :name, :surname, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
+  simple_column_search :name, :surname, :email, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
 
   def full_name
-    "#{name} #{surname}"
+    res = "#{name} #{surname}" 
+    res.present? ? res : self.email
   end
   
   def self.finder(options = {})

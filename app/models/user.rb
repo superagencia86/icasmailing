@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :surname, :email
 
   # Constant variable storing roles in the system
-  ROLES_MASK = %w[superadmin admin user]
+  # FIXME DEPRECATED, admin not used
+  ROLES_MASK = %w[superadmin admin user users_manager contacts_manager subscriber_lists_manager mailing_manager]
   easy_roles :roles_mask, :method => :bitmask
 
   # Ensure the user has the proper roles

@@ -1,12 +1,24 @@
 %li
   .tools
     = link_to("Editar", edit_admin_space_user_path(@space, user), :title => "Editar usuario") + " | "
-    = link_to("Eliminar", [:admin, @space, user], :method => :delete, :confirm => '¿Estás seguro?') + " "
+    = link_to("Eliminar", [:admin, @space, user], :method => :delete, :confirm => '¿Estás seguro?') + " " unless user.is_superadmin?
 
   .indentslim
     = link_to(h(user.full_name), edit_polymorphic_path([:admin, @space, user])) << " - "
     %tt
       = t(:added, :time_ago => time_ago_in_words(user.created_at))
-    %dt
-      Administrador
-      = checkbox_for("update_admin", user, user.roles.include?("admin"))
+    - if current_user.is_superadmin? && user != current_user
+      %dt
+        -#Administrador, probablemente quitarlo
+        -#= checkbox_for("update_role", user, 'admin', user.roles.include?("admin"))
+        = checkbox_for("update_role", user, 'users_manager', user.roles.include?("users_manager"))
+        Gestión de usuarios
+        |
+        = checkbox_for("update_role", user, 'contacts_manager', user.roles.include?("contacts_manager"))
+        Gestión de contactos
+        |
+        = checkbox_for("update_role", user, 'subscriber_lists_manager', user.roles.include?("subscriber_lists_manager"))
+        Gestión de Listas de subscripción
+        |
+        = checkbox_for("update_role", user, 'mailing_manager', user.roles.include?("mailing_manager"))
+        Gestión de Mailing

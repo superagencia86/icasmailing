@@ -1,6 +1,7 @@
-.title_tools#menu
-  = link_to("Editar", edit_contact_path(@contact))
-  = link_to("Eliminar", @contact, :method => :delete)
+- if can? :manage, @contact
+  .title_tools#menu
+    = link_to("Editar", edit_contact_path(@contact))
+    = link_to("Eliminar", @contact, :method => :delete)
 
 .title
   %span= @contact.full_name

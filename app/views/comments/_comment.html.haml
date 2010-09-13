@@ -1,10 +1,11 @@
-%li{:class => 'comment'}
-  .body
-    = link_to comment.user.full_name # , user_path(comment.user)
-    %tt
-      = t(:added, :time_ago => distance_of_time_in_words(Time.now, comment.created_at))
-      - if can? :destroy, comment
-        |
-        = link_to "Eliminar comentario", comment_path(comment), :method => :delete, :confirm => '¿Estás seguro?'
-      = image_tag("lock.png") if comment.private
-    %dt= auto_link(simple_format h(comment.comment))
+- if can? :read, comment
+  %li{:class => 'comment'}
+    .body
+      = link_to comment.user.full_name # , user_path(comment.user)
+      %tt
+        = t(:added, :time_ago => distance_of_time_in_words(Time.now, comment.created_at))
+        - if can? :destroy, comment
+          |
+          = link_to "Eliminar comentario", comment_path(comment), :method => :delete, :confirm => '¿Estás seguro?'
+        = image_tag("lock.png") if comment.private
+      %dt= auto_link(simple_format h(comment.comment))

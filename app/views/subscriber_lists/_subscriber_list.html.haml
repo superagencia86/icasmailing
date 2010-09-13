@@ -7,7 +7,7 @@
       - unless shared_list
         = link_to("Ver Contactos", subscriber_list_path(subscriber_list)) + " | " 
         = link_to("Compartir", share_subscriber_list_path(subscriber_list), :class => 'share_list_link') + " | " if current_user.is_superadmin?
-        - if subscriber_list.space_id == current_space.id
+        - if can? :manage, subscriber_list
           = link_to("Editar", edit_subscriber_list_path(subscriber_list)) + " | "
           = link_to("Eliminar", subscriber_list, :method => :delete, :confirm => '¿Estás seguro?')
         - else
@@ -39,8 +39,9 @@
           - shared_lists.each_with_index do |sl, index|
             = ", " if index != 0
             %b= sl.space.name
-            = link_to("(Dejar de compartir)", unshare_subscriber_list_path(subscriber_list, :idx => sl.id), :confirm => "¿Quiere dejar de compartir esta lista con #{sl.space.name}?", :style => 'color:#B71739;')
-            = "hasta el #{l(sl.expires_at, :format => :long)}" if sl.expires_at.present?
+            - if can? :manage, subscriber_list
+              = link_to("(Dejar de compartir)", unshare_subscriber_list_path(subscriber_list, :idx => sl.id), :confirm => "¿Quiere dejar de compartir esta lista con #{sl.space.name}?", :style => 'color:#B71739;') 
+              = "hasta el #{l(sl.expires_at, :format => :long)}" if sl.expires_at.present?
     - else
       - if share
         .tools= link_to("Ver Contactos", subscriber_list_path(subscriber_list)) 

@@ -6,7 +6,8 @@
     = hidden_field_tag "comment[commentable_type]", commentable.class.name
     %div
       = f.text_field :comment
-      = f.check_box  :private
-      = f.label :private, "Privado"
+      - if current_user.is_superadmin?
+        = f.check_box  :private
+        = f.label :private, "Mostrar exclusivamente en este espacio"
       = f.submit "Añadir comentario"
 

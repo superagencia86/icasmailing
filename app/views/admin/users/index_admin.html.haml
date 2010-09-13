@@ -1,0 +1,16 @@
+.title_tools
+  - if @space
+    = link_to("Crear usuario", new_admin_space_user_path(@space), :title => "Crear usuario") 
+  - else
+    = link_to("Crear usuario", new_admin_user_path, :title => "Crear usuario") 
+
+
+- unless @users.empty?
+  - @users.each do |space_id, users|
+    .list#users
+      .title
+        - space = Space.find(space_id)
+        %span= space.name
+      = render :partial => "user", :collection => users
+- else
+  = render :partial => "common/empty"

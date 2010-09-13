@@ -1,5 +1,5 @@
 class ContactsController < InheritedResources::Base
-  before_filter :require_user
+  before_filter :require_user, :load_space
   actions :all
   respond_to :html
 
@@ -18,7 +18,7 @@ class ContactsController < InheritedResources::Base
   end
 
   def search
-    @contacts = Contact.search(params[:query])
+    @contacts = @space.contacts.search(params[:query])
     
 
     respond_to do |format|

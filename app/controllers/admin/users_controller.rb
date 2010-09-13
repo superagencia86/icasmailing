@@ -8,14 +8,19 @@ class Admin::UsersController < ApplicationController
   def new;   @user   = User.new; end
   
   def index
-    @users = @space.users 
+    if current_user.is_superadmin?
+      @users = User.find(:all, :conditions => 'space_id IS NOT NULL').group_by(&:space_id)
+      render "index_admin" and return
+    else
+      @users = @space.users 
+    end
   end
 
   def show;  @user   = User.find(params[:id]); end
 
   def create
-    @user = @space.users.build(params[:user])
-
+    @user = User.new(params[:user])
+    @user.space = current_space unless params[:user][:space_id].present?
     if (can = can?(:create, @user)) && @user.save
       flash[:notice] = t(:user_created, @user.name)
       redirect_back_or_default admin_space_users_path(@space)
@@ -55,7 +60,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def require_admin
-    return if current_user.is_superadmin? || current_user.is_admin?
+    return if current_user.is_superadmin? || current_user.is_users_manager?
     flash[:error] = t(:insufficent_privileges)
     redirect_to root_path
   end

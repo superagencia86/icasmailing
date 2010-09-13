@@ -4,8 +4,8 @@ module ApplicationHelper
     content_for(:title) { str }
   end
 
-  def checkbox_for(action, object, value)
-     check_box_tag "checked_at_#{object.id}", object.id, value, :onchange => "$.get('/ajax/', {'id': '#{object.id}', 'klass': '#{object.class.name}', 'check':'#{value}', 'to_action': '#{action}'}, null, 'script'); return false;"
+  def checkbox_for(action, object, role, value)
+     check_box_tag "checked_at_#{object.id}", object.id, value, :onchange => "$.get('/ajax/', {'id': '#{object.id}', 'klass': '#{object.class.name}', 'check':'#{value}', 'to_action': '#{action}', 'role': '#{role}'}, null, 'script'); return false;"
   end
 
   def spacer(width = 10)
