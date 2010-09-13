@@ -10,7 +10,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource  :user_session
   map.resource  :account, :controller => "users"
-  map.resources :campaigns, :member => {:subscribers => :any, :selection => :any, :template => :any, :test => :any}
+  map.resources :campaigns, :member => {:subscribers => :any, :selection => :any, :template => :any, :test => :any} do |campaign|
+    campaign.resources :email_attachments
+  end
 
   map.namespace :admin do |admin|
     admin.resources :spaces do |space|

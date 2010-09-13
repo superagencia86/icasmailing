@@ -1,9 +1,9 @@
 .title
   %span= "#{@campaign.name}: Selección de template"
 
-- form_for @campaign, :url => template_campaign_path(@campaign), :html => {:multipart => true} do |f|
-  .remote
-    .section
+.remote
+  - form_for @campaign, :url => template_campaign_path(@campaign), :html => {:multipart => true} do |f|
+    .section(style='float:left')
       %table(width="500" cellpadding="0" cellspacing="0")
         %tr
           %td(valign="top")
@@ -24,6 +24,26 @@
             = f.file_field :asset_images
             .info= "Fichero zip con las imágenes"
 
-  .buttonbar
-    = f.submit "Guardar"
-    = f.submit "Guardar y testear envío"
+      .buttonbar
+        = f.submit "Guardar"
+        = f.submit "Guardar y testear envío"
+     
+    
+  - form_for :email_attachment, :url => campaign_email_attachments_path(@campaign), :html => {:multipart => true} do |f|
+    .section
+      - field_set_tag "Ficheros Adjuntos", :style => 'margin-top:20px;' do
+        .attachments
+          %ul
+            - @campaign.email_attachments.each do |at|
+              %li
+                = link_to at.data_file_name, at.data.url
+                |
+                = link_to "Eliminar", campaign_email_attachment_path(@campaign, at), :method => :delete, :confirm => '¿Seguro?'
+        %p
+          .label.top Subir adjuntos
+          = f.file_field :data
+        %div(style='clear:both')
+          = f.submit "Subir adjunto"
+
+
+    %div(style='clear:both')

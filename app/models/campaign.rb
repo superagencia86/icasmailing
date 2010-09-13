@@ -30,6 +30,8 @@ class Campaign < ActiveRecord::Base
     end
   end
 
+  has_many :email_attachments
+
   validates_presence_of :name, :subject, :from
 
   default_scope :order => 'name desc'
