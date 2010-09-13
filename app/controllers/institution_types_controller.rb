@@ -19,6 +19,25 @@ class InstitutionTypesController < InheritedResources::Base
     end
   end
 
+  def search
+    @institution_types = InstitutionType.search(params[:query])
+    
+
+    respond_to do |format|
+      format.js   { 
+        render :update do |page|
+          if @institution_types.present?
+            page["contacts-list"].replace_html(:partial => 'institution_type', :collection => @institution_types)
+          else
+            page["contacts-list"].replace_html(:partial => 'common/empty_search')
+          end
+          page["paginate"].hide
+        end
+      }
+    end
+  end
+
+
   protected
     def authorized
       unauthorized! if cannot?(:manage, parent) 
@@ -30,5 +49,12 @@ class InstitutionTypesController < InheritedResources::Base
           :locals => {:f => form, :selected => institution_type.id})
         page["institution_type_div"].hide
       end
+    end
+
+    def collection
+      paginate_options ||= {}
+      paginate_options[:page] ||= (params[:page] || 1)
+      paginate_options[:per_page] ||= (params[:per_page] || 20)
+      @institution_types ||= end_of_association_chain.paginate(paginate_options)
     end
 end

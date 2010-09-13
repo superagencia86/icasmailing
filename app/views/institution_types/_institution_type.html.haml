@@ -1,0 +1,7 @@
+%li
+  .tools
+    = link_to("Editar", edit_institution_type_path(institution_type), :title => "Editar #{institution_type.name}") + " | "
+    = link_to("Eliminar", institution_type, :method => :delete, :confirm => '¿Estás seguro?') + " "
+
+  .indentslim
+    = link_to(h(institution_type.name), institution_type)
