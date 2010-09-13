@@ -8,6 +8,7 @@ es:
   subscriber_lists: listas
   subscribers: subscriptores
   campaigns: campanias
+  institution_types: instituciones
 
   new: nuevo
   edit: editar

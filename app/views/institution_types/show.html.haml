@@ -1,0 +1,10 @@
+.title_tools#menu
+  = link_to("Editar", edit_institution_type_path(@institution_type))
+  = link_to("Eliminar", @institution_type, :method => :delete)
+
+.title
+  %span= @institution_type.name
+
+#summary
+%p
+  = link_to "Volver a todas los instituciones", institution_types_path

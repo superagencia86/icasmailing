@@ -1,0 +1,11 @@
+.title
+  %span= "Editar institución"
+
+- form_for @institution_type do |f|
+  = f.error_messages 
+  = render "form", :f => f
+
+  .buttonbar
+    = f.submit "Guardar cambios" 
+    %p
+      = link_to "Volver a todos las instituciones", institution_types_path

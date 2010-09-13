@@ -1,0 +1,13 @@
+.title_tools
+  = link_to("Crear institución", new_institution_type_path, :title => "Crear institución") 
+
+.title
+  %span= "Instituciones"
+
+.list#contacts-list
+  - unless @institution_types.empty?
+    = render :partial => "institution_type", :collection => @institution_types
+  - else
+    = render :partial => "common/empty"
+#paginate= render :partial => "common/paginate"
+

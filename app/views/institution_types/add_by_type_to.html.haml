@@ -1,0 +1,23 @@
+.list#subscriber
+  .subtitle
+    Añadir contactos de forma manual
+  = render :partial => 'subscriber_lists/contacts_filters'
+
+  - if @contacts.present?
+    - form_for @subscriber_list, :url => add_by_type_to_subscriber_list_contacts_path(@subscriber_list) do |f|
+      %ul
+        - for contact in @contacts
+          %li
+            .indentslim
+              = check_box_tag "subscriber_list[contact_ids][]", contact.id, @subscriber_list.contacts.include?(contact)
+              = contact.full_name
+              \-
+              = contact.email
+
+      %p
+        = f.submit "Guardar cambios"
+  - else
+    %p
+      No existen contactos.
+
+  = link_to "Volver", :back
