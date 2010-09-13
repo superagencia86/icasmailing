@@ -16,8 +16,10 @@ class EmailMailer < ActionMailer::Base
     reply_to   campaign.reply_to
     
     if campaign.body.present?
+      html = false
       data = campaign.body
     else
+      html = true
       file = campaign.assets.html.data.url.split("?").first
       data = File.read(File.join(Rails.root, "public", file))
       data.gsub!("<head>", "<head>\n<base href='http://#{APP.host}/campaign/#{campaign.id}/images/' />")

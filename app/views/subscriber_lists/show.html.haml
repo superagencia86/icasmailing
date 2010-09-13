@@ -1,8 +1,10 @@
 - if current_space.id == @subscriber_list.space_id
   .title_tools#menu
-    = link_to("Editar", edit_subscriber_list_path(@subscriber_list))
+    %span#subscribers_count= @subscriber_list.subscribers.count(:all, :conditions => {:active => true})
+    contactos
     |
-    = link_to("Eliminar", @subscriber_list, :method => :delete, :confirm => '¿Estás seguro que quieres eliminar la lista?')
+    = link_to("Volver", edit_subscriber_list_path(@subscriber_list))
+    =# link_to("Eliminar", @subscriber_list, :method => :delete, :confirm => '¿Estás seguro que quieres eliminar la lista?')
 
 .title
   %span

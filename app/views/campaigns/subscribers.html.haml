@@ -11,8 +11,9 @@
             = check_box_tag "campaign[subscriber_list_ids][]", subscriber_list.id, @campaign.subscriber_lists.include?(subscriber_list)
             = subscriber_list.name 
             - if subscriber_list.has_finder?
-              %i
-                (Lista inteligente)
+              = "(Lista inteligente, #{subscriber_list.subscribers.count(:all, :conditions => {:active => true})} contactos)"
+            - else
+              = "(#{subscriber_list.subscribers.count(:all, :conditions => {:active => true})} contactos)"
 
         - for subscriber_list in current_space.shared_lists
           %li.top

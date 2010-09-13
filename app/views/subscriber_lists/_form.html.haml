@@ -72,13 +72,14 @@
           %td
             = file_field_tag :excel
 
-      %table
-        %tr
-          %td
-            Esta lista tiene
-            %b
-              = @subscriber_list.subscribers.count(:all, :conditions => {:active => true})
-            contacto/s
+      - if @subscriber_list.already_set?
+        %table
+          %tr
+            %td
+              Esta lista tiene
+              %b
+                = @subscriber_list.subscribers.count(:all, :conditions => {:active => true})
+              contacto/s
         -#%tr
         -#  %td
         -#    = link_to "Visualizar o editar lista completa", subscriber_list_path(@subscriber_list), :class => 'btn'

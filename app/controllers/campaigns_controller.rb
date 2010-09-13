@@ -43,13 +43,19 @@ class CampaignsController < InheritedResources::Base
     unless request.get?
       params[:campaign_recipient_ids] ||= [] 
       
-      for campaign_recipient in @campaign.campaign_recipients
-        if campaign_recipient.active && !params[:campaign_recipient_ids].include?(campaign_recipient.recipient_id.to_s)
-          campaign_recipient.update_attribute(:active, false)
-        elsif !campaign_recipient.active && params[:campaign_recipient_ids].include?(campaign_recipient.recipient_id.to_s)
-          campaign_recipient.update_attribute(:active, true)
-        end
+      # Set active attribute
+      if params[:campaign_recipient_ids].present?
+        @campaign.campaign_recipients.update_all({:active => false}, "active = 1 AND recipient_id NOT IN (#{params[:campaign_recipient_ids].join(', ')})")
+
+        @campaign.campaign_recipients.update_all({:active => true}, "active = 0 AND recipient_id IN (#{params[:campaign_recipient_ids].join(', ')})")
       end
+      # for campaign_recipient in @campaign.campaign_recipients
+      #   if campaign_recipient.active && !params[:campaign_recipient_ids].include?(campaign_recipient.recipient_id.to_s)
+      #     campaign_recipient.update_attribute(:active, false)
+      #   elsif !campaign_recipient.active && params[:campaign_recipient_ids].include?(campaign_recipient.recipient_id.to_s)
+      #     campaign_recipient.update_attribute(:active, true)
+      #   end
+      # end
       
       save_or_go_to(template_campaign_path(@campaign))
     end
@@ -72,14 +78,18 @@ class CampaignsController < InheritedResources::Base
       EmailMailer.deliver_email!(@campaign, params[:receivers]) if params[:receivers]
       flash[:notice] = "Email de prueba enviado!"
     elsif params[:send].present?
-      emails = []
-      @campaign.campaign_recipients.valids.each do |campaign_recipient|
-        if (email = campaign_recipient.recipient.email).present? && (emails & [email]).blank?
-          EmailMailer.queue(:email, @campaign, campaign_recipient)
-          # Mail.queue(EmailMailer.create_email(@campaign, campaign_recipient))
-          emails << email
-        end
-      end
+      Delayed::Job.enqueue(SendCampaignJob.new(@campaign.id))
+      Activity.report(current_user, :sent, @campaign)
+
+      # Sent to background
+      # emails = []
+      # @campaign.campaign_recipients.valids.each do |campaign_recipient|
+      #   if (email = campaign_recipient.recipient.email).present? && (emails & [email]).blank?
+      #     EmailMailer.queue(:email, @campaign, campaign_recipient)
+      #     # Mail.queue(EmailMailer.create_email(@campaign, campaign_recipient))
+      #     emails << email
+      #   end
+      # end
 
       flash[:notice] = "Campaña tramitada a envío"
       redirect_to campaigns_path

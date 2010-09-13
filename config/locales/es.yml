@@ -33,11 +33,13 @@ es:
   action_create: "creó"
   action_update: "actualizó"
   action_destroy: "eliminó"
+  action_sent: "envió"
 
   item_company:  "una empresa"
   item_proposal: "una propuesta"
   item_project:  "un proyecto"
   item_contact: "un contacto"
+  item_campaign: "una campaña"
 
   
   # Pluralize

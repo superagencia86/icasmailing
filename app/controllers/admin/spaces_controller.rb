@@ -1,5 +1,5 @@
 class Admin::SpacesController < ApplicationController
-  layout 'admin/application'
+  # layout 'admin/application'
   
   before_filter :require_user
   before_filter :load_space, :only => [:edit, :update]

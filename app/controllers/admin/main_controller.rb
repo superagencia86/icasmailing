@@ -1,5 +1,5 @@
 class Admin::MainController < ApplicationController
-  layout 'admin/application' 
+  # layout 'admin/application' 
   before_filter :require_user, :require_admin
 
   def require_admin

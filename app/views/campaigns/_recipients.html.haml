@@ -1,6 +1,7 @@
 %ul
   - for recipient in recipients
-    - campaign_recipient = @campaign_recipients.select{|cr| cr.recipient_id == recipient.id && cr.campaign_id == @campaign.id}.first
+    - campaign_recipient = @campaign_recipients.find_by_recipient_id_and_campaign_id(recipient.id, @campaign.id)
+    -# - campaign_recipient = @campaign_recipients.select{|cr| cr.recipient_id == recipient.id && cr.campaign_id == @campaign.id}.first
     %li
       = check_box_tag "campaign_recipient_ids[]", recipient.id, !campaign_recipient.sent_email && campaign_recipient.active && recipient.email.present?, :disabled => campaign_recipient.sent_email || recipient.email.blank?
       = recipient.name

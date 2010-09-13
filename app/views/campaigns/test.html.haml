@@ -1,6 +1,8 @@
 .title
   %span= "#{@campaign.name}: Envío"
 
+%p
+  Puedes realizar una prueba de envío al correo que indiques antes de hacer el envío definitivo
 - form_tag test_campaign_path(@campaign) do
   .remote
     .section
@@ -9,5 +11,5 @@
       = submit_tag "Probar", :name => "test"
 
   .buttonbar
-    = submit_tag "Realizar envío", :name => "send"
+    = submit_tag "Realizar envío definitivo", :name => "send"
 

@@ -7,12 +7,16 @@
     = t('item_' + activity.item_type.downcase)
 
     - if activity.item
-      - if activity.item.respond_to?(:full_name)
+      - if activity.item.class == Campaign
+        = link_to(h(activity.item.name), edit_polymorphic_url(activity.item))
+      - elsif activity.item.respond_to?(:full_name)
         = link_to(h(activity.item.full_name), polymorphic_url(activity.item))
       - elsif activity.item.respond_to?(:name)
         = link_to(h(activity.item.name), polymorphic_url(activity.item))
       - else
         %font{:color => :black}= h(activity.item.name) # Individual tasks have no landing pages where we could link to.
+    - if current_space != (space = activity.user.space)
+      = ", espacio #{space.name}"
     
     
 

@@ -11,3 +11,6 @@
     - if APP.has_mailing?
       %li= link_to("Listas de envío", subscriber_lists_path, :class => active?("listas")) 
       %li= link_to("Mailing",       campaigns_path,        :class => active?("campanias")) 
+    %li &nbsp
+    %li= link_to("Espacios", admin_spaces_path, :class => active?("admin/espacios"), :style=>'background-color:#793141')  if current_user.is_superadmin?
+    %li= link_to("Usuarios", admin_users_path, :class => active?("admin/usuarios"), :style=>'background-color:#793141')  if current_user.is_admin?

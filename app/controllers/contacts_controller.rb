@@ -52,6 +52,7 @@ class ContactsController < InheritedResources::Base
       format.js{
         render :update do |page|
           page[:contacts].replace_html(:partial => "subscriber_lists/contacts_list", :locals => {:contacts => @contacts})
+          page[:subscribers_count].replace_html(@subscriber_list.subscribers.count(:all, :conditions => {:active => true}))
         end 
       }
     end
@@ -86,6 +87,7 @@ class ContactsController < InheritedResources::Base
           @contacts = @subscriber_list.active_contacts.find(:all, :select => 'DISTINCT(contacts.id), contacts.*', :joins => "LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id", :conditions => load_subscription_list_conditions).paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
           render :update do |page|
             page[:contacts].replace_html(:partial => "subscriber_lists/contacts_list", :locals => {:contacts => @contacts})
+            page[:subscribers_count].replace_html(@subscriber_list.subscribers.count(:all, :conditions => {:active => true}))
           end 
         }
         format.html{

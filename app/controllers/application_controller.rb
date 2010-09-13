@@ -68,7 +68,8 @@ class ApplicationController < ActionController::Base
     end
     
     def load_subscription_list_conditions
-      conditions = ["contacts.space_id = #{current_space.id}"]
+      # conditions = ["contacts.space_id = #{current_space.id}"]
+      conditions = []
       if params[:filter]
         if params[:filter][:contact_type].present?
           conditions << "contact_type_id = #{params[:filter][:contact_type]}"
