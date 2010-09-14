@@ -29,7 +29,11 @@ class EmailMailer < ActionMailer::Base
 
     part "multipart/alternative" do |pt|
       pt.part "text/html" do |p|
-        p.body = render_message("multipart_html", :data => data)
+        unless html
+          p.body = render_message("multipart_html", :data => data)
+        else
+          p.body = data
+        end
       end
 
       pt.part "text/plain" do |p|
