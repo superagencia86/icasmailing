@@ -80,9 +80,9 @@ class Contact < ActiveRecord::Base
       new_contact = { 
         :user => options[:user],
         :space => options[:user].space,
-        :name => contact[0],
-        :surname => contact[1],
-        :email => contact[2],
+        :email => contact[0],
+        :name => contact[1],
+        :surname => contact[2],
         :contact_type_id => SUBSCRIBER_TYPES.detect{|x| x.name == contact[3]}.try(:idx),
         :institution_type_id => InstitutionType.find_by_name(contact[4]),
         :hobby_ids => set_hobbies(contact[5], options[:hobbies]),
