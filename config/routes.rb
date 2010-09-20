@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.ajax     '/ajax/:action', :controller => 'ajax',      :action => 'update'
   map.form     '/form',     :controller => 'public',        :action => 'create'
   map.pdf '/pdf', :controller => 'dashboard', :action => 'generate_pdf'
+  map.boletin '/boletin', :controller => 'api', :action => 'boletin'
 
   map.resource  :user_session
   map.resource  :account, :controller => "users"

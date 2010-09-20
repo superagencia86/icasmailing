@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   before_filter :set_locale_from_url
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  # protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :current_space, :current_user, :logged_in?
   include ExceptionNotification::Notifiable
 
