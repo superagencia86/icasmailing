@@ -6,7 +6,7 @@ class ApiController < ApplicationController
     @contact = Contact.new(params[:contact].merge({:space_id => space_id, :user_id => User.first.id}))
     # Create contact and assign to subscriber list
     @contact.subscriber_lists << @sl if @contact.save
-    redirect_to 'http://icas.local/spip.php?page=boletin'
+    redirect_to 'http://prev.icas-sevilla.org/spip.php?page=boletin'
   end
 
 end
