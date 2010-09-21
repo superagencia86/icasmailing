@@ -42,6 +42,9 @@ class Contact < ActiveRecord::Base
   def self.finder(options = {})
     conditions, joins = [], ""
 
+    conditions << "space_id = #{options[:space_id]}" if options[:space_id].present?
+    conditions << ["name LIKE '%#{options[:query]}%' OR surname LIKE '%#{options[:query]}%' OR email LIKE '%#{options[:query]}%'"] if options[:query].present?
+
     %w(contact_type_id contact_subtype_id).each do |field|
       conditions << "#{field} = #{options["#{field}".to_sym]}" if options["#{field}".to_sym].present?
     end
@@ -76,7 +79,7 @@ class Contact < ActiveRecord::Base
   end
 
   def self.import_contact(contact, options = {})
-    if !contact[0].nil? && !contact[2].nil?
+    if !contact[0].nil?
       new_contact = { 
         :user => options[:user],
         :space => options[:user].space,
@@ -84,18 +87,18 @@ class Contact < ActiveRecord::Base
         :name => contact[1],
         :surname => contact[2],
         :contact_type_id => SUBSCRIBER_TYPES.detect{|x| x.name == contact[3]}.try(:idx),
-        :institution_type_id => InstitutionType.find_by_name(contact[4]),
+        :institution_type_id => (InstitutionType.find_by_name(contact[4]) if contact[4].present?),
         :hobby_ids => set_hobbies(contact[5], options[:hobbies]),
         :job => contact[6],
         :sex_id => SEX.detect{|x| x.name == contact[7]}.try(:idx),
         :web => contact[8],
-        :celular => contact[9].to_i,
-        :telephone => contact[10].to_i,
-        :birthday_at => contact.date(11),
+        :celular => contact[9].try(:to_i),
+        :telephone => contact[10].try(:to_i),
+        :birthday_at => (contact.date(11) if contact[11].present?),
         :address => contact[12],
         :province_id => PROVINCES.detect{|x| x.name == contact[13]}.try(:idx),
         :locality => contact[14],
-        :zip => contact[15].to_i,
+        :zip => contact[15].try(:to_i),
         :comments => contact[16]
       }
 
@@ -111,9 +114,11 @@ class Contact < ActiveRecord::Base
   def self.set_hobbies(hobbies_from_excel, hobbies_from_db)
     ids = []
 
-    hobbies_from_excel.split(",").each do |hobby|
-      value = Hobby::FROM_EXCEL[hobby]
-      ids << hobbies_from_db.detect{|x| x.name == value}.try(:id)
+    if hobbies_from_excel.present?
+      hobbies_from_excel.split(",").each do |hobby|
+        value = Hobby::FROM_EXCEL[hobby]
+        ids << hobbies_from_db.detect{|x| x.name == value}.try(:id)
+      end
     end
 
     ids

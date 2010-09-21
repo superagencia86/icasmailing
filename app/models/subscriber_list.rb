@@ -32,11 +32,10 @@ class SubscriberList < ActiveRecord::Base
   def has_finder?
     self.hobbies.present? || self.contact_type_id.present?
   end
-  
+
   def before_save
     self.contact_subtype_id = nil if self.contact_type_id != 2
   end
-
 
   def already_set?
     self.all_general.present? || self.all_institutions.present? || self.all_comunication.present? || self.all_artists.present? || self.hobbies.present? || self.institution_types.present?
