@@ -18,18 +18,22 @@ class ContactsController < InheritedResources::Base
   end
 
   def search
-    @contacts = @space.contacts.search(params[:query])
+    @contacts = Contact.finder(:space => @space, :query => params[:query], :contact_type_id => params[:contact_type_id])
     
 
     respond_to do |format|
       format.js   { 
         render :update do |page|
-          if @contacts.present?
-            page["contacts-list"].replace_html(:partial => 'contact', :collection => @contacts)
+          if params[:query].blank?
+            page << "location.reload()"
           else
-            page["contacts-list"].replace_html(:partial => 'common/empty_search')
+            if @contacts.present?
+              page["contacts-list"].replace_html(:partial => 'contact', :collection => @contacts)
+            else
+              page["contacts-list"].replace_html(:partial => 'common/empty_search')
+            end
+            page["paginate"].hide
           end
-          page["paginate"].hide
         end
       }
     end

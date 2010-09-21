@@ -6,3 +6,11 @@
   = text_field_tag("query", @current_query, :size => 23)
   = observe_field("query", :frequency => 0.75, :function => "crm.search(value, '#{path}')")
 
+  -#
+    - for subscriber_type in Contact::SUBSCRIBER_TYPES
+      - id = "contact_type_id_#{subscriber_type.idx}"
+      = radio_button_tag :contact_type_id, subscriber_type.idx, :class => 'contact_type_select_radio', :id => id
+      = label_tag id, subscriber_type.name, :value => subscriber_type.idx
+      = observe_field(id, :frequency => 0.75, :function => "crm.search(value, '#{path}')")
+      %br/
+
