@@ -56,7 +56,11 @@ class Admin::UsersController < ApplicationController
   protected
 
   def load_user
-    @user = (params[:id] && can?(:manage, user = @space.users.find(params[:id]))) ? user : @current_user
+    if current_user.is_superadmin?
+      @user = (params[:id] && can?(:manage, user = User.find(params[:id]))) ? user : @current_user
+    else
+      @user = (params[:id] && can?(:manage, user = @space.users.find(params[:id]))) ? user : @current_user
+    end
   end
 
   def require_admin
