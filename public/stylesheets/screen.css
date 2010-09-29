@@ -155,7 +155,9 @@ tt {
     background: #bfbfbf;
     color: white;
     text-decoration: none; }
-
+  #tabs li.admin_tab a {
+    background: #793141;
+}
 #footer {
   color: grey;
   font-size: 10px;

@@ -18,4 +18,4 @@
     - if can? :manage, Contact
       %li.admin_tab= link_to("Instituciones", institution_types_path, :class => active?("instituciones")) 
     - if can? :manage, User
-      %li= link_to("Usuarios", admin_users_path, :class => active?("admin/usuarios")) 
+      %li.admin_tab= link_to("Usuarios", admin_users_path, :class => active?("admin/usuarios")) 
