@@ -1,7 +1,7 @@
 %li
   .tools
-    = link_to("Editar", edit_admin_space_user_path(@space, user), :title => "Editar usuario") + " | "
-    = link_to("Eliminar", [:admin, @space, user], :method => :delete, :confirm => '¿Estás seguro?') + " " unless user.is_superadmin?
+    = link_to("Editar", edit_admin_space_user_path(@space, user), :title => "Editar usuario")
+    = " | " + link_to("Eliminar", [:admin, @space, user], :method => :delete, :confirm => '¿Estás seguro?') + " " unless user.is_superadmin?
 
   .indentslim
     = link_to(h(user.full_name), edit_polymorphic_path([:admin, @space, user])) << " - "

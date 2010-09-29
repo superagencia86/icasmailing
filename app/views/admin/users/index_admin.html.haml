@@ -7,10 +7,11 @@
 
 - unless @users.empty?
   - @users.each do |space_id, users|
-    .list#users
-      .title
-        - space = Space.find(space_id)
-        %span= space.name
-      = render :partial => "user", :collection => users
+    - space = Space.find_by_id(space_id)
+    - if space
+      .list#users
+        .title
+          %span= space.name
+        = render :partial => "user", :collection => users
 - else
   = render :partial => "common/empty"

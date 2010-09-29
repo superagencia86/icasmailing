@@ -2,7 +2,8 @@
   #welcome
     - if @current_user
       Bienvenido
-      %span#welcome_username= @current_user.name
+      %span#welcome_username
+        = link_to(@current_user.name, edit_admin_space_user_path(@current_user.space, @current_user), :title => "Editar perfil")
       %span> &nbsp;&nbsp;
       |
 
@@ -14,7 +15,7 @@
     - else
       = link_to("Iniciar sesión", login_path) << " |"
       = link_to("Sobre", "#about", :rel => "facebox")
-      
+
   #slogan
     %span Sistema de gestión de contactos y difusión online
     %span
