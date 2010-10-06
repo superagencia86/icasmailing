@@ -12,10 +12,13 @@
         .indentslim
           = contact.full_name << " - "
           %tt
-            - unless contact.from_form
-              = t(:added_by, :time_ago => time_ago_in_words(contact.created_at), :user => (contact.user_id == current_user.id ? t(:me) : h(contact.user.full_name)))
+            - if contact.user.present?
+              - unless contact.from_form
+                = t(:added_by, :time_ago => time_ago_in_words(contact.created_at), :user => (contact.user_id == current_user.id ? t(:me) : h(contact.user.full_name)))
+              - else
+                = t(:added_by, :time_ago => time_ago_in_words(contact.created_at), :user => "vía formulario")
             - else
-              = t(:added_by, :time_ago => time_ago_in_words(contact.created_at), :user => "vía formulario")
+              = t(:added_by, :time_ago => time_ago_in_words(contact.created_at), :user => "Usuario eliminado")
           %dt
             = contact.email
 - else
