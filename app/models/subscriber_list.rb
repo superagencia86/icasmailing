@@ -3,7 +3,7 @@ class SubscriberList < ActiveRecord::Base
   CONTACTS_PER_PAGE = 30
   belongs_to :space
   belongs_to :shares_space, :class_name => 'Space'
-  has_many :comments, :as => :commentable
+  has_many :comments, :as => :commentable, :dependent => :destroy
   
   belongs_to :user
   has_many :subscribers

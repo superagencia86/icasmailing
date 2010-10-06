@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :projects
   has_many :contacts
   has_many :proposals
+  has_many :comments, :dependent => :destroy
 
   validates_presence_of :name, :surname, :email
 
