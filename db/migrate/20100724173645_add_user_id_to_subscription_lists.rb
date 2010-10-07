@@ -1,7 +1,7 @@
 class AddUserIdToSubscriptionLists < ActiveRecord::Migration
   def self.up
     add_column :subscriber_lists, :user_id, :integer
-    SubscriberList.update_all({:user_id => User.first.id})
+    SubscriberList.update_all({:user_id => User.first.id}) if User.first
   end
 
   def self.down
