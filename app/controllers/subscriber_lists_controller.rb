@@ -1,3 +1,4 @@
+require 'xhtml2pdf'
 class SubscriberListsController < InheritedResources::Base
   before_filter :require_user, :authorized
   actions :index, :show, :new, :edit, :create, :update, :destroy
