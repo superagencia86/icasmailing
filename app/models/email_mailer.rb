@@ -16,7 +16,7 @@ class EmailMailer < ActionMailer::Base
 
     sent_on    sent_at
     reply_to   campaign.reply_to
-    
+
     if campaign.body.present?
       html = false
       data = campaign.body
@@ -30,7 +30,7 @@ class EmailMailer < ActionMailer::Base
     part "multipart/alternative" do |pt|
       pt.part "text/html" do |p|
         unless html
-          p.body = render_message("multipart_html", :data => data)
+          p.body = render_message("multipart_html", :data => data, :html => html)
         else
           p.body = data
         end

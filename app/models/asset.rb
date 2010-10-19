@@ -25,9 +25,8 @@ class Asset < ActiveRecord::Base
 
 
   def self.sanitize_image(line)
-    line.scan(/\<img.*src\=\'?\"?(.*)\'?\"?/i).each do |str|
-      line.gsub!(str.first, str.first.split("/").last)
-    end
+    hit = line.match(/\.*\/.*\.(jpg|gif|png)/)
+    return line.gsub(hit.to_s, hit.to_s.split("/").last) unless hit.nil?
     line
   end
 end

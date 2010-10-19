@@ -19,7 +19,7 @@ class Campaign < ActiveRecord::Base
     :conditions => "campaign_recipients.recipient_type = 'Company' AND visible is true"
   has_many :contact_recipients, :through => :campaign_recipients, :source => :contact, 
     :conditions => "campaign_recipients.recipient_type = 'Contact' AND visible is true"
-    
+
   has_many :assets do
     def html
       find_by_data_type("html")
@@ -56,11 +56,11 @@ class Campaign < ActiveRecord::Base
 
     tmp = Tempfile.new("temp.html")
     value.each do |line|
-      tmp.puts Asset.sanitize_image(line)
+      tmp.puts Asset.sanitize_image(line) if line
     end
     tmp.close
 
-    self.assets.build(:data => tmp.open, :data_type => "html")    
+    self.assets.build(:data => tmp.open, :data_type => "html")
   end
 
   def asset_images=(value)
@@ -68,7 +68,7 @@ class Campaign < ActiveRecord::Base
 
     self.assets.images.each do |image|; image.destroy; end
     FileUtils.rm_rf(tmp_dir)
-    
+
     begin
       Asset.unzip_file(value.path, File.join(tmp_dir))
       Dir.glob(File.join("#{tmp_dir}", "**", "*.{png,gif,jpg}")).each do |file|
