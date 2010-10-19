@@ -63,7 +63,7 @@ class CampaignsController < InheritedResources::Base
 
   def template
     unless request.get?
-      if params[:campaign][:asset_html].present? || params[:campaign][:body].present?
+      if (@campaign.assets.html.present? || params[:campaign][:asset_html].present?) || params[:campaign][:body].present?
         @campaign.update_attributes(params[:campaign])
         save_or_go_to(test_campaign_path(@campaign))
       else

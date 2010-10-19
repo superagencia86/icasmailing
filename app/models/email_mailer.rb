@@ -5,6 +5,7 @@ class EmailMailer < ActionMailer::Base
     subject    campaign.subject
     recipients email
     campaign_recipient.update_attribute(:sent_email, true) if !campaign_recipient.is_a?(String)
+    content_type 'multipart/mixed'
 
     if campaign.from_name.present?
       from     "#{campaign.from_name} <#{campaign.from}>"
@@ -34,12 +35,13 @@ class EmailMailer < ActionMailer::Base
         p.body = render_message("multipart_plain", :data => data)
       end
 
-      campaign.email_attachments.each do |ea|
-        attachment ea.data_content_type do |a| 
-          a.body = File.read(File.join(Rails.root, "public", ea.data.url(:original, false)))
-          a.filename = ea.data_file_name
-        end 
-      end
+    end
+
+    campaign.email_attachments.each do |ea|
+      attachment ea.data_content_type do |a| 
+        a.body = File.read(File.join(Rails.root, "public", ea.data.url(:original, false)))
+        a.filename = ea.data_file_name
+      end 
     end
   end
 end
