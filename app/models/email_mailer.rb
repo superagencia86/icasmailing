@@ -5,7 +5,6 @@ class EmailMailer < ActionMailer::Base
     subject    campaign.subject
     recipients email
     campaign_recipient.update_attribute(:sent_email, true) if !campaign_recipient.is_a?(String)
-    content_type 'multipart/mixed'
 
     if campaign.from_name.present?
       from     "#{campaign.from_name} <#{campaign.from}>"
@@ -26,16 +25,8 @@ class EmailMailer < ActionMailer::Base
       data.gsub!("<head>", "<head>\n<base href='http://#{APP.host}/campaign/#{campaign.id}/images/' />")
     end
 
-    part "multipart/alternative" do |pt|
-      pt.part "text/html" do |p|
-        p.body = render_message("multipart_html", :data => data, :html => html)
-      end
-
-      pt.part "text/plain" do |p|
-        p.body = render_message("multipart_plain", :data => data)
-      end
-
-    end
+    body :data => data, :html => html
+    content_type 'text/html'
 
     campaign.email_attachments.each do |ea|
       attachment ea.data_content_type do |a| 
