@@ -5,9 +5,7 @@ class EmailMailer < ActionMailer::Base
     subject    campaign.subject
     recipients email
     campaign_recipient.update_attribute(:sent_email, true) if !campaign_recipient.is_a?(String)
-    content_type "multipart/alternative" 
-    
-    
+
     if campaign.from_name.present?
       from     "#{campaign.from_name} <#{campaign.from}>"
     else
@@ -29,11 +27,7 @@ class EmailMailer < ActionMailer::Base
 
     part "multipart/alternative" do |pt|
       pt.part "text/html" do |p|
-        unless html
-          p.body = render_message("multipart_html", :data => data, :html => html)
-        else
-          p.body = data
-        end
+        p.body = render_message("multipart_html", :data => data, :html => html)
       end
 
       pt.part "text/plain" do |p|
