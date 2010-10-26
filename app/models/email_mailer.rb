@@ -25,8 +25,6 @@ class EmailMailer < ActionMailer::Base
       data.gsub!("<head>", "<head>\n<base href='http://#{APP.host}/campaign/#{campaign.id}/images/' />")
     end
 
-    body :data => data, :html => html
-    content_type 'text/html'
 
     campaign.email_attachments.each do |ea|
       attachment ea.data_content_type do |a| 
@@ -34,5 +32,8 @@ class EmailMailer < ActionMailer::Base
         a.filename = ea.data_file_name
       end 
     end
+
+    body :data => data, :html => html
+    content_type 'text/html'
   end
 end

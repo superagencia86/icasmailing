@@ -23,10 +23,16 @@ class Asset < ActiveRecord::Base
     }
   end
 
-
   def self.sanitize_image(line)
-    hit = line.match(/\.*\/.*\.(jpg|gif|png)/)
-    return line.gsub(hit.to_s, hit.to_s.split("/").last) unless hit.nil?
+    hit = line.match(/(http)?\.?\/.*\.(jpg|gif|png)/)
+    if !hit.nil?
+      line.gsub!(hit.to_s, hit.to_s.split("/").last)
+      line.gsub!("http:", "")
+      return line
+    end
+
     line
   end
+  
+
 end
