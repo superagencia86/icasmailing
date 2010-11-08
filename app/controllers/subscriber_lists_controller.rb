@@ -83,7 +83,7 @@ class SubscriberListsController < InheritedResources::Base
 
         if params[:excel]
           user_added, user_no_added = Contact.import(params[:excel], current_user)
-          @subscriber_list.contact_ids = @subscriber_list.contact_ids | user_added
+          @subscriber_list.contact_ids = @subscriber_list.contact_ids | user_added | user_no_added
           @subscriber_list.save!
         end
 

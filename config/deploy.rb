@@ -32,7 +32,7 @@ set :user, "deploy"
 set :scm, :git
 set :branch, "master"
 set :scm_user, 'git'
-set :repository,  "git@gitorius.beecoder.com:icas-maxwell/mainline.git"
+set :repository,  "git@trunksapp.com:beecoder/icas-maxwell.git"
 
 # before "deploy:stop_mail_daemon"
 after "deploy:update_code", "db:symlink" # , "deploy:restart_mail_daemon"
