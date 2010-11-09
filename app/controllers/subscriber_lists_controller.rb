@@ -85,6 +85,8 @@ class SubscriberListsController < InheritedResources::Base
           user_added, user_no_added = Contact.import(params[:excel], current_user)
           @subscriber_list.contact_ids = @subscriber_list.contact_ids | user_added | user_no_added
           @subscriber_list.save!
+
+          Subscriber.update_all("excel = 1", "contact_id IN (#{@subscriber_list.contact_ids.join(',')})")
         end
 
         redirect_to subscriber_list_path(@subscriber_list)

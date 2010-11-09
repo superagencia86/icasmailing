@@ -42,28 +42,28 @@ class SubscriberList < ActiveRecord::Base
   end
 
   def update_assigned_contacts
-    contact_ids = []
+    contact_ids = Subscriber.find_all_by_subscriber_list_id_and_excel(self.id, true).map(&:contact_id)
     # General
-      if self.all_general
-        contact_ids += Contact.for_space(self.space.id).general.find(:all, :select => :id).map(&:id)
-      else
-        if self.hobbies.present?
-          contact_ids += Contact.for_space(self.space.id).general.find(:all, :joins => :hobbies, :conditions => ["hobbies.id IN (#{self.hobbies.map(&:id).join(', ')})"]).map(&:id)
-        end
+    if self.all_general
+      contact_ids += Contact.for_space(self.space.id).general.find(:all, :select => :id).map(&:id)
+    else
+      if self.hobbies.present?
+        contact_ids += Contact.for_space(self.space.id).general.find(:all, :joins => :hobbies, :conditions => ["hobbies.id IN (#{self.hobbies.map(&:id).join(', ')})"]).map(&:id)
       end
-    # Comunication
-      contact_ids += Contact.for_space(self.space.id).comunication.map(&:id) if self.all_comunication
-    # Institutions
-      institutions = self.institution_types
-      if self.all_institutions
-        contact_ids += Contact.for_space(self.space.id).institution.map(&:id)
-      else
-        if institutions.present?
-          contact_ids += Contact.for_space(self.space.id).institution.find(:all, :conditions => ["institution_type_id IN (#{institutions.map(&:id).join(', ')})"], :select => 'id').map(&:id)
-        end
+    end
+  # Comunication
+    contact_ids += Contact.for_space(self.space.id).comunication.map(&:id) if self.all_comunication
+  # Institutions
+    institutions = self.institution_types
+    if self.all_institutions
+      contact_ids += Contact.for_space(self.space.id).institution.map(&:id)
+    else
+      if institutions.present?
+        contact_ids += Contact.for_space(self.space.id).institution.find(:all, :conditions => ["institution_type_id IN (#{institutions.map(&:id).join(', ')})"], :select => 'id').map(&:id)
       end
-    # Artists
-      contact_ids += Contact.for_space(self.space.id).artist.map(&:id) if self.all_artists
+    end
+  # Artists
+    contact_ids += Contact.for_space(self.space.id).artist.map(&:id) if self.all_artists
 
     self.update_attribute(:contact_ids, contact_ids)
   end
