@@ -13,7 +13,7 @@ body, ol, ul, li, dt, tt, label, input, select, textarea {
   font-family: "Lucida Grande", Geneva, Arial, Helvetica, sans-serif; }
 
 body#user_sessions {
-  background: #fff; }
+  background: white; }
 
 body, h1, h2, h3, h4, h5, h6, ol, ul, li {
   margin: 0px;
@@ -81,7 +81,7 @@ tt {
     font-weight: bold;
     color: #b71739; }
     #header #welcome a {
-      color: #222;
+      color: #222222;
       padding: 1px 4px 2px 4px;
       text-decoration: none; }
       #header #welcome a:hover {
@@ -95,7 +95,7 @@ tt {
       -webkit-border-top-left-radius: 2px;
       -webkit-border-top-right-radius: 2px; }
     #header #welcome span {
-      color: #222; }
+      color: #222222; }
   #header #slogan {
     float: right;
     clear: both;
@@ -155,16 +155,14 @@ tt {
     background: #bfbfbf;
     color: white;
     text-decoration: none; }
-  #tabs li.admin_tab a {
-    background: #793141;
-}
+
 #footer {
   color: grey;
   font-size: 10px;
   padding: 0px 0px 0px 16px; }
 
 .title {
-  border-bottom: 2px #ccc solid;
+  border-bottom: 2px #cccccc solid;
   color: #b71739;
   font-size: 17px;
   font-weight: bold;
@@ -210,15 +208,15 @@ tt {
   width: 480px; }
 
 .standalone {
-  background: #fff;
-  border: 2px #ccc solid;
+  background: white;
+  border: 2px #cccccc solid;
   margin: 75px auto 6px auto;
   padding: 20px;
   width: 400px;
   -moz-border-radius: 6px;
-  -moz-box-shadow: 5px 5px 15px #bbb, -5px 0px 15px #bbb;
+  -moz-box-shadow: 5px 5px 15px #bbbbbb, -5px 0px 15px #bbbbbb;
   -webkit-border-radius: 6px;
-  -webkit-box-shadow: 5px 5px 15px #bbb, -5px 0px 15px #bbb; }
+  -webkit-box-shadow: 5px 5px 15px #bbbbbb, -5px 0px 15px #bbbbbb; }
   .standalone input[type="text"], .standalone input[type="password"] {
     font-size: 16px;
     padding: 2px;
@@ -238,9 +236,9 @@ tt {
   background: white;
   padding: 8px 15px 15px 15px;
   -moz-border-radius: 4px;
-  -moz-box-shadow: 2px 2px 8px #bbb, -2px 0px 8px #bbb;
+  -moz-box-shadow: 2px 2px 8px #bbbbbb, -2px 0px 8px #bbbbbb;
   -webkit-border-radius: 4px;
-  -webkit-box-shadow: 2px 2px 8px #bbb, -2px 0px 8px #bbb; }
+  -webkit-box-shadow: 2px 2px 8px #bbbbbb, -2px 0px 8px #bbbbbb; }
 
 .sidebar {
   color: #3f3f3f;
@@ -282,7 +280,7 @@ tt {
   padding: 4px 15px 8px 15px; }
 
 .remote {
-  border: 2px #ccc solid;
+  border: 2px #cccccc solid;
   margin: 20px 0;
   background: whitesmoke;
   padding: 0px 10px 0px 10px;
@@ -316,7 +314,7 @@ tt {
 
 input.btn, a.btn {
   background: #e2e2e2;
-  border: 1px solid #999;
+  border: 1px solid #999999;
   cursor: pointer;
   font-weight: bold;
   padding: 4px 7px;
@@ -324,8 +322,8 @@ input.btn, a.btn {
   -webkit-border-radius: 5px; }
 
 input.btn:hover, a.btn:hover {
-  background: #333;
-  color: #fff;
+  background: #333333;
+  color: white;
   border: 1px solid #e2e2e2; }
 
 .lorem {
@@ -493,13 +491,13 @@ input.btn:hover, a.btn:hover {
       text-decoration: none; }
 
 .filters, .panel {
-  background: #fff;
+  background: white;
   margin: 0px 0px 12px 0px;
   padding: 6px 8px 6px 8px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  -moz-box-shadow: 2px 2px 8px #bbb, -2px 0px 8px #bbb;
-  -webkit-box-shadow: 2px 2px 8px #bbb, -2px 0px 8px #bbb; }
+  -moz-box-shadow: 2px 2px 8px #bbbbbb, -2px 0px 8px #bbbbbb;
+  -webkit-box-shadow: 2px 2px 8px #bbbbbb, -2px 0px 8px #bbbbbb; }
 
 .filters h4 {
   color: #b71739;
@@ -568,10 +566,10 @@ input.btn:hover, a.btn:hover {
 
 .menu {
   background: #f4f5eb;
-  border-top: 1px solid #ddd;
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #666;
-  border-bottom: 1px solid #666;
+  border-top: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #666666;
+  border-bottom: 1px solid #666666;
   left: 0px;
   padding: 2px 0px;
   position: absolute;
@@ -585,7 +583,7 @@ input.btn:hover, a.btn:hover {
   .menu li {
     list-style-position: outside; }
   .menu a {
-    color: #555;
+    color: #555555;
     cursor: default;
     display: block;
     margin: 0px 2px;
@@ -593,8 +591,8 @@ input.btn:hover, a.btn:hover {
     padding: 4px 15px;
     text-decoration: none; }
   .menu a:hover {
-    background: mediumblue //#006;
-    color: #fff; }
+    background: mediumblue;
+    color: white; }
 
 .errorExplanation {
   background-color: seashell;
@@ -627,26 +625,25 @@ p {
   -moz-border-radius: 5px;
   width: 96%;
   margin: 10px auto;
-  }
+  font-weight: bold;
+  font-size: 14px; }
   p.flash_warning, p.flash_error {
-    /* background: lightpink; */
-    background: #BFBFBF;
+    background: lightpink;
     color: maroon;
     padding: 5px 0px 5px 16px; }
   p.flash_notice, p.flash_message {
-    /* background: #7cae1d; */
-    background: #BFBFBF;
-    color: #fff;
+    background: #bfbfbf;
+    color: white;
     padding: 5px 0px 5px 16px; }
   p.flash_exception {
-    background: #df9;
+    background: #ddff99;
     border: 5px limegreen solid;
     font-size: 14px;
     margin: 50px auto;
     padding: 50px;
     width: 450px;
-    -moz-box-shadow: 5px 5px 15px #999, -5px 0px 15px #999;
-    -webkit-box-shadow: 5px 5px 15px #999, -5px 0px 15px #999; }
+    -moz-box-shadow: 5px 5px 15px #999999, -5px 0px 15px #999999;
+    -webkit-box-shadow: 5px 5px 15px #999999, -5px 0px 15px #999999; }
 
 div.auto_complete {
   background: white;
@@ -682,25 +679,24 @@ div.auto_complete {
   font-size: 11px;
   margin: 6px 0px 0px 0px; }
   .pagination a, .pagination span {
-    padding: .2em .5em;
+    padding: 0.2em 0.5em;
     display: block;
     float: left;
     margin: 0px 2px 0px 0px; }
   .pagination span.disabled {
-    color: #999;
-    border: 1px solid #DDD; }
+    color: #999999;
+    border: 1px solid #dddddd; }
   .pagination span.current {
     font-weight: bold;
-    background: #B71739;
+    background: #2e6ab1;
     color: white;
-    border: 1px solid #B71739; }
+    border: 1px solid #2e6ab1; }
   .pagination a {
     text-decoration: none;
-    color: #B71739;
-    border: 1px solid #B71739; }
+    color: #105cb6;
+    border: 1px solid #9aafe5; }
     .pagination a:hover, .pagination a:focus {
-      /* color: navy; */
-      color: #B71739;
+      color: navy;
       background: lightyellow;
       border-color: navy; }
 
