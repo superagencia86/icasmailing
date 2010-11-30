@@ -46,7 +46,7 @@ class ContactsController < InheritedResources::Base
 
     # Add to list
     if request.post?
-      subscriber = Subscriber.find_or_create_by_subscriber_list_id_and_contact_id(params[:subscriber_list_id], params[:id]).update_attribute(:active, true)
+      subscriber = Subscriber.find_or_create_by_subscriber_list_id_and_contact_id_and_excel(params[:subscriber_list_id], params[:id], true).update_attribute(:active, true)
     end
 
     # Load contacts
