@@ -94,20 +94,33 @@ class SubscriberListsController < InheritedResources::Base
     end
   end
 
+  def destroy_with_subscribers
+    subscribers_in_another_list = Subscriber.find(:all, :select => 'id, contact_id', :conditions => "contact_id IN (#{@subscriber_list.subscribers.map(&:contact_id).join(',')})
+      AND subscriber_list_id != #{@subscriber_list.id}").map(&:contact_id)
+    subscribers = Subscriber.find(:all, :conditions => ["subscriber_list_id = ?", @subscriber_list.id]).reject{|x| subscribers_in_another_list.include? x.contact_id}
+
+    Contact.destroy_all("id IN (#{subscribers.map(&:contact_id).join(',')})") if subscribers.present? # No borramos los contactos que están en otras listas
+    Subscriber.destroy_all("id IN (#{@subscriber_list.subscribers.map(&:id).join(',')})")
+
+    @subscriber_list.destroy
+    flash[:notice] = "Lista '#{@subscriber_list.name}' eliminada"
+    redirect_to subscriber_lists_path
+  end
+
   def generate_pdf
     @contacts = @subscriber_list.contacts
     tmp_dir = File.join(Rails.root, 'tmp')
     html = render_to_string :template => 'layouts/pdf.html.erb', :layout => false
-    
+
     xhtml_file = File.join(tmp_dir, "#{@subscriber_list.name}.html")
     pdf_file = File.join(tmp_dir, "#{@subscriber_list.name}.pdf")
-    
+
     File.open(xhtml_file, "w") do |file|
       file << html
     end
-        
+
     xhtml2pdf(xhtml_file, pdf_file)
-    
+
     send_file(pdf_file)
   end
 

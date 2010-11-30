@@ -9,7 +9,8 @@
         = link_to("Compartir", share_subscriber_list_path(subscriber_list), :class => 'share_list_link') + " | " if current_user.is_superadmin?
         - if can? :manage, subscriber_list
           = link_to("Editar", edit_subscriber_list_path(subscriber_list)) + " | "
-          = link_to("Eliminar", subscriber_list, :method => :delete, :confirm => '¿Estás seguro?')
+          = link_to("Eliminar", subscriber_list, :method => :delete, :confirm => '¿Estás seguro?') + " | "
+          = link_to("Eliminar con suscriptores", destroy_with_subscribers_subscriber_list_path(subscriber_list), :method => :delete, :confirm => '¿Estás seguro?')
         - else
           %span
           %span
