@@ -29,6 +29,11 @@
           Estado:
           %br/
           = f.select :active, [["Añadido a la lista", 'true'], ["No añadido a la lista", 'false']], {:selected => (params[:filter][:active] rescue nil)}
+      %p
+        #status
+          Estado de confirmación:
+          %br/
+          = f.select :confirmed, [["Confirmado", 'true'], ["Sin confirmar", 'false']], {:include_blank => true, :selected => ((params[:solo] == 'confirmados' ) || (params[:filter][:confirmed] rescue nil))}
 
       %br/
       = f.submit "Filtrar"

@@ -8,6 +8,8 @@ class SubscriberList < ActiveRecord::Base
   belongs_to :user
   has_many :subscribers
   has_many :contacts, :through => :subscribers
+  has_many :confirmed, :through => :subscribers, :source => :contact,
+    :conditions => {:confirmed => true}
   has_many :active_subscribers, :class_name => 'Subscriber', :conditions => {:active => true}
   has_many :active_contacts, :through => :active_subscribers, :source => :contact
 

@@ -103,6 +103,14 @@
       .label.top Comentarios
       = f.text_area :comments, :rows => 4, :cols => 60
 
+- if current_user.is_superadmin?
+  %table
+    %tr
+      %td{:valign => :top}
+        .label.top Estado de la confirmación
+        = f.check_box :confirmed
+        Confirmado
+
 - if (subscriber_lists = current_space.subscriber_lists.all).present?
   %table
     %tr

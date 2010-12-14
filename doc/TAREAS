@@ -2,12 +2,12 @@
 1. Instalar nueva versión en el servidor:
 2. Permitir insertar {{confirmacion}} dentro de los emails: 
 3. Añadir página de confirmación
-  3.1 Implementar funcionalidad de confirmación: 2 horas
-  3.2 Enviar email de que ha sido confirmado: 1 hora
-  3.3 Implementar página de "Ha sido confirmado" con un diseño simple: 30 minutos
-4. Implementar que el usuario ICAS sólo vea contactos confirmados: 30 minutos
-5. Implementar que al editar un contacto (por el usuario ICAS) pueda ver y editar el estado de confirmación: 1 hora
-6. Implementar que en el listado de "listas de envío" se vean el total de usuarios confirmados: 30 minutos
+  3.1 Implementar funcionalidad de confirmación: 
+  3.2 Enviar email de que ha sido confirmado: 
+  3.3 Implementar página de "Ha sido confirmado" con un diseño simple: 
+4. Implementar que el usuario ICAS sólo vea contactos confirmados: 
+5. Implementar que al editar un contacto (por el usuario ICAS) pueda ver y editar el estado de confirmación: 
+6. Implementar que en el listado de "listas de envío" se vean el total de usuarios confirmados: 
 7. Pruebas: 1 hora
 
 Si todo va bien, el total es de: 10 horas y 30 minutos.

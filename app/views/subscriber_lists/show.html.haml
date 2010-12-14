@@ -8,7 +8,7 @@
 
 .title
   %span
-    = "#{@subscriber_list.name} - listado y edición de contactos"
+    = "#{@subscriber_list.name} - listado y edición de contactos #{params[:solo] == 'confirmados' ? 'CONFIRMADOS' : ''}"
     = "(Compartida, sólo lectura)" unless current_space.id == @subscriber_list.space_id
   
 - if can? :manage, @subscriber_list

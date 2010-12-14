@@ -5,10 +5,10 @@
 require 'erb'
 
 set :application, "icasmailing"
-set :domain, "superagencia86.com"
+set :domain, "icasmailing.superagencia86.es"
 server domain, :app, :web
 role :db, domain, :primary => true
-set :deploy_to, "/home/superage/produccion/#{application}"
+set :deploy_to, "/var/www/superage/#{application}"
 set :rails_env, 'production'
 
 #############################################################
@@ -36,7 +36,7 @@ set :repository,  "git@trunksapp.com:beecoder/icas-maxwell.git"
 
 # before "deploy:stop_mail_daemon"
 after "deploy:update_code", "db:symlink" # , "deploy:restart_mail_daemon"
-after "deploy:symlink" #, "deploy:start_mail_cycle"
+after "deploy:symlink", "deploy:start_mail_cycle"
  
 namespace :db do
   desc "Make symlink for database yaml, mongrel cluster"
