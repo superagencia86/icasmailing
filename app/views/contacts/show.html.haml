@@ -11,6 +11,7 @@
     %b= link_to(truncate(@contact.email, :length => 30), "mailto:" << @contact.email.to_s, :title => @contact.email) if @contact.email.present?
     %b= link_to(truncate(@contact.secondary_email, :length => 30), "mailto:" << @contact.secondary_email.to_s, :title => @contact.secondary_email) if @contact.secondary_email.present?
   %p
+    = "Confirmado: #{@contact.confirmed? ? 'si' : 'no'}<br/>"
     = "Tipo de contacto: #{Contact::SUBSCRIBER_TYPES.find{|e| e.idx == @contact.contact_type_id}.try(:name)}<br/>" 
     = "Entidad: #{@contact.entidad}" if @contact.entidad.present?
 

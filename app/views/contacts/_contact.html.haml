@@ -3,7 +3,8 @@
     .tools
       = link_to("Editar", edit_contact_path(contact), :title => "Editar #{contact.name}") + " | "
       = link_to("Eliminar", contact, :method => :delete, :confirm => '¿Estás seguro?') + " "
-
+  .confirmed
+    = contact.confirmed? ? 'c' : 'x'
   .indentslim
     = link_to(h(contact.try(:full_name)), contact) << " - "
     %tt

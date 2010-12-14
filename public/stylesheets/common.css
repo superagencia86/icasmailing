@@ -203,6 +203,8 @@ input.btn:hover, a.btn:hover {
   -webkit-border-top-left-radius: 7px;
   -webkit-border-bottom-left-radius: 7px; }
 
+
+.confirmed {float: left; margin-right: -2em;}
 .indent {
   margin-left: 88px; }
 

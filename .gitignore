@@ -11,3 +11,5 @@ config/config.yml
 public/system/*
 public/campaign/*
 tmp/*
+nbproject
+
