@@ -1,0 +1,7 @@
+<% if @contact.confirmed?  %>
+<h1>Has aceptado tu inclusión</h1>
+<%= link_to 'Rechazar', rechazar_contact_confirmation_path(@contact) %>
+<% else %>
+<h1>Has rechazado tu inclusión</h1>
+<%= link_to 'Aceptar', aceptar_contact_confirmation_path(@contact) %>
+<% end %>

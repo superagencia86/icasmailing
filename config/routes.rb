@@ -24,7 +24,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :companies, :collection => {:search => :get}
   map.resources :institution_types
-  map.resources :contacts
+  map.resources :contacts do |contacts|
+    contacts.resource :confirmation, :as => 'confirmacion',
+      :member => {:aceptar => :get, :rechazar => :get}
+  end
   map.resources :projects
   map.resources :proposals
 
