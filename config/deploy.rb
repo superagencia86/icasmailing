@@ -4,7 +4,7 @@
 
 require 'erb'
 
-set :application, "icasmailing"
+set :application, "icas-mailing"
 set :domain, "superagencia86.com"
 server domain, :app, :web
 role :db, domain, :primary => true
@@ -23,7 +23,7 @@ set :use_sudo, false
 #	Servers
 #############################################################
  
-set :user, "deploy"
+set :user, "superage"
  
 #############################################################
 #	Git
@@ -36,7 +36,7 @@ set :repository,  "git@trunksapp.com:beecoder/icas-maxwell.git"
 
 # before "deploy:stop_mail_daemon"
 after "deploy:update_code", "db:symlink" # , "deploy:restart_mail_daemon"
-after "deploy:symlink" #, "deploy:start_mail_cycle"
+#after "deploy:symlink" #, "deploy:start_mail_cycle"
  
 namespace :db do
   desc "Make symlink for database yaml, mongrel cluster"

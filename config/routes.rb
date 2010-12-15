@@ -24,10 +24,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :companies, :collection => {:search => :get}
   map.resources :institution_types
-  map.resources :contacts do |contacts|
-    contacts.resource :confirmation, :as => 'confirmacion',
-      :member => {:aceptar => :get, :rechazar => :get}
-  end
+  map.resources :contacts
   map.resources :projects
   map.resources :proposals
 
@@ -37,7 +34,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :subscriber_lists, :member => { :filter_by_hobbies => :post, :import => :post, :add_all_to => :get, :share => :any, :unshare => :get, :generate_pdf => :get, :generate_excel => :get, :destroy_with_subscribers => :delete} do |subscriber_list|
     subscriber_list.resources :contacts, :collection => {:add_by_type_to => :any, :add_to_list => :any}
   end
-    
+
+  map.jobs '/admin/jobs', :controller => 'admin/jobs', :action => 'index'
+  map.connect "#{ConfirmationsController::ACCEPT_URL}/:id/:code", :controller => 'confirmations', :action => 'accept'
+  map.connect "#{ConfirmationsController::REJECT_URL}/:id/:code", :controller => 'confirmations', :action => 'reject'
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

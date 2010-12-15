@@ -1,7 +1,8 @@
 class EmailMailer < ActionMailer::Base  
-  def email(campaign, campaign_recipient, sent_at = Time.now)
-    email = campaign_recipient.is_a?(String) ? campaign_recipient : campaign_recipient.recipient.email
+  def email(campaign, campaign_recipient, options = {})
+    options = {:sent_at => Time.now, :confirmation_code => nil}.merge(options)
 
+    email = campaign_recipient.is_a?(String) ? campaign_recipient : campaign_recipient.recipient.email
     subject    campaign.subject
     recipients email
     campaign_recipient.update_attribute(:sent_email, true) if !campaign_recipient.is_a?(String)
@@ -12,7 +13,7 @@ class EmailMailer < ActionMailer::Base
       from     campaign.from
     end
 
-    sent_on    sent_at
+    sent_on    options[:sent_at]
     reply_to   campaign.reply_to
 
     if campaign.body.present?
@@ -31,6 +32,11 @@ class EmailMailer < ActionMailer::Base
         a.body = File.read(File.join(Rails.root, "public", ea.data.url(:original, false)))
         a.filename = ea.data_file_name
       end 
+    end
+
+    if options[:confirmation_code].present?
+      data.gsub!("{{aceptar}}", "#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{options[:confirmation_code].to_s}")
+      data.gsub!("{{rechazar}}", "#{APP.host}#{ConfirmationsController::REJECT_URL}/#{options[:confirmation_code].to_s}")
     end
 
     body :data => data, :html => html

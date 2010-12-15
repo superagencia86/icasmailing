@@ -1,26 +1,23 @@
 class ConfirmationsController < ApplicationController
   before_filter :load_contact
 
-  def show
+  ACCEPT_URL = "/lista-icas/confirmar"
+  REJECT_URL = "/lista-icas/rechazar"
+
+  def accept
+    @contact.update_attribute(:confirmed, true)
+    render :action => 'show'
   end
 
-  def aceptar
-    confirm(true)
+  def reject
+    @contact.update_attribute(:confirmed, false)
+    render :action => 'show'
   end
-
-  def rechazar
-    confirm(false)
-  end
-
 
   protected
-  def confirm(state)
-    @contact.update_attribute(:confirmed, state)
-    redirect_to contact_confirmation_path(@contact)
-  end
-
-
   def load_contact
-    @contact = Contact.find params[:contact_id]
+    hex = Digest::MD5.hexdigest(params[:id])
+    id = hex == params[:code] ? params[:id] : -1
+    @contact = Contact.find id
   end
 end
