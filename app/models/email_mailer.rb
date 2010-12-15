@@ -39,6 +39,10 @@ class EmailMailer < ActionMailer::Base
       data.gsub!("{{rechazar}}", "#{APP.host}#{ConfirmationsController::REJECT_URL}/#{options[:confirmation_code].to_s}")
     end
 
+    if options[:user_name].present?
+      data.gsub!("{{nombre}}", options[:user_name])
+    end
+
     body :data => data, :html => html
     content_type 'text/html'
   end

@@ -7,8 +7,12 @@ class SendCampaignJob < Struct.new(:campaign_id)
     emails = []
     campaign.campaign_recipients.valids.each do |recipient|
       if (email = recipient.recipient.email).present? && (emails & [email]).blank?
-        code = recipient.contact ? recipient.contact.confirmation_code : nil
-        EmailMailer.queue(:email, campaign, recipient, {:confirmation_code => code})
+        options = {}
+        if recipient.contact
+          options[:confirmation_code] = recipient.contact.confirmation_code
+          options[:user_name] = recipient.contact.name
+        end
+        EmailMailer.queue(:email, campaign, recipient, options)
         emails << email
       end
     end
