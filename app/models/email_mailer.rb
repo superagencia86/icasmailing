@@ -34,14 +34,14 @@ class EmailMailer < ActionMailer::Base
       end 
     end
 
-    if options[:confirmation_code].present?
-      data.gsub!("{{aceptar}}", "#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{options[:confirmation_code].to_s}")
-      data.gsub!("{{rechazar}}", "#{APP.host}#{ConfirmationsController::REJECT_URL}/#{options[:confirmation_code].to_s}")
+    subs = {}
+    subs['aceptar'] = options[:confirmation_code].present? ? "#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{options[:confirmation_code].to_s}" : '#'
+    subs['rechazar'] = options[:confirmation_code].present? ? "#{APP.host}#{ConfirmationsController::REJECT_URL}/#{options[:confirmation_code].to_s}" : '#'
+    subs['nombre'] = options[:user_name].present? ? options[:user_name] : ''
+    subs.each_pair do |key, value|
+      data.gsub!("{{#{key}}}", value)
     end
 
-    if options[:user_name].present?
-      data.gsub!("{{nombre}}", options[:user_name])
-    end
 
     body :data => data, :html => html
     content_type 'text/html'
