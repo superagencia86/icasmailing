@@ -1,0 +1,36 @@
+
+<h1>Gestión de correos por enviar</h1>
+<p>Esta zona es para la monitorización de eventos de la aplicación: en princìpio no
+  deberías necesitar hacer nada aquí</p>
+<table>
+  <thead>
+    <tr>
+      <td>Asunto</td>
+      <td>Desde</td>
+      <td>Para</td>
+      <td>Contenido</td>
+      <td>Tipo</td>
+      <td>Fecha creación</td>
+      <td>Datos</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @mails.each do |email| %>
+      <tr>
+        <td><%= email.subject %></td>
+        <td><%= email.from %></td>
+        <td><%= email.to %></td>
+        <td><div class="truncate"><%= email.body %></div></td>
+        <td><%= email.content_type %></td>
+        <td><%= email.created_at %></td>
+        <td><%= email.data %></td>
+        <td>
+          <%= link_to 'Eliminar', {:action=> 'destroy', :id => email.id}, :method => :delete,
+            :confirm => 'Esto impedirá que se envíe este email. CUIDADO!! ¿Estás seguro?' %>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

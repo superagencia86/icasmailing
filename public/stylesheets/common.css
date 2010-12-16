@@ -434,3 +434,14 @@ input.btn:hover, a.btn:hover {
   .menu a:hover {
     background: mediumblue;
     color: white; }
+
+.truncate {
+  height: 1em;
+  overflow: hidden;
+  border: 1px solid #efefef;
+  width: 20em;
+  padding: 0 1em; }
+
+div.truncate:hover {
+  height: auto;
+  border: 1px solid gray; }

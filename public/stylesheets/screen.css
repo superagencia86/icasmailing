@@ -598,6 +598,17 @@ input.btn:hover, a.btn:hover {
     background: mediumblue;
     color: white; }
 
+.truncate {
+  height: 1em;
+  overflow: hidden;
+  border: 1px solid #efefef;
+  width: 20em;
+  padding: 0 1em; }
+
+div.truncate:hover {
+  height: auto;
+  border: 1px solid gray; }
+
 .errorExplanation {
   background-color: seashell;
   border: 2px solid salmon;

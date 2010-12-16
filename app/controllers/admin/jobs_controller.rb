@@ -8,6 +8,6 @@ class Admin::JobsController < Admin::AdminController
   def destroy
     @job = DelayedJob.find params[:id]
     @job.destroy
-    redirect_to jobs_path
+    redirect_to admin_jobs_path
   end
 end

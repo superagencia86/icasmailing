@@ -35,7 +35,8 @@ ActionController::Routing::Routes.draw do |map|
     subscriber_list.resources :contacts, :collection => {:add_by_type_to => :any, :add_to_list => :any}
   end
 
-  map.jobs '/admin/jobs', :controller => 'admin/jobs', :action => 'index'
+  map.admin_jobs '/admin/jobs', :controller => 'admin/jobs', :action => 'index'
+  map.admin_mails '/admin/mails', :controller => 'admin/mails', :action => 'index'
   map.connect "#{ConfirmationsController::ACCEPT_URL}/:id/:code", :controller => 'confirmations', :action => 'accept'
   map.connect "#{ConfirmationsController::REJECT_URL}/:id/:code", :controller => 'confirmations', :action => 'reject'
 
