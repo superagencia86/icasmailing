@@ -5,8 +5,11 @@ class ConfirmationsController < ApplicationController
   REJECT_URL = "/lista-icas/rechazar"
 
   def accept
-    @contact.update_attribute(:confirmed, true)
-    render :action => 'show'
+    if !@contact.confirmed?
+      EmailMailer.queue(:accept_subscription, @contact.email, @contact.name, @contact.confirmation_code)
+      @contact.update_attribute(:confirmed, true)
+    end
+    redirect_to 'http://www.icas-sevilla.org/spip.php?article3651'
   end
 
   def reject

@@ -1,4 +1,14 @@
-class EmailMailer < ActionMailer::Base  
+class EmailMailer < ActionMailer::Base
+  def accept_subscription(email, name, reject_code)
+    subject 'Has aceptado su suscripción'
+    recipients email
+    from 'suscripciones@icas-sevilla.org'
+    sent_on Time.now
+    reply_to 'suscripciones@icas-sevilla.org'
+    content_type 'text/html'
+    body :name => name, :code => "#{APP.host}#{ConfirmationsController::REJECT_URL}/#{reject_code}"
+  end
+
   def email(campaign, campaign_recipient, options = {})
     options = {:sent_at => Time.now, :confirmation_code => nil}.merge(options)
 

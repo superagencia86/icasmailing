@@ -18,6 +18,11 @@
   %p
     - if @contact.telephone.present? || @contact.celular.present?
       = "Teléfono/s: <b>#{@contact.telephone}</b> - <b>#{@contact.celular}</b><br />"
+- if current_user.is_superadmin?
+  %p
+    = "Aceptar suscripción: #{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{@contact.confirmation_code}"
+    %br
+    = "Cancelar suscripción: #{APP.host}#{ConfirmationsController::REJECT_URL}/#{@contact.confirmation_code}"
 
 %p
   = link_to "Volver a todos los contactos", contacts_path
