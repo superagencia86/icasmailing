@@ -1,5 +1,5 @@
 .title {
-  border-bottom: 2px #ccc solid;
+  border-bottom: 2px #cccccc solid;
   color: #b71739;
   font-size: 17px;
   font-weight: bold;
@@ -45,15 +45,15 @@
   width: 480px; }
 
 .standalone {
-  background: #fff;
-  border: 2px #ccc solid;
+  background: white;
+  border: 2px #cccccc solid;
   margin: 75px auto 6px auto;
   padding: 20px;
   width: 400px;
   -moz-border-radius: 6px;
-  -moz-box-shadow: 5px 5px 15px #bbb, -5px 0px 15px #bbb;
+  -moz-box-shadow: 5px 5px 15px #bbbbbb, -5px 0px 15px #bbbbbb;
   -webkit-border-radius: 6px;
-  -webkit-box-shadow: 5px 5px 15px #bbb, -5px 0px 15px #bbb; }
+  -webkit-box-shadow: 5px 5px 15px #bbbbbb, -5px 0px 15px #bbbbbb; }
   .standalone input[type="text"], .standalone input[type="password"] {
     font-size: 16px;
     padding: 2px;
@@ -73,9 +73,9 @@
   background: white;
   padding: 8px 15px 15px 15px;
   -moz-border-radius: 4px;
-  -moz-box-shadow: 2px 2px 8px #bbb, -2px 0px 8px #bbb;
+  -moz-box-shadow: 2px 2px 8px #bbbbbb, -2px 0px 8px #bbbbbb;
   -webkit-border-radius: 4px;
-  -webkit-box-shadow: 2px 2px 8px #bbb, -2px 0px 8px #bbb; }
+  -webkit-box-shadow: 2px 2px 8px #bbbbbb, -2px 0px 8px #bbbbbb; }
 
 .sidebar {
   color: #3f3f3f;
@@ -117,7 +117,7 @@
   padding: 4px 15px 8px 15px; }
 
 .remote {
-  border: 2px #ccc solid;
+  border: 2px #cccccc solid;
   margin: 20px 0;
   background: whitesmoke;
   padding: 0px 10px 0px 10px;
@@ -151,7 +151,7 @@
 
 input.btn, a.btn {
   background: #e2e2e2;
-  border: 1px solid #999;
+  border: 1px solid #999999;
   cursor: pointer;
   font-weight: bold;
   padding: 4px 7px;
@@ -159,8 +159,8 @@ input.btn, a.btn {
   -webkit-border-radius: 5px; }
 
 input.btn:hover, a.btn:hover {
-  background: #333;
-  color: #fff;
+  background: #333333;
+  color: white;
   border: 1px solid #e2e2e2; }
 
 .lorem {
@@ -203,8 +203,10 @@ input.btn:hover, a.btn:hover {
   -webkit-border-top-left-radius: 7px;
   -webkit-border-bottom-left-radius: 7px; }
 
+.confirmed {
+  float: left;
+  margin-right: -2em; }
 
-.confirmed {float: left; margin-right: -2em;} 
 .indent {
   margin-left: 88px; }
 
@@ -330,13 +332,13 @@ input.btn:hover, a.btn:hover {
       text-decoration: none; }
 
 .filters, .panel {
-  background: #fff;
+  background: white;
   margin: 0px 0px 12px 0px;
   padding: 6px 8px 6px 8px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  -moz-box-shadow: 2px 2px 8px #bbb, -2px 0px 8px #bbb;
-  -webkit-box-shadow: 2px 2px 8px #bbb, -2px 0px 8px #bbb; }
+  -moz-box-shadow: 2px 2px 8px #bbbbbb, -2px 0px 8px #bbbbbb;
+  -webkit-box-shadow: 2px 2px 8px #bbbbbb, -2px 0px 8px #bbbbbb; }
 
 .filters h4 {
   color: #b71739;
@@ -405,10 +407,10 @@ input.btn:hover, a.btn:hover {
 
 .menu {
   background: #f4f5eb;
-  border-top: 1px solid #ddd;
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #666;
-  border-bottom: 1px solid #666;
+  border-top: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #666666;
+  border-bottom: 1px solid #666666;
   left: 0px;
   padding: 2px 0px;
   position: absolute;
@@ -422,7 +424,7 @@ input.btn:hover, a.btn:hover {
   .menu li {
     list-style-position: outside; }
   .menu a {
-    color: #555;
+    color: #555555;
     cursor: default;
     display: block;
     margin: 0px 2px;
@@ -430,5 +432,5 @@ input.btn:hover, a.btn:hover {
     padding: 4px 15px;
     text-decoration: none; }
   .menu a:hover {
-    background: mediumblue //#006;
-    color: #fff; }
+    background: mediumblue;
+    color: white; }
