@@ -14,7 +14,7 @@ class ConfirmationsController < ApplicationController
 
   def reject
     @contact.update_attribute(:confirmed, false)
-    render :action => 'show'
+    redirect_to 'http://www.icas-sevilla.org/spip.php?article3680'
   end
 
   protected
