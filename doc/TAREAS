@@ -8,10 +8,6 @@
 4. Implementar que el usuario ICAS sólo vea contactos confirmados: 
 5. Implementar que al editar un contacto (por el usuario ICAS) pueda ver y editar el estado de confirmación: 
 6. Implementar que en el listado de "listas de envío" se vean el total de usuarios confirmados: 
-7. Pruebas: 1 hora
+7. Pruebas: 
 
-Si todo va bien, el total es de: 10 horas y 30 minutos.
-Hay dos cosas que me preocupan:
-1) al instalar la aplicación en mi ordenador, algunas funcionalidades fallan (no se si lo tengo que arreglar, si está arreglado o qué...) Si lo tengo que arreglar puede que me lleve otro par de horas
-2) si queremos que beecoder y yo modifiquemos el código a la vez, requiere cierta coordinación... ¿cómo lo hacemos?
 

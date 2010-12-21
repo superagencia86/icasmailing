@@ -6,7 +6,7 @@ class EmailMailer < ActionMailer::Base
     sent_on Time.now
     reply_to 'suscripciones@icas-sevilla.org'
     content_type 'text/html'
-    body :name => name, :code => "#{APP.host}#{ConfirmationsController::REJECT_URL}/#{reject_code}"
+    body :name => name, :code => "http://#{APP.host}#{ConfirmationsController::REJECT_URL}/#{reject_code}"
   end
 
   def email(campaign, campaign_recipient, options = {})
@@ -45,8 +45,8 @@ class EmailMailer < ActionMailer::Base
     end
 
     subs = {}
-    subs['aceptar'] = options[:confirmation_code].present? ? "#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{options[:confirmation_code].to_s}" : '#'
-    subs['rechazar'] = options[:confirmation_code].present? ? "#{APP.host}#{ConfirmationsController::REJECT_URL}/#{options[:confirmation_code].to_s}" : '#'
+    subs['aceptar'] = options[:confirmation_code].present? ? "http://#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{options[:confirmation_code].to_s}" : '#'
+    subs['rechazar'] = options[:confirmation_code].present? ? "http://#{APP.host}#{ConfirmationsController::REJECT_URL}/#{options[:confirmation_code].to_s}" : '#'
     subs['nombre'] = options[:user_name].present? ? options[:user_name] : ''
     subs.each_pair do |key, value|
       data.gsub!("{{#{key}}}", value)
