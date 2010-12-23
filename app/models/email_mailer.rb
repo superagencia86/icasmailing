@@ -21,12 +21,9 @@ class EmailMailer < ActionMailer::Base
 
 
   def email(campaign, campaign_recipient, name, code, sent_at = Time.now)
-
     email = campaign_recipient.is_a?(String) ? campaign_recipient : campaign_recipient.recipient.email
     subject    campaign.subject
     recipients email
-    campaign_recipient.update_attribute(:sent_email, true) if !campaign_recipient.is_a?(String)
-
     from "#{campaign.from_name} <#{campaign.from}>"
 
     sent_on    sent_at
@@ -58,7 +55,7 @@ class EmailMailer < ActionMailer::Base
       data.gsub!("{{#{key}}}", value)
     end
 
-
+    campaign_recipient.update_attribute(:sent_email, true) if !campaign_recipient.is_a?(String)
     body :data => data, :html => html
     content_type 'text/html'
   end

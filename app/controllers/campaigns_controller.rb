@@ -83,14 +83,6 @@ class CampaignsController < InheritedResources::Base
       Delayed::Job.enqueue(SendCampaignJob.new(@campaign.id))
       Activity.report(current_user, :sent, @campaign)
 
-      # Sent to background emails = [] @campaign.campaign_recipients.valids.each do |campaign_recipient|
-      #   if (email = campaign_recipient.recipient.email).present? && (emails & [email]).blank?
-      #     EmailMailer.queue(:email, @campaign, campaign_recipient)
-      #     # Mail.queue(EmailMailer.create_email(@campaign, campaign_recipient))
-      #     emails << email
-      #   end
-      # end
-
       flash[:notice] = "Campaña tramitada a envío"
       redirect_to campaigns_path
     end
