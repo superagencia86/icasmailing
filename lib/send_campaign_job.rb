@@ -9,9 +9,11 @@ class SendCampaignJob < Struct.new(:campaign_id)
       if (email = recipient.recipient.email).present? && (emails & [email]).blank?
         contact = recipient.contact
         if contact
-          EmailMailer.queue(:email, campaign, recipient, contact.name, contact.confirmation_code)
+          # EmailMailer.queue(:email, campaign, recipient, contact.name, contact.confirmation_code)
+          EmailMailer.deliver_email!(campaign, recipient, contact.name, contact.confirmation_code)
         else
-          EmailMailer.queue(:email, campaign, recipient, '', '#')
+          # EmailMailer.queue(:email, campaign, recipient, '', '#')
+          EmailMailer.deliver_email!(campaign, recipient, '', '#')
         end
         emails << email
       end
