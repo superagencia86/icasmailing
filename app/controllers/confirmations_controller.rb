@@ -6,14 +6,15 @@ class ConfirmationsController < ApplicationController
 
   def accept
     if !@contact.confirmed?
-      EmailMailer.queue(:accept_subscription, @contact.email, @contact.name, @contact.confirmation_code)
       @contact.update_attribute(:confirmed, true)
+      EmailMailer.queue(:accept_subscription, @contact.email, @contact.name, @contact.confirmation_code)
     end
     redirect_to 'http://www.icas-sevilla.org/spip.php?article3651'
   end
 
   def reject
     @contact.update_attribute(:confirmed, false)
+    EmailMailer.queue(:reject_subscription, @contact.email, @contact.name, @contact.confirmation_code)
     redirect_to 'http://www.icas-sevilla.org/spip.php?article3680'
   end
 
