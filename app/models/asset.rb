@@ -1,5 +1,4 @@
 require 'zip/zip'
-require 'hpricot'
 class Asset < ActiveRecord::Base
   belongs_to :campaign
 
@@ -25,11 +24,11 @@ class Asset < ActiveRecord::Base
   end
 
   def self.sanitize_image(line)
-    doc = Hpricot(line)
+    doc = Nokogiri::HTML(line)
     if (imgs = doc.search("img")).present?
       for img in imgs
         src = img.attributes["src"]
-        line.gsub!(src, src.split("/").last)
+        line.gsub!(src.to_s, src.to_s.split("/").last)
       end
     end
 

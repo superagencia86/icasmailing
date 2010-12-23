@@ -11,7 +11,7 @@ Rails::Initializer.run do |config|
   config.gem "authlogic"
   config.gem "aasm"
   config.gem "haml"
-  config.gem "hpricot"
+  config.gem "nokogiri"
   config.gem "inherited_resources", :version => '=1.0.3'
   config.gem "easy_roles", :version => '=0.4.2'
   config.gem "cancan", :version => '1.0.2'
