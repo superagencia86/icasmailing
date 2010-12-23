@@ -15,6 +15,7 @@ class SendCampaignJob < Struct.new(:campaign_id)
           # EmailMailer.queue(:email, campaign, recipient, '', '#')
           EmailMailer.deliver_email!(campaign, recipient, '', '#')
         end
+        sleep 0.1
         emails << email
       end
     end
