@@ -134,7 +134,7 @@ class SubscriberListsController < InheritedResources::Base
     end
     
     tmp_dir = File.join(Rails.root, 'tmp')
-    book.write (excel_file = File.join(tmp_dir, "#{@subscriber_list.name}.xls"))
+    book.write(excel_file = File.join(tmp_dir, "#{@subscriber_list.name}.xls"))
     send_file(excel_file)
   end
 

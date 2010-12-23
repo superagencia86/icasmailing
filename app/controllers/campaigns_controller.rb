@@ -77,8 +77,7 @@ class CampaignsController < InheritedResources::Base
     if params[:test].present?
       email = params[:receivers]
       name = email.split('@')[0]
-      EmailMailer.deliver_email!(@campaign, email,
-        {:confirmation_code => '#prueba', :user_name => name}) if params[:receivers]
+      EmailMailer.deliver_email!(@campaign, email, name, '#') if params[:receivers]
       flash[:notice] = "Email de prueba enviado!"
     elsif params[:send].present?
       Delayed::Job.enqueue(SendCampaignJob.new(@campaign.id))

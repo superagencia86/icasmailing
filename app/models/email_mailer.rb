@@ -20,8 +20,7 @@ class EmailMailer < ActionMailer::Base
   end
 
 
-  def email(campaign, campaign_recipient, options = {})
-    options = {:sent_at => Time.now, :confirmation_code => nil}.merge(options)
+  def email(campaign, campaign_recipient, name, code, sent_at = Time.now)
 
     email = campaign_recipient.is_a?(String) ? campaign_recipient : campaign_recipient.recipient.email
     subject    campaign.subject
@@ -34,7 +33,7 @@ class EmailMailer < ActionMailer::Base
       from     campaign.from
     end
 
-    sent_on    options[:sent_at]
+    sent_on    sent_at
     reply_to   campaign.reply_to
 
     if campaign.body.present?
@@ -56,9 +55,9 @@ class EmailMailer < ActionMailer::Base
     end
 
     subs = {}
-    subs['aceptar'] = options[:confirmation_code].present? ? "http://#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{options[:confirmation_code].to_s}" : '#'
-    subs['rechazar'] = options[:confirmation_code].present? ? "http://#{APP.host}#{ConfirmationsController::REJECT_URL}/#{options[:confirmation_code].to_s}" : '#'
-    subs['nombre'] = options[:user_name].present? ? options[:user_name] : ''
+    subs['aceptar'] = "http://#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{code}"
+    subs['rechazar'] = "http://#{APP.host}#{ConfirmationsController::REJECT_URL}/#{code}"
+    subs['nombre'] = name
     subs.each_pair do |key, value|
       data.gsub!("{{#{key}}}", value)
     end

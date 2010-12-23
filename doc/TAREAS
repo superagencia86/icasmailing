@@ -10,4 +10,6 @@
 6. Implementar que en el listado de "listas de envío" se vean el total de usuarios confirmados: 
 7. Pruebas: 
 
-
+r = CampaignRecipient.find 802
+r.update_attribute(:sent_email, false)
+Delayed::Job.enqueue(SendCampaignJob.new(11))
