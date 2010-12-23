@@ -1,20 +1,20 @@
 class EmailMailer < ActionMailer::Base
   def accept_subscription(email, name, reject_code)
-    subject 'Has aceptado su suscripción'
+    subject 'Has decidido conocer toda la Cultura de Sevilla'
     recipients email
-    from 'suscripciones@icas-sevilla.org'
+    from 'Comunicaciones ICAS <comunicaciones@icasmailing.org>'
     sent_on Time.now
-    reply_to 'suscripciones@icas-sevilla.org'
+    from 'Comunicaciones ICAS <comunicaciones@icasmailing.org>'
     content_type 'text/html'
     body :name => name, :code => "http://#{APP.host}#{ConfirmationsController::REJECT_URL}/#{reject_code}"
   end
 
   def reject_subscription(email, name, reject_code)
-    subject 'Has rechazado su suscripción'
+    subject 'Has decidido dejar de recibir toda la Cultura de Sevilla en tu email'
     recipients email
-    from 'suscripciones@icas-sevilla.org'
+    from 'Comunicaciones ICAS <comunicaciones@icasmailing.org>'
     sent_on Time.now
-    reply_to 'suscripciones@icas-sevilla.org'
+    from 'Comunicaciones ICAS <comunicaciones@icasmailing.org>'
     content_type 'text/html'
     body :name => name, :code => "http://#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{reject_code}"
   end
