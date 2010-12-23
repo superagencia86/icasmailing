@@ -49,18 +49,19 @@ class Campaign < ActiveRecord::Base
 
   aasm_event :sended do
     transitions :to => :sent, :from => [:sent]
-  end  
+  end
 
   def asset_html=(value)
     self.assets.html.destroy if self.assets.html
 
-    tmp = Tempfile.new("temp.html")
+    filename = File.join(Rails.root, "tmp", "file-#{self.id}.html")
+    tmp = File.new(filename, "w")
     value.each do |line|
       tmp.puts Asset.sanitize_image(line) if line
     end
     tmp.close
 
-    self.assets.build(:data => tmp.open, :data_type => "html")
+    self.assets.build(:data => File.new(filename, "r"), :data_type => "html")
   end
 
   def asset_images=(value)
@@ -78,7 +79,6 @@ class Campaign < ActiveRecord::Base
       # Corregir
     end
   end
-
 
   def subscriber_list_ids_with_subscribing=(args)
     args.each do |subscriber_list_id|

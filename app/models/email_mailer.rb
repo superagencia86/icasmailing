@@ -6,11 +6,11 @@ class EmailMailer < ActionMailer::Base
     recipients email
     campaign_recipient.update_attribute(:sent_email, true) if !campaign_recipient.is_a?(String)
 
-    if campaign.from_name.present?
-      from     "#{campaign.from_name} <#{campaign.from}>"
-    else
-      from     campaign.from
-    end
+    # if campaign.from_name.present?
+    from "#{campaign.from_name} <#{campaign.from}>"
+    # else
+    #   from campaign.from
+    # end
 
     sent_on    sent_at
     reply_to   campaign.reply_to

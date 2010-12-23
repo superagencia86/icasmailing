@@ -1,4 +1,5 @@
 require 'zip/zip'
+require 'hpricot'
 class Asset < ActiveRecord::Base
   belongs_to :campaign
 
@@ -24,15 +25,14 @@ class Asset < ActiveRecord::Base
   end
 
   def self.sanitize_image(line)
-    hit = line.match(/(http)?\.?\/.*\.(jpg|gif|png)/)
-    if !hit.nil?
-      line.gsub!(hit.to_s, hit.to_s.split("/").last)
-      line.gsub!("http:", "")
-      return line
+    doc = Hpricot(line)
+    if (imgs = doc.search("img")).present?
+      for img in imgs
+        src = img.attributes["src"]
+        line.gsub!(src, src.split("/").last)
+      end
     end
 
     line
   end
-  
-
 end
