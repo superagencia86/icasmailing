@@ -1,0 +1,15 @@
+
+1. Instalar nueva versión en el servidor:
+2. Permitir insertar {{confirmacion}} dentro de los emails: 
+3. Añadir página de confirmación
+  3.1 Implementar funcionalidad de confirmación: 
+  3.2 Enviar email de que ha sido confirmado: 
+  3.3 Implementar página de "Ha sido confirmado" con un diseño simple: 
+4. Implementar que el usuario ICAS sólo vea contactos confirmados: 
+5. Implementar que al editar un contacto (por el usuario ICAS) pueda ver y editar el estado de confirmación: 
+6. Implementar que en el listado de "listas de envío" se vean el total de usuarios confirmados: 
+7. Pruebas: 
+
+r = CampaignRecipient.find 802
+r.update_attribute(:sent_email, false)
+Delayed::Job.enqueue(SendCampaignJob.new(11))

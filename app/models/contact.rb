@@ -63,6 +63,10 @@ class Contact < ActiveRecord::Base
     self.contact_subtype_id = nil if self.contact_type_id != 2
   end
 
+  def confirmation_code
+    "#{id}/#{Digest::MD5.hexdigest(id.to_s)}"
+  end
+
   def self.import(excel, user)
     excel = Spreadsheet.open(excel)
     values = excel.worksheet 0

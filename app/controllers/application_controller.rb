@@ -88,6 +88,13 @@ class ApplicationController < ActionController::Base
         if params[:filter][:active] == 'false'
           conditions << "(contacts.id NOT IN (Select contact_id from subscribers where subscribers.subscriber_list_id = ? AND subscribers.active = 1))"
         end
+
+        if params[:filter][:confirmed] == 'true'
+          conditions << "(confirmed = TRUE)"
+        end
+      end
+      if params[:solo] == 'confirmados'
+        conditions << "(confirmed = TRUE)"
       end
       conditions.join(" AND ")
     end

@@ -1,0 +1,38 @@
+
+<h1>Gestión de tareas de mailing</h1>
+<p>Esta zona es para la monitorización de eventos de la aplicación: en princìpio no
+  deberías necesitar hacer nada aquí</p>
+<table>
+  <thead>
+    <tr>
+      <td>Prioridad</td>
+      <td>Nº intentos</td>
+      <td>Handler</td>
+      <td>Error</td>
+      <td>Fecha</td>
+      <td>Fecha de fallo</td>
+      <td>Bloquado por</td>
+      <td>Fecha creación</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @jobs.each do |job| %>
+      <tr>
+        <td><%= job.priority %></td>
+        <td><%= job.attempts %></td>
+        <td><%= job.handler %></td>
+        <td><%= job.last_error %></td>
+        <td><%= job.run_at %></td>
+        <td><%= job.failed_at %></td>
+        <td><%= job.locked_by %></td>
+        <td><%= job.created_at %></td>
+        <td>
+          <%= link_to 'Eliminar', {:action=> 'destroy', :id => job.id}, :method => :delete,
+            :confirm => 'Esto impedirá que se realize esa tarea. CUIDADO!! ¿Estás seguro?' %>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

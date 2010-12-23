@@ -1,0 +1,9 @@
+<% if @contact.confirmed?  %>
+  <h1><%= @contact.name %>, has aceptado tu inclusión</h1>
+  <p>Esto es el texto explicativo</p>
+  <%= link_to 'Rechazar confirmación', "#{ConfirmationsController::REJECT_URL}/#{@contact.confirmation_code}" %>
+<% else %>
+  <h1><%= @contact.name %>, has rechazado tu inclusión</h1>
+  <p>Esto es el texto explicativo</p>
+  <%= link_to 'Aceptar confirmación', "#{ConfirmationsController::ACCEPT_URL}/#{@contact.confirmation_code}" %>
+<% end %>

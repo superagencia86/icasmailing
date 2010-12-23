@@ -366,6 +366,10 @@ input.btn:hover, a.btn:hover {
   -webkit-border-top-left-radius: 7px;
   -webkit-border-bottom-left-radius: 7px; }
 
+.confirmed {
+  float: left;
+  margin-right: -2em; }
+
 .indent {
   margin-left: 88px; }
 
@@ -593,6 +597,17 @@ input.btn:hover, a.btn:hover {
   .menu a:hover {
     background: mediumblue;
     color: white; }
+
+.truncate {
+  height: 1em;
+  overflow: hidden;
+  border: 1px solid #efefef;
+  width: 20em;
+  padding: 0 1em; }
+
+div.truncate:hover {
+  height: auto;
+  border: 1px solid gray; }
 
 .errorExplanation {
   background-color: seashell;

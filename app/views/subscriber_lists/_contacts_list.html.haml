@@ -13,6 +13,7 @@
 
         .indentslim
           = contact.full_name << " - "
+          = contact.confirmed? ? ' (confirmado) - ' : '(sin confirmar) - '
           %tt
             - if contact.user.present?
               - unless contact.from_form

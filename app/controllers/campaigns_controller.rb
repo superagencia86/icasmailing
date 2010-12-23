@@ -75,15 +75,15 @@ class CampaignsController < InheritedResources::Base
 
   def test
     if params[:test].present?
-      EmailMailer.deliver_email!(@campaign, params[:receivers]) if params[:receivers]
+      email = params[:receivers]
+      name = email.split('@')[0]
+      EmailMailer.deliver_email!(@campaign, email, name, '#') if params[:receivers]
       flash[:notice] = "Email de prueba enviado!"
     elsif params[:send].present?
       Delayed::Job.enqueue(SendCampaignJob.new(@campaign.id))
       Activity.report(current_user, :sent, @campaign)
 
-      # Sent to background
-      # emails = []
-      # @campaign.campaign_recipients.valids.each do |campaign_recipient|
+      # Sent to background emails = [] @campaign.campaign_recipients.valids.each do |campaign_recipient|
       #   if (email = campaign_recipient.recipient.email).present? && (emails & [email]).blank?
       #     EmailMailer.queue(:email, @campaign, campaign_recipient)
       #     # Mail.queue(EmailMailer.create_email(@campaign, campaign_recipient))
@@ -97,26 +97,26 @@ class CampaignsController < InheritedResources::Base
   end
   
   protected
-    def authorized
-      unauthorized! if params[:id] && cannot?(:manage, resource)
-    end
+  def authorized
+    unauthorized! if params[:id] && cannot?(:manage, resource)
+  end
 
-    def begin_of_association_chain
-      current_space
-    end  
+  def begin_of_association_chain
+    current_space
+  end
     
-    def collection
-      paginate_options ||= {}
-      paginate_options[:page] ||= (params[:page] || 1)
-      paginate_options[:per_page] ||= (params[:per_page] || 20)
-      @campaigns ||= end_of_association_chain.paginate(paginate_options)
-    end
+  def collection
+    paginate_options ||= {}
+    paginate_options[:page] ||= (params[:page] || 1)
+    paginate_options[:per_page] ||= (params[:per_page] || 20)
+    @campaigns ||= end_of_association_chain.paginate(paginate_options)
+  end
 
-    def save_or_go_to(path)
-      if params[:commit] =~ /^Guardar$/        
-        redirect_to campaigns_path 
-      else
-        redirect_to path
-      end
+  def save_or_go_to(path)
+    if params[:commit] =~ /^Guardar$/
+      redirect_to campaigns_path
+    else
+      redirect_to path
     end
+  end
 end
