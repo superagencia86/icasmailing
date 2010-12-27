@@ -29,6 +29,7 @@ class Asset < ActiveRecord::Base
       for img in imgs
         src = img.attributes["src"]
         line.gsub!(src.to_s, src.to_s.split("/").last)
+        line = "http://#{APP.host}/campaign/#{campaign.id}/images/#{line}"
       end
     end
 

@@ -9,6 +9,7 @@ set :domain, "superagencia86.com"
 server domain, :app, :web
 role :db, domain, :primary => true
 set :deploy_to, "/home/superage/produccion/#{application}"
+# set :deploy_to, "/var/www/superage/icasmailing"
 set :rails_env, 'production'
 
 #############################################################
@@ -22,8 +23,9 @@ set :use_sudo, false
 #############################################################
 #	Servers
 #############################################################
- 
-set :user, "superage"
+
+set :user, "superage" 
+# set :user, "deploy"
  
 #############################################################
 #	Git

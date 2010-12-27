@@ -36,7 +36,7 @@ class EmailMailer < ActionMailer::Base
       html = true
       file = campaign.assets.html.data.url.split("?").first
       data = File.read(File.join(Rails.root, "public", file))
-      data.gsub!("<head>", "<head>\n<base href='http://#{APP.host}/campaign/#{campaign.id}/images/' />")
+      # data.gsub!("<head>", "<head>\n<base href='http://#{APP.host}/campaign/#{campaign.id}/images/' />")
     end
 
 
