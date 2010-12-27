@@ -47,13 +47,13 @@ class EmailMailer < ActionMailer::Base
       end 
     end
 
-    subs = {}
-    subs['aceptar'] = "http://#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{code}"
-    subs['rechazar'] = "http://#{APP.host}#{ConfirmationsController::REJECT_URL}/#{code}"
-    subs['nombre'] = name
-    subs.each_pair do |key, value|
-      data = data.gsub("{{#{key}}}", value)
-    end
+    # subs = {}
+    # subs['aceptar'] = "http://#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{code}"
+    # subs['rechazar'] = "http://#{APP.host}#{ConfirmationsController::REJECT_URL}/#{code}"
+    # subs['nombre'] = name
+    # subs.each_pair do |key, value|
+    #   data = data.gsub("{{#{key}}}", value)
+    # end
 
     campaign_recipient.update_attribute(:sent_email, true) if !campaign_recipient.is_a?(String)
     body :data => data, :html => html
