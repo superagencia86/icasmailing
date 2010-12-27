@@ -52,7 +52,7 @@ class EmailMailer < ActionMailer::Base
     subs['rechazar'] = "http://#{APP.host}#{ConfirmationsController::REJECT_URL}/#{code}"
     subs['nombre'] = name
     subs.each_pair do |key, value|
-      data.gsub!("{{#{key}}}", value)
+      data = data.gsub("{{#{key}}}", value)
     end
 
     campaign_recipient.update_attribute(:sent_email, true) if !campaign_recipient.is_a?(String)
