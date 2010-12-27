@@ -57,7 +57,7 @@ class Campaign < ActiveRecord::Base
     filename = File.join(Rails.root, "tmp", "file-#{self.id}.html")
     tmp = File.new(filename, "w")
     value.each do |line|
-      tmp.puts Asset.sanitize_image(line) if line
+      tmp.puts Asset.sanitize_image(line, self) if line
     end
     tmp.close
 

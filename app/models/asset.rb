@@ -23,7 +23,7 @@ class Asset < ActiveRecord::Base
     }
   end
 
-  def self.sanitize_image(line)
+  def self.sanitize_image(line, campaign)
     doc = Nokogiri::HTML(line)
     if (imgs = doc.search("img")).present?
       for img in imgs
