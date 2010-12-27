@@ -28,8 +28,7 @@ class Asset < ActiveRecord::Base
     if (imgs = doc.search("img")).present?
       for img in imgs
         src = img.attributes["src"]
-        line.gsub!(src.to_s, src.to_s.split("/").last)
-        line = "http://#{APP.host}/campaign/#{campaign.id}/images/#{line}"
+        line.gsub!(src.to_s, "http://#{APP.host}/campaign/#{campaign.id}/images/#{src.to_s.split("/").last}")
       end
     end
 
