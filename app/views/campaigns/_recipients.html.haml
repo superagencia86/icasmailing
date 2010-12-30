@@ -4,7 +4,7 @@
     -# - campaign_recipient = @campaign_recipients.select{|cr| cr.recipient_id == recipient.id && cr.campaign_id == @campaign.id}.first
     %li
       - checked = !campaign_recipient.sent_email && campaign_recipient.active && recipient.email.present? 
-      - disabled = campaign_recipient.sent_email || recipient.email.blank?
+      - disabled = recipient.email.blank? # campaign_recipient.sent_email || 
       - if current_user.is_admin?
         - checked = checked && recipient.confirmed
         - disabled = disabled || !recipient.confirmed?
@@ -15,6 +15,6 @@
       = recipient.email.present? ? recipient.email : "Sin email"
       - if campaign_recipient.sent_email
         \-
-        Campaña ya enviada a este usuario
+        %b CUIDADO: Campaña ya enviada a este usuario!
       
       
