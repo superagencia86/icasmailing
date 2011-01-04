@@ -46,8 +46,7 @@ class CampaignsController < InheritedResources::Base
       # Set active attribute
       if params[:campaign_recipient_ids].present?
         @campaign.campaign_recipients.update_all({:active => false}, "active = 1 AND recipient_id NOT IN (#{params[:campaign_recipient_ids].join(', ')})")
-
-        @campaign.campaign_recipients.update_all({:active => true}, "active = 0 AND recipient_id IN (#{params[:campaign_recipient_ids].join(', ')})")
+        @campaign.campaign_recipients.update_all({:active => true, :sent_email => false}, "recipient_id IN (#{params[:campaign_recipient_ids].join(', ')})")
       end
       # for campaign_recipient in @campaign.campaign_recipients
       #   if campaign_recipient.active && !params[:campaign_recipient_ids].include?(campaign_recipient.recipient_id.to_s)
