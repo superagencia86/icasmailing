@@ -1,10 +1,15 @@
 .title
   %span= "#{@campaign.name}: Selección de listas"
 
+
+
 - form_for @campaign, :url => subscribers_campaign_path(@campaign) do |f|
   .remote
     = f.error_messages 
     .section
+      = link_to 'Seleccionar todos', '#', :id => 'select_all_contacts'
+      |
+      = link_to 'Seleccionar ninguno', '#', :id => 'select_none_contacts'
       %ul
         - for subscriber_list in @subscriber_lists
           %li.top
