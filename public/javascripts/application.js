@@ -1,11 +1,29 @@
+if (typeof console == "undefined" || typeof console.log == "undefined") {
+  console = {
+    log : function() {},
+    debug : function() {}
+  };
+}
+
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 $(document).ready(function() {
   $('#company_submit').click( submit_company );
-  $('#institution_type_name').live("keypress", function(event){ if (event.keyCode == '13') {submit_institution(); event.preventDefault(); }});
+  $('#institution_type_name').live("keypress", function(event){
+    if (event.keyCode == '13') {
+      submit_institution();
+      event.preventDefault();
+    }
+  });
   $('#institution_submit').click( submit_institution );
-  $('#new_company_link').live("click", function(){ $("#company_div").toggle(); $("#company_select").toggle();} );
-  $('#new_institution_link').live("click", function(){ $("#institution_div").toggle(); $("#institution_select").toggle();} );
+  $('#new_company_link').live("click", function(){
+    $("#company_div").toggle();
+    $("#company_select").toggle();
+  } );
+  $('#new_institution_link').live("click", function(){
+    $("#institution_div").toggle();
+    $("#institution_select").toggle();
+  } );
 
   // Subscriber form
   value = $("#subscriber_list_contact_type_id option:selected, #contact_contact_type_id option:selected").val();
@@ -77,8 +95,8 @@ $(document).ready(function() {
   }
 
   $(".share_list_link").click(function(e){
-    $(".share_form").hide();
-    $(this).next().next().next().show();
+    var form = $(this).nextAll('form');
+    form.toggle();
     e.preventDefault();
   });
 
@@ -113,17 +131,25 @@ function submit_company(e) {
   var user_id = $('#company_user_id').attr('value');
   var f = $('#company_form').attr('value');
 
-  $.post('/companies/create', {'company[name]': name, 'company[user_id]': user_id, 'f': f}, null, "script" ); 
-	e.preventDefault;
+  $.post('/companies/create', {
+    'company[name]': name,
+    'company[user_id]': user_id,
+    'f': f
+  }, null, "script" );
+  e.preventDefault();
   return false;
 }
+
 function submit_institution(e) {
   var name = $('#institution_type_name').attr('value');
   /* var user_id = $('#institution_type_user_id').attr('value'); */
   var f = $('#institution_type_form').attr('value');
 
-  $.post('/institution_types/create', {'institution_type[name]': name, 'f': f}, null, "script" ); 
-	e.preventDefault;
+  $.post('/institution_types/create', {
+    'institution_type[name]': name,
+    'f': f
+  }, null, "script" );
+  e.preventDefault;
   return false;
 }
 
@@ -136,7 +162,12 @@ var crm = {
       }
       $("loading").show();
       $(list).css("opacity", "0.4");
-      $.get("/" + controller + "/search", {query: query, list: list}, function(){ $(list).css("opacity", "1"); }, "script");
+      $.get("/" + controller + "/search", {
+        query: query,
+        list: list
+      }, function(){
+        $(list).css("opacity", "1");
+      }, "script");
     }
   }
 }
