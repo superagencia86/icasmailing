@@ -175,15 +175,27 @@
     }
 
     $("#select_all_contacts").click(function(e) {
-      $("form input[type=checkbox]").attr('checked', true);
+      $("form input[type=checkbox]:enabled").attr('checked', true);
+      showSelectCountContacts();
       e.stopPropagation();
     });
     $("#select_none_contacts").click(function(e) {
-      $("form input[type=checkbox]").attr('checked', false);
+      $("form input[type=checkbox]:enabled").attr('checked', false);
+      showSelectCountContacts();
       e.stopPropagation();
-    })
+    });
 
-    
+    if ($("#select_count_contacts").length) {
+      $("form input[type=checkbox]").click(function() {
+        showSelectCountContacts();
+      });
+      showSelectCountContacts();
+    }
   }); // JQUERY document.load
+
+  function showSelectCountContacts() {
+    var size = $("form input[type=checkbox]:checked").length;
+    $("#select_count_contacts").html("" + size + " contactos seleccionados.");
+  }
 
 })();

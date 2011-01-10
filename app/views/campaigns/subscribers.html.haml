@@ -7,9 +7,6 @@
   .remote
     = f.error_messages 
     .section
-      = link_to 'Seleccionar todos', '#', :id => 'select_all_contacts'
-      |
-      = link_to 'Seleccionar ninguno', '#', :id => 'select_none_contacts'
       %ul
         - for subscriber_list in @subscriber_lists
           %li.top

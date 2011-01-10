@@ -21,8 +21,14 @@
         %br/
         %h3
           Contactos
+        %span#select_count_contacts
+        %br/
+        = link_to 'Seleccionar todos', '#', :id => 'select_all_contacts'
+        |
+        = link_to 'Seleccionar ninguno', '#', :id => 'select_none_contacts'
+        %br/
+        %br/
         = render :partial => 'recipients', :locals => {:recipients => recipients}
-
   .buttonbar
     = f.submit "Guardar"
     = f.submit "Guardar y definir contenido"
