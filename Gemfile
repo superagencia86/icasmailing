@@ -20,5 +20,6 @@ gem 'exception_notification'
 group :development, :test do
   gem 'mysql'
   gem 'webrat'
+  gem 'capistrano'
 end
 
