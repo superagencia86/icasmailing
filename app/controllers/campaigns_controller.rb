@@ -5,17 +5,13 @@ class CampaignsController < InheritedResources::Base
 
   def create
     create! do |success, failure|
-      success.html { 
-        save_or_go_to(subscribers_campaign_path(@campaign))
-      }
+      success.html { save_or_go_to(subscribers_campaign_path(@campaign)) }
     end
   end
 
   def update
     update! do |success, failure|
-      success.html { 
-        save_or_go_to(subscribers_campaign_path(@campaign))
-      }
+      success.html { save_or_go_to(subscribers_campaign_path(@campaign)) }
     end
   end
 

@@ -1,7 +1,1 @@
-rake db:migrate
-rake db:seed
-rake mailing:setup
-
----
-
-Staging in icasmailing.beecoder.com
+ICAS-MAXWELL

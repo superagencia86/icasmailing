@@ -1,0 +1,76 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    aasm (2.2.0)
+    actionmailer (2.3.8)
+      actionpack (= 2.3.8)
+    actionpack (2.3.8)
+      activesupport (= 2.3.8)
+      rack (~> 1.1.0)
+    activerecord (2.3.8)
+      activesupport (= 2.3.8)
+    activeresource (2.3.8)
+      activesupport (= 2.3.8)
+    activesupport (2.3.8)
+    authlogic (2.1.6)
+      activesupport
+    cancan (1.0.2)
+    daemons (1.1.0)
+    delayed_job (2.0.1)
+      daemons
+    easy_roles (0.4.2)
+    exception_notification (2.3.3.0)
+    haml (3.0.25)
+    has_scope (0.4.2)
+    inherited_resources (1.0.3)
+      has_scope (~> 0.4.2)
+      responders (~> 0.4.3)
+    mysql (2.8.1)
+    nokogiri (1.4.4)
+    paperclip (2.3.8)
+      activerecord
+      activesupport
+    rack (1.1.0)
+    rack-test (0.5.7)
+      rack (>= 1.0)
+    rails (2.3.8)
+      actionmailer (= 2.3.8)
+      actionpack (= 2.3.8)
+      activerecord (= 2.3.8)
+      activeresource (= 2.3.8)
+      activesupport (= 2.3.8)
+      rake (>= 0.8.3)
+    rake (0.8.7)
+    responders (0.4.7)
+    ruby-ole (1.2.11.1)
+    simple-daemon (0.1.2)
+    spreadsheet (0.6.5.0)
+      ruby-ole
+    webrat (0.7.3)
+      nokogiri (>= 1.2.0)
+      rack (>= 1.0)
+      rack-test (>= 0.5.3)
+    will_paginate (2.3.15)
+    zip (2.0.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  aasm
+  authlogic
+  cancan (= 1.0.2)
+  delayed_job (= 2.0.1)
+  easy_roles (= 0.4.2)
+  exception_notification
+  haml
+  inherited_resources (= 1.0.3)
+  mysql
+  nokogiri
+  paperclip
+  rails (= 2.3.8)
+  simple-daemon
+  spreadsheet
+  webrat
+  will_paginate
+  zip

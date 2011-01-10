@@ -1,4 +1,3 @@
-require 'xhtml2pdf'
 class DashboardController < ApplicationController
   before_filter :require_user
 

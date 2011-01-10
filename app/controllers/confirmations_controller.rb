@@ -8,13 +8,17 @@ class ConfirmationsController < ApplicationController
     if !@contact.confirmed?
       @contact.update_attribute(:confirmed, true)
       EmailMailer.queue(:accept_subscription, @contact.email, @contact.name, @contact.confirmation_code)
+      Activity.report(User.find(1), :accept_confirmation, @contact)
     end
     redirect_to 'http://www.icas-sevilla.org/spip.php?article3651'
   end
 
   def reject
-    @contact.update_attribute(:confirmed, false)
-    EmailMailer.queue(:reject_subscription, @contact.email, @contact.name, @contact.confirmation_code)
+    if @contact.confirmed
+      @contact.update_attribute(:confirmed, false)
+      EmailMailer.queue(:reject_subscription, @contact.email, @contact.name, @contact.confirmation_code)
+      Activity.report(User.find(1), :reject_confirmation, @contact)
+    end
     redirect_to 'http://www.icas-sevilla.org/spip.php?article3680'
   end
 

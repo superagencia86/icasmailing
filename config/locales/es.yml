@@ -34,6 +34,9 @@ es:
   action_update: "actualizó"
   action_destroy: "eliminó"
   action_sent: "envió"
+  action_reject_confirmation: "ha cancelado la confirmación de"
+  action_accept_confirmation: "ha aceptado la confirmación de"
+  
 
   item_company:  "una empresa"
   item_proposal: "una propuesta"

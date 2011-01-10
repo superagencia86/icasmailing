@@ -8,9 +8,19 @@ set :application, "icas-mailing"
 set :domain, "superagencia86.com"
 server domain, :app, :web
 role :db, domain, :primary => true
-#set :deploy_to, "/home/superage/produccion/#{application}"
-set :deploy_to, "/var/www/superage/icasmailing"
 set :rails_env, 'production'
+
+#############################################################
+#	Servers
+#############################################################
+#
+
+set :deploy_to, "/home/superage/produccion/#{application}"
+set :user, "superage"
+
+#set :deploy_to, "/var/www/superage/icasmailing"
+#set :user, "deploy"
+
 
 #############################################################
 #	Settings
@@ -20,12 +30,6 @@ default_run_options[:pty] = true
 set :keep_releases, 2
 set :use_sudo, false 
 
-#############################################################
-#	Servers
-#############################################################
-
-#set :user, "superage"
-set :user, "deploy"
  
 #############################################################
 #	Git
@@ -34,7 +38,7 @@ set :user, "deploy"
 set :scm, :git
 set :branch, "master"
 set :scm_user, 'git'
-set :repository,  "git@trunksapp.com:beecoder/icas-maxwell.git"
+set :repository,  "git://github.com/superagencia86/icas-maxwell.git"
 
 # before "deploy:stop_mail_daemon"
 after "deploy:update_code", "db:symlink" # , "deploy:restart_mail_daemon"
