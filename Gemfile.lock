@@ -14,6 +14,7 @@ GEM
     activesupport (2.3.8)
     authlogic (2.1.6)
       activesupport
+    builder (3.0.0)
     cancan (1.0.2)
     capistrano (2.5.19)
       highline
@@ -29,6 +30,9 @@ GEM
     haml (3.0.25)
     has_scope (0.4.2)
     highline (1.6.1)
+    hoptoad_notifier (2.4.2)
+      activesupport
+      builder
     inherited_resources (1.0.3)
       has_scope (~> 0.4.2)
       responders (~> 0.4.3)
@@ -79,6 +83,7 @@ DEPENDENCIES
   easy_roles (= 0.4.2)
   exception_notification
   haml
+  hoptoad_notifier
   inherited_resources (= 1.0.3)
   mysql
   nokogiri

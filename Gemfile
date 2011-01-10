@@ -16,6 +16,7 @@ gem "paperclip"
 gem "simple-daemon"
 gem 'delayed_job',  '2.0.1'
 gem 'exception_notification'
+gem 'hoptoad_notifier'
 
 group :development, :test do
   gem 'mysql'
