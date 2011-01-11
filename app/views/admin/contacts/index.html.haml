@@ -1,0 +1,24 @@
+%h1 Gestión de contactos (administrador)
+= will_paginate(:prev_label => '« Anterior', :next_label => 'Siguiente »')
+%br/
+%br/
+%br/
+%table
+  %thead
+    %tr
+      %td
+      %td Id
+      %td Email
+      %td Nombre
+      %td Espacio
+      %td Incluído
+  %tbody
+    - @contacts.each do |contact|
+      %tr
+        %td= contact.confirmed? ? 'c' : 'x'
+        %td= contact.id
+        %td= contact.email
+        %td= contact.name
+        %td= contact.space.name
+        %td= time_ago_in_words contact.created_at
+

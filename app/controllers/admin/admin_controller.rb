@@ -1,6 +1,8 @@
 # Base class for admin controllers
 
 class Admin::AdminController < ApplicationController
+  # layout 'admin/application'
+
   protected
   def require_admin
     return if current_user.is_superadmin? || current_user.is_admin?

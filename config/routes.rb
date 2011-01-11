@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.root                  :controller => 'dashboard'
-  map.admin    '/admin',    :controller => 'admin/main'
+  map.admin    '/admin',    :controller => 'admin/dashboard'
   map.login    '/login',    :controller => "user_sessions", :action => "new"
   map.logout   '/logout',   :controller => 'user_sessions', :action => 'destroy'
   map.register '/register', :controller => 'users',         :action => 'new'
@@ -20,6 +20,8 @@ ActionController::Routing::Routes.draw do |map|
       space.resources :users
     end
     admin.resources :users
+    admin.resources :contacts, :as => 'contactos'
+    admin.resources :subscriber_lists, :as => 'listas'
   end
 
   map.resources :companies, :collection => {:search => :get}

@@ -1,0 +1,21 @@
+
+
+%h1 Administración
+
+%br/
+%h2 Estadísticas
+= "Número de contactos registrados #{Contact.count}"
+
+%br/
+%br/
+%h2 Gestión
+= link_to 'Contactos', admin_contacts_path
+%br
+= link_to 'Listas', admin_subscriber_lists_path
+%br
+
+%br/
+%br/
+%br/
+%h2 Monitorización
+= link_to 'Trabajos en proceso (información técnica)', admin_jobs_path

@@ -1,0 +1,25 @@
+%h1 Gestión de listas (administrador)
+%br/
+%br/
+%br/
+%table
+  %thead
+    %tr
+      %td Id
+      %td Nombre
+      %td Espacio
+      %td Num contactos
+      %td Compartida con
+      %td Inteligente
+      %td Hace
+  %tbody
+    - @lists.each do |list|
+      %tr
+        %td= list.id
+        %td= list.name
+        %td= list.space.name
+        %td= list.subscribers.size
+        %td= list.shared_lists.map{|s| s.space.name }.join(',')
+        %td= list.updating_contacts? ? 'Si' : 'No'
+        %td= time_ago_in_words list.created_at
+

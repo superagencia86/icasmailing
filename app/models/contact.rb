@@ -1,3 +1,6 @@
+
+
+
 class Contact < ActiveRecord::Base
   SUBSCRIBER_TYPES = os_array(["Público general", "Medios de comunicación", "Artista - profesional", "Instituciones"])
   SUBSCRIBER_SUBTYPES = os_array(["Organismo público", "Responsable político", "Empresa privada", "Espacio cultural", "Artista", "ICAS"])

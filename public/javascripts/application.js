@@ -34,24 +34,7 @@
     return false;
   }
 
-  var crm = {
-    search: function(query, controller) {
-      if (!this.request) {
-        var list = "#" + controller;          // ex. "users"
-        if (list.indexOf("/") >= 0) {   // ex. "admin/users"
-          list = list.split("/")[1];
-        }
-        $("loading").show();
-        $(list).css("opacity", "0.4");
-        $.get("/" + controller + "/search", {
-          query: query,
-          list: list
-        }, function(){
-          $(list).css("opacity", "1");
-        }, "script");
-      }
-    }
-  }
+
 
 
   // Place your application-specific JavaScript functions and classes here
@@ -174,6 +157,8 @@
       }
     }
 
+    // Seleccionar o deseleccionar todos los usuarios
+    // URL: /campañas/XX/selection
     $("#select_all_contacts").click(function(e) {
       $("form input[type=checkbox]:enabled").attr('checked', true);
       showSelectCountContacts();
@@ -199,3 +184,22 @@
   }
 
 })();
+
+var crm = {
+  search: function(query, controller) {
+    if (!this.request) {
+      var list = "#" + controller;          // ex. "users"
+      if (list.indexOf("/") >= 0) {   // ex. "admin/users"
+        list = list.split("/")[1];
+      }
+      $("loading").show();
+      $(list).css("opacity", "0.4");
+      $.get("/" + controller + "/search", {
+        query: query,
+        list: list
+      }, function(){
+        $(list).css("opacity", "1");
+      }, "script");
+    }
+  }
+}

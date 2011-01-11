@@ -1,3 +1,12 @@
+# == Schema Information
+# Schema version: 20101214111833
+#
+# Table name: hobbies
+#
+#  id   :integer(4)      not null, primary key
+#  name :string(255)
+#
+
 class Hobby < ActiveRecord::Base
   FROM_EXCEL = {
     'Archivo'   => 'Archivo, Hemeroteca y Publicaciones',

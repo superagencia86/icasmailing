@@ -27,6 +27,7 @@ GEM
       daemons
     easy_roles (0.4.2)
     exception_notification (2.3.3.0)
+    fastercsv (1.5.4)
     haml (3.0.25)
     has_scope (0.4.2)
     highline (1.6.1)
@@ -82,6 +83,7 @@ DEPENDENCIES
   delayed_job (= 2.0.1)
   easy_roles (= 0.4.2)
   exception_notification
+  fastercsv
   haml
   hoptoad_notifier
   inherited_resources (= 1.0.3)
