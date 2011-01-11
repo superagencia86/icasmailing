@@ -14,13 +14,21 @@
           %td(valign="top")
             .label.top= "HTML"
             - if @campaign.assets.html.present?
-              = link_to "Ver html actual", @campaign.assets.html.data.url 
+              Esta campaña tiene un html asociado:
+              = link_to "Ver html actual", @campaign.assets.html.data.url
+              %br/
+              Puedes sustituir el html por otro:
               %br/
             = f.file_field :asset_html
 
         %tr
           %td{ :valign => :top }
             .label.top Imágenes
+            - if @campaign.assets.images.present?
+              = "Esta campaña tiene #{@campaign.assets.images.length} de imágenes asociadas."
+              %br/
+              Puedes sustituir éstas por otras subiendo un fichero zip.
+              %br/
             = f.file_field :asset_images
             .info= "Fichero zip con las imágenes"
 

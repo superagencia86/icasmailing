@@ -263,7 +263,8 @@ tt {
   margin: 8px 0px 0px 0px; }
 
 .top {
-  margin: 5px 0px 0px 0px; }
+  margin: 5px 0px 0px 0px;
+  font-weight: bold; }
 
 .req {
   color: #b71739; }
