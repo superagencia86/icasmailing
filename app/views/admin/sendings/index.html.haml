@@ -1,0 +1,20 @@
+%h1= "Envíos de '#{@campaign.name}'"
+%br/
+%br/
+%br/
+%table
+  %thead
+    %tr
+      %td Id
+      %td Contacto
+      %td Enviado hace
+  %tbody
+    - @sendings.each do |sending|
+      %tr
+        %td= sending.id
+        %td
+          = "#{sending.campaign_recipients.size} contactos en total<br/>"
+          = "#{sending.campaign_recipients.sent.size} contactos a los que se les ha enviado<br/>"
+          = sending.campaign_recipients(:include => :recipient).map{|cr| cr.recipient ? cr.recipient.name : cr.recipient_type}.join(', ')
+        %td= time_ago_in_words sending.sent_at
+

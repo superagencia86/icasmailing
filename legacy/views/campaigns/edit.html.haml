@@ -1,0 +1,10 @@
+.title 
+  %span= "Editar campaña"
+  
+- form_for(resource) do |f|
+  = f.error_messages
+  = render 'form', :f => f
+
+  .buttonbar
+    = f.submit "Guardar" 
+    = f.submit "Guardar y seleccionar listas"

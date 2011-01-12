@@ -1,0 +1,9 @@
+- title "Campaña: %s" % resource.name
+  
+- show_for resource do |u|
+  = u.attribute :name 
+  
+%p.actions
+  = link_to 'Editar', edit_resource_path(resource)
+  o
+  = link_to 'volver al listado campañas', campaigns_path()

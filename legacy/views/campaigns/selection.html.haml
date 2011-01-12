@@ -1,0 +1,35 @@
+.title
+  %span= "#{@campaign.name}: Selección de remitentes"
+
+- form_for @campaign, :url => selection_campaign_path(@campaign) do |f|
+  .remote
+    = f.error_messages
+    .section
+      - if (recipients = @campaign.subscriber_recipients).present?
+        %br/
+        %h3
+          Subscriptores
+        = render :partial => 'recipients', :locals => {:recipients => recipients}
+
+      - if (recipients = @campaign.company_recipients).present?
+        %br/
+        %h3
+          Empresas
+        = render :partial => 'recipients', :locals => {:recipients => recipients}
+
+      - if (recipients = @campaign.contact_recipients).present?
+        %br/
+        %h3
+          Contactos
+        %span#select_count_contacts
+        %br/
+        = link_to 'Seleccionar todos', '#', :id => 'select_all_contacts'
+        |
+        = link_to 'Seleccionar ninguno', '#', :id => 'select_none_contacts'
+        %br/
+        %br/
+        = render :partial => 'recipients', :locals => {:recipients => recipients}
+  .buttonbar
+    = f.submit "Guardar"
+    = f.submit "Guardar y definir contenido"
+

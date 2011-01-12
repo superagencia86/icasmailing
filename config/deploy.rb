@@ -75,3 +75,35 @@ namespace :deploy do
   #   run "RAILS_ENV=production ruby #{release_path}/lib/mail_daemon.rb restart"
   # end
 end
+
+namespace :mysql do
+  desc "Backup the remote production database"
+  task :backup, :roles => :db, :only => { :primary => true } do
+    filename = "#{application}.dump.#{Time.now.to_i}.sql.bz2"
+    file = "/tmp/#{filename}"
+    on_rollback { delete file }
+    production = YAML::load(ERB.new(IO.read(File.join(File.dirname(__FILE__), 'database.yml'))).result)['production']
+    run "mysqldump -u #{production['username']} --password=#{production['password']} #{production['database']} | bzip2 -c > #{file}"  do |ch, stream, data|
+      puts data
+    end
+    `mkdir -p #{File.dirname(__FILE__)}/../backups/`
+    get file, "backups/#{filename}"
+    `gpg -c #{File.dirname(__FILE__)}/../backups/#{filename}`
+    `rm #{File.dirname(__FILE__)}/../backups/#{filename}`
+    # delete file
+  end
+
+  task :download, :roles => :db, :only => { :primary => true } do
+    filename = "#{application}.dump.sql"
+    file = "/tmp/#{filename}"
+    on_rollback { delete file }
+    db = YAML::load(ERB.new(IO.read(File.join(File.dirname(__FILE__), 'database.yml'))).result)
+    production = db['production']
+    run "mysqldump -u #{production['username']} --password=#{production['password']} #{production['database']} > #{file}"  do |ch, stream, data|
+      puts data
+    end
+    get file, "tmp/#{filename}"
+    #`mysql -u root -p booka < tmp/#{filename}`
+    # delete file
+  end
+end

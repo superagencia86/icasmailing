@@ -1,0 +1,20 @@
+%ul
+  - for recipient in recipients
+    - campaign_recipient = @campaign_recipients.find_by_recipient_id_and_campaign_id(recipient.id, @campaign.id)
+    -# - campaign_recipient = @campaign_recipients.select{|cr| cr.recipient_id == recipient.id && cr.campaign_id == @campaign.id}.first
+    %li
+      - checked = !campaign_recipient.sent_email && campaign_recipient.active && recipient.email.present? 
+      - disabled = recipient.email.blank? # campaign_recipient.sent_email || 
+      - if current_user.is_admin?
+        - checked = checked && recipient.confirmed
+        - disabled = disabled || !recipient.confirmed?
+      = check_box_tag "campaign_recipient_ids[]", recipient.id, checked, :disabled => disabled
+      = recipient.name
+      
+      \-
+      = recipient.email.present? ? recipient.email : "Sin email"
+      - if campaign_recipient.sent_email
+        \-
+        %b CUIDADO: Campaña ya enviada a este usuario!
+      
+      

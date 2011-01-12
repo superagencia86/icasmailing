@@ -2,6 +2,7 @@ class Campaign < ActiveRecord::Base
   include AASM
 
   belongs_to :space
+  has_many :sendings
   has_and_belongs_to_many :subscriber_lists
   has_many :campaign_recipients do
     def valids

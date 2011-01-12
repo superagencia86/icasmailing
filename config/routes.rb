@@ -22,6 +22,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users
     admin.resources :contacts, :as => 'contactos'
     admin.resources :subscriber_lists, :as => 'listas'
+    admin.resources :campaigns, :as => 'campanyas' do |campaign|
+      campaign.resources :sendings, :as => 'envios'
+    end
   end
 
   map.resources :companies, :collection => {:search => :get}
