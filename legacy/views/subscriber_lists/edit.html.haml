@@ -1,0 +1,11 @@
+.title
+  %span 
+    Añadir contactos a la lista de envío
+    = @subscriber_list.name
+
+- form_for @subscriber_list, :html => {:multipart => true} do |f|
+  = f.error_messages 
+  = render "form", :f => f
+
+  .buttonbar
+    = f.submit "Guardar cambios", :class => 'btn'

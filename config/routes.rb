@@ -21,24 +21,31 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :users
     admin.resources :contacts, :as => 'contactos'
-    admin.resources :subscriber_lists, :as => 'listas'
+    admin.resources :subscriber_lists, :as => 'listas' 
     admin.resources :campaigns, :as => 'campanyas' do |campaign|
       campaign.resources :sendings, :as => 'envios'
     end
   end
 
+  # PUBLIC
   map.resources :companies, :collection => {:search => :get}
   map.resources :institution_types
   map.resources :contacts
   map.resources :projects
   map.resources :proposals
+  map.resources :subscriber_lists, :as => 'listas' do |list|
+    list.resources :list_subscribers, :as => 'contactos'
+    list.resources :list_shared_lists, :as => 'compartidas'
+    list.resource :list_export, :as => 'exportar'
+  end
 
   map.resources :comments
   map.resources :password_resets, :only => [ :new, :create, :edit, :update ]
 
-  map.resources :subscriber_lists, :member => { :filter_by_hobbies => :post, :import => :post, :add_all_to => :get, :share => :any, :unshare => :get, :generate_pdf => :get, :generate_excel => :get, :destroy_with_subscribers => :delete} do |subscriber_list|
-    subscriber_list.resources :contacts, :collection => {:add_by_type_to => :any, :add_to_list => :any}
-  end
+  # #map.resources :subscriber_lists, :member => { :filter_by_hobbies => :post, :import => :post, :add_all_to => :get, :share => :any, :unshare => :get, :generate_pdf => :get, :generate_excel => :get,
+  # :destroy_with_subscribers => :delete} do |subscriber_list|
+  #  subscriber_list.resources :contacts, :collection => {:add_by_type_to => :any, :add_to_list => :any}
+  # #end
 
   map.admin_jobs '/admin/jobs', :controller => 'admin/jobs', :action => 'index'
   map.admin_mails '/admin/mails', :controller => 'admin/mails', :action => 'index'

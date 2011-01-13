@@ -3,17 +3,20 @@
     = link_to("Crear lista de subscripción", new_subscriber_list_path, :title => "Crear lista de subscripción") 
 
 .title
-  %span= "Listas de envío del espacio '#{current_space.name}' (#{@subscriber_lists.size})"
+  %span 
+    Listas de envío
+    = "existentes en todos los espacios" if current_user.is_superadmin?
 
 .list#subscriber_lists
   - unless @subscriber_lists.empty?
     = render :partial => "subscriber_list", :collection => @subscriber_lists
   - else
     = render :partial => "common/empty"
+#paginate= render :partial => "common/paginate"
 
-  %br/
+- if current_space.shared_lists.present? && !current_user.is_superadmin?
   .title
-    %span= "Listas de envío compartidas con '#{current_space.name}'"
+    %span Listas de envío que me comparten
   .list#contacts
     - if current_space.shared_lists.present?
       = render :partial => "subscriber_list", :collection => current_space.shared_lists, :locals => {:share => true}

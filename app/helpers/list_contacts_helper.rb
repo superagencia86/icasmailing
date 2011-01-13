@@ -1,0 +1,2 @@
+module ListContactsHelper
+end

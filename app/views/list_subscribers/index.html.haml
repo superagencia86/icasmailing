@@ -1,0 +1,17 @@
+.title_tools#menu
+  = link_to "Volver", subscriber_list_path(@subscriber_list)
+
+.title
+  %span= "Contactos de la lista '#{@subscriber_list.name}'"
+
+.list#contacts-list
+  %ul
+    - @subscribers.each do |subscriber|
+      %li
+        .tools
+          = link_to 'Eliminar de la lista', subscriber_list_list_subscriber_path(@subscriber_list, subscriber), :method => :delete,
+            :confirm => "Vas a borrar #{subscriber.contact.email} de la lista '#{@subscriber_list.name}'"
+        .indentslim
+          = subscriber.contact.name
+          = link_to subscriber.contact.email, contact_path(subscriber.contact)
+
