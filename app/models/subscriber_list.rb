@@ -90,7 +90,7 @@ class SubscriberList < ActiveRecord::Base
   protected
   def clone_list_if_specified
     puts "CLONE! #{@clone_list_id}"
-    if @clone_list_id
+    if @clone_list_id.present?
       other = SubscriberList.find @clone_list_id
       self.contacts << other.contacts
       self.save!

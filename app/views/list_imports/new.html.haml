@@ -1,0 +1,9 @@
+.title_tools#menu
+  = link_to "Volver", subscriber_list_path(@list)
+
+.title
+  %span
+    = "Importar contactos a '#{@list.name}'"
+
+= render "new_from_#{params[:source]}"
+  

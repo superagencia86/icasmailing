@@ -27,7 +27,13 @@
   = link_to 'En Excel', subscriber_list_list_export_path(@subscriber_list, :format => 'xls')
   |
   = link_to 'En CSV', subscriber_list_list_export_path(@subscriber_list, :format => 'csv')
-
+%p.actions
+  Importar contactos:
+  = link_to 'De otra lista', new_subscriber_list_list_import_path(@subscriber_list, :source => 'list')
+  |
+  = link_to 'Usando un filtro'
+  |
+  = link_to 'Datos csv'
 
 %h2 Información general
 #summary

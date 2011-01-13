@@ -37,6 +37,7 @@ ActionController::Routing::Routes.draw do |map|
     list.resources :list_subscribers, :as => 'contactos'
     list.resources :list_shared_lists, :as => 'compartidas'
     list.resource :list_export, :as => 'exportar'
+    list.resource :list_import, :as => 'importar', :member => {:preview => :post}
   end
 
   map.resources :comments

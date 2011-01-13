@@ -3,9 +3,6 @@
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 
-Mime::Type.register 'application/pdf', :pdf
-Mime::Type.register "application/vnd.ms-excel", :xls
-
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
@@ -24,11 +21,16 @@ Rails::Initializer.run do |config|
   config.gem "simple-daemon"
   config.gem 'delayed_job', :version => '2.0.1'
   config.gem 'exception_notification'
-  config.gem 'fastercsv', :version => '1.5.4'
+#  config.gem 'fastercsv', :version => '1.5.4'
   
   config.time_zone = 'Madrid'
   config.i18n.default_locale = :es
 end
+
+Mime::Type.register 'application/pdf', :pdf
+Mime::Type.register "application/vnd.ms-excel", :xls
+
+
 
 ExceptionNotification::Notifier.email_prefix = "[icas-maxwell] "
 ExceptionNotification::Notifier.exception_recipients = %w(bugger@beecoder.com)
