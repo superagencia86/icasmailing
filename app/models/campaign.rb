@@ -1,6 +1,9 @@
 class Campaign < ActiveRecord::Base
   include AASM
 
+  default_scope :order => 'id ASC'
+  validates_presence_of :name, :subject, :from
+
   belongs_to :space
   has_many :sendings
   has_and_belongs_to_many :subscriber_lists
@@ -33,9 +36,6 @@ class Campaign < ActiveRecord::Base
 
   has_many :email_attachments
 
-  validates_presence_of :name, :subject, :from
-
-  default_scope :order => 'name desc'
 
   aasm_column :current_state
   aasm_initial_state :new

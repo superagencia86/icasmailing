@@ -5,13 +5,25 @@ class ListSubscribersController < InheritedResources::Base
   actions :index, :create, :destroy
   belongs_to :subscriber_list
 
+  def index
+    paginate_options ||= {}
+    paginate_options[:page] ||= (params[:page] || 1)
+    paginate_options[:per_page] ||= (params[:per_page] || 40)
 
-  def destroy
-    destroy! { subscriber_list_list_subscribers_path(@subscriber_list) }
+    @subscriber_list = SubscriberList.find params[:subscriber_list_id]
+    if @subscriber_list.auto_update?
+      @contacts = @subscriber_list.contacts.paginate(paginate_options)
+    else
+      @subscribers = SubscriberList.subscribers.paginate(paginate_options)
+    end
   end
 
-  protected
-  def begin_of_association_chain
-    current_space
+    def destroy
+      destroy! { subscriber_list_list_subscribers_path(@subscriber_list) }
+    end
+
+    protected
+    def begin_of_association_chain
+      current_space
+    end
   end
-end

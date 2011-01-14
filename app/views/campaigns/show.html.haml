@@ -1,12 +1,27 @@
 - title "Campaña: %s" % resource.name
 
+.title_tools#menu
+  = link_to("Volver", campaigns_path)
+
 .title
   %span= @campaign.name
 
 %p.actions
+  Gestionar campaña:
   = link_to 'Editar', edit_resource_path(resource)
-  o
-  = link_to 'volver al listado campañas', campaigns_path()
+  |
+  = link_to 'Borrar', campaign_path(@campaign), :method => :delete,
+    :confirm => "¡Vas a borrar esta campaña. ¿Estás seguro?!"
+%p.actions
+  Envíos:
+  = link_to 'Crear envío', new_campaign_sending_path(@campaign)
+
+%br/
+%h2 Envío de prueba
+- form_tag(test_campaign_sendings_path(@campaign), :class => 'actions') do
+  Email:
+  = text_field_tag :email
+  = submit_tag 'Realizar envío de prueba'
 
 %br/
 %h2 Información general
@@ -21,7 +36,9 @@
 %h2 Envios
 %ul
   - @campaign.sendings.each do |sending|
-    %li= "Enviado hace #{time_ago_in_words sending.sent_at} a #{sending.campaign_recipients.sent.length} contactos."
+    %li
+      = sending.sent_at ? "Enviado hace #{time_ago_in_words sending.sent_at}" : "Pendiente de enviar"
+      = " a #{sending.sending_contacts.count} contactos."
 %br/
 %h2 Contenido
 = h(@campaign.body) if @campaign.body.present?

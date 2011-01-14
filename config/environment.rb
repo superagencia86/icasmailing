@@ -21,7 +21,8 @@ Rails::Initializer.run do |config|
   config.gem "simple-daemon"
   config.gem 'delayed_job', :version => '2.0.1'
   config.gem 'exception_notification'
-#  config.gem 'fastercsv', :version => '1.5.4'
+  #  config.gem 'fastercsv', :version => '1.5.4'
+  config.gem "newrelic_rpm"
   
   config.time_zone = 'Madrid'
   config.i18n.default_locale = :es

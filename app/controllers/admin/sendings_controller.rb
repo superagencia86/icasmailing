@@ -5,4 +5,9 @@ class Admin::SendingsController < Admin::AdminController
     @campaign = Campaign.find params[:campaign_id]
     @sendings = @campaign.sendings
   end
+
+  def show
+    @campaign = Campaign.find params[:campaign_id]
+    @sending = @campaign.sendings.find params[:id]
+  end
 end

@@ -20,6 +20,6 @@
         %td= list.space.name
         %td= list.subscribers.size
         %td= list.shared_lists.map{|s| s.space.name }.join(',')
-        %td= list.updating_contacts? ? 'Si' : 'No'
+        %td= list.auto_update? ? 'Si' : 'No'
         %td= time_ago_in_words list.created_at
 

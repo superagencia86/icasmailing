@@ -27,21 +27,23 @@
   = link_to 'En Excel', subscriber_list_list_export_path(@subscriber_list, :format => 'xls')
   |
   = link_to 'En CSV', subscriber_list_list_export_path(@subscriber_list, :format => 'csv')
-%p.actions
-  Importar contactos:
-  = link_to 'De otra lista', new_subscriber_list_list_import_path(@subscriber_list, :source => 'list')
-  |
-  = link_to 'Usando un filtro'
-  |
-  = link_to 'Datos csv'
+- if !@subscriber_list.auto_update?
+  %p.actions
+    Importar contactos:
+    = link_to 'De otra lista', new_subscriber_list_list_import_path(@subscriber_list, :source => 'list')
+    |
+    = link_to 'Usando un filtro'
+    |
+    = link_to 'Datos csv'
 
 %h2 Información general
 #summary
   %p
-    = "Nombre de la lista: #{@subscriber_list.name}<br/>"
+    = "Tipo: #{@subscriber_list.auto_update? ? 'Lista inteligente' : 'Lista normal'}<br/>"
+    = "Nombre: #{@subscriber_list.name}<br/>"
     = "Descripción: #{@subscriber_list.description}<br/>"
-    = "Tipo: #{@subscriber_list.space_id == current_space.id ? 'Lista propia' : 'Lista compartida'}<br/>"
-    = "Número contactos: #{@subscriber_list.subscribers.count}<br/>"
+    = "Espacio: #{@subscriber_list.space.name} (#{@subscriber_list.space_id == current_space.id ? 'Lista propia' : 'Lista compartida'})<br/>"
+    = "Número contactos: #{@subscriber_list.contacts_count}<br/>"
 
 %br/
 %h2 Compartir

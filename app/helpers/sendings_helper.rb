@@ -1,0 +1,2 @@
+module SendingsHelper
+end
