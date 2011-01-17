@@ -31,8 +31,6 @@ end
 Mime::Type.register 'application/pdf', :pdf
 Mime::Type.register "application/vnd.ms-excel", :xls
 
-
-
-ExceptionNotification::Notifier.email_prefix = "[icas-maxwell] "
-ExceptionNotification::Notifier.exception_recipients = %w(bugger@beecoder.com)
+ExceptionNotification::Notifier.email_prefix = "[icasmailing] "
+ExceptionNotification::Notifier.exception_recipients = %w(danigb@gmail.com)
 
