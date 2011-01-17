@@ -1,7 +1,10 @@
 - if can? :manage, @contact
   .title_tools#menu
     = link_to("Editar", edit_contact_path(@contact))
+    |
     = link_to("Eliminar", @contact, :method => :delete)
+    |
+    = link_to "Volver", contacts_path
 
 .title
   %span= @contact.full_name
@@ -14,16 +17,23 @@
     = "Tipo de contacto: #{Contact::SUBSCRIBER_TYPES.find{|e| e.idx == @contact.contact_type_id}.try(:name)}<br/>" 
     = "Entidad: #{@contact.entidad}" if @contact.entidad.present?
     = "Confirmado: #{@contact.confirmed? ? 'si' : 'no'}<br/>"
+    = "Fecha de alta: #{l @contact.created_at}<br/>"
+
+  %h2 Información del contacto
+  %p
+    = field("Nombre", @contact, :telephone)
+    = field("Apellidos", @contact, :telephone)
+    = field("Profesión", @contact, :telephone)
+    = field("Sexo", @contact, :telephone)
+    = field("Teléfono/s", @contact, :telephone)
+
+  %h2 Listas en las que está incluído
+  %ul
+    - @contact.subscriber_lists.each do |list|
+      %li= list.name
 
   %p
     - if @contact.telephone.present? || @contact.celular.present?
       = "Teléfono/s: <b>#{@contact.telephone}</b> - <b>#{@contact.celular}</b><br />"
-- if current_user.is_superadmin?
-  %p
-    = "Enlaces para gestionar suscripciones (sólo visible por admin):<br/>"
-    = "Aceptar suscripción: http://#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{@contact.confirmation_code}"
-    %br
-    = "Cancelar suscripción: http://#{APP.host}#{ConfirmationsController::REJECT_URL}/#{@contact.confirmation_code}"
 
-%p
-  = link_to "Volver a todos los contactos", contacts_path
+  

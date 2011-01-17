@@ -14,7 +14,7 @@ class ListSubscribersController < InheritedResources::Base
     if @subscriber_list.auto_update?
       @contacts = @subscriber_list.contacts.paginate(paginate_options)
     else
-      @subscribers = SubscriberList.subscribers.paginate(paginate_options)
+      @subscribers = @subscriber_list.subscribers.paginate(paginate_options)
     end
   end
 

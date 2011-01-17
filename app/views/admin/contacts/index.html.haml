@@ -12,6 +12,7 @@
       %td Nombre
       %td Espacio
       %td Incluído
+      %td Enlaces
   %tbody
     - @contacts.each do |contact|
       %tr
@@ -21,4 +22,8 @@
         %td= contact.name
         %td= contact.space.name
         %td= time_ago_in_words contact.created_at
+        %td
+          = "<b>Aceptar suscripción:</b> http://#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{contact.confirmation_code}<br/>"
+          = "<b>Cancelar suscripción:</b> http://#{APP.host}#{ConfirmationsController::REJECT_URL}/#{contact.confirmation_code}"
+
 
