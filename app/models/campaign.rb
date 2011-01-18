@@ -5,7 +5,13 @@ class Campaign < ActiveRecord::Base
   validates_presence_of :name, :subject, :from
 
   belongs_to :space
-  has_many :sendings
+  has_many(:sendings, :order => 'id DESC')
+  has_many(:sending_contacts, :order => 'id DESC') do
+    def sent
+      self.find(:all, :conditions => {:status => SendingContact::DELIVERED})
+    end
+  end
+
   has_and_belongs_to_many :subscriber_lists
   has_many :campaign_recipients do
     def valids

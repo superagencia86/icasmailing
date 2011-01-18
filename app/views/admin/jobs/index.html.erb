@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <td>Id</td>
       <td>Prioridad</td>
       <td>Nº intentos</td>
       <td>Handler</td>
@@ -19,6 +20,7 @@
   <tbody>
     <% @jobs.each do |job| %>
       <tr>
+        <td><%= job.id%></td>
         <td><%= job.priority %></td>
         <td><%= job.attempts %></td>
         <td><%= job.handler %></td>
@@ -28,9 +30,8 @@
         <td><%= job.locked_by %></td>
         <td><%= job.created_at %></td>
         <td>
-          <%= link_to 'Eliminar', {:action=> 'destroy', :id => job.id}, :method => :delete,
+          <%= link_to 'Eliminar', admin_job_path(job), :method => :delete,
             :confirm => 'Esto impedirá que se realize esa tarea. CUIDADO!! ¿Estás seguro?' %>
-
         </td>
       </tr>
     <% end %>

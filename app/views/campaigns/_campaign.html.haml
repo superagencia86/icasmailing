@@ -1,5 +1,7 @@
 %li
   .tools
+    = link_to("Realizar un envío", new_campaign_sending_path(campaign))
+    |
     = link_to("Editar", edit_polymorphic_path(campaign)) + " | "
     = link_to("Eliminar", campaign, :method => :delete, :confirm => '¿Estás seguro?') 
     &nbsp;
@@ -7,7 +9,6 @@
   .indentslim
     = link_to("#{campaign.name} - ", campaign) 
     %tt
-      = t(:added, :time_ago => time_ago_in_words(campaign.created_at))
-    - campaign.sendings.each do |sending|
+      = "#{t(:added, :time_ago => time_ago_in_words(campaign.created_at))} - "
       %dt
-        = link_to "Enviada hace #{time_ago_in_words sending.sent_at} a #{sending.campaign_recipients.sent.length} contactos."
+        = link_to "Enviado a #{pluralize(campaign.sending_contacts.sent.count, 'contacto', 'contactos')}", campaign_sendings_path(campaign)

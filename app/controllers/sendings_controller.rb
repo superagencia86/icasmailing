@@ -2,7 +2,13 @@ class SendingsController < InheritedResources::Base
   before_filter :require_user, :authorized
   belongs_to :campaign
 
-  actions :new, :create
+  actions :index, :new, :create, :show
+
+  def index
+    @campaign = Campaign.find params[:campaign_id]
+    @sending_contacts = @campaign.sending_contacts.paginate(
+      :page => params[:page], :per_page => params[:per_page])
+  end
 
   def test
     campaign = Campaign.find params[:campaign_id]
@@ -16,10 +22,10 @@ class SendingsController < InheritedResources::Base
   end
 
   def create
-    create!(:notice => 'Envío realizado!') do
+    create!(:notice => 'Envío en marcha.') do
       Delayed::Job.enqueue(SendingJob.new(@sending.id))
       Activity.report(current_user, :sent, @campaign)
-      redirect_to campaign_path(@campaign)
+      @campaign
     end
   end
 

@@ -13,8 +13,10 @@
   = link_to 'Borrar', campaign_path(@campaign), :method => :delete,
     :confirm => "¡Vas a borrar esta campaña. ¿Estás seguro?!"
 %p.actions
-  Envíos:
-  = link_to 'Crear envío', new_campaign_sending_path(@campaign)
+  = "Enviado a #{pluralize(@campaign.sending_contacts.sent.count, 'contacto', 'contactos')}:"
+  = link_to 'Realizar envío', new_campaign_sending_path(@campaign)
+  |
+  = link_to 'Ver a quién se ha enviado', campaign_sendings_path(@campaign)
 
 %br/
 %h2 Envío de prueba
@@ -32,13 +34,6 @@
     = "Email desde el que se envía: #{@campaign.from}<br/>"
     = "Nombre con el que se envía: #{@campaign.from_name}<br/>"
     = "Email al que se responde: #{@campaign.reply_to}<br/>"
-%br/
-%h2 Envios
-%ul
-  - @campaign.sendings.each do |sending|
-    %li
-      = sending.sent_at ? "Enviado hace #{time_ago_in_words sending.sent_at}" : "Pendiente de enviar"
-      = " a #{sending.sending_contacts.count} contactos."
 %br/
 %h2 Contenido
 = h(@campaign.body) if @campaign.body.present?

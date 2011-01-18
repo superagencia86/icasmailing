@@ -64,7 +64,7 @@ class SubscriberList < ActiveRecord::Base
   end
 
   def info
-    "#{self.name} (#{self.contacts_count} contactos)"
+    "#{self.space.name} - #{self.name} (#{self.contacts_count} contactos)"
   end
 
   protected

@@ -5,11 +5,20 @@ class SendingContact < ActiveRecord::Base
 
   validates_presence_of :campaign, :sending, :contact
 
-  def delivered!
-    self.update_attribute(:status, 'delivered')
+  PENDING = 'pending'
+  DELIVERED = 'sent'
+  DUPLICATED = 'duplicated'
+  FORCE = 'force'
+
+  def duplicated!
+    self.update_attribute(:status, DUPLICATED)
   end
 
-  def state?(state)
-    return self.state == state.to_s
+  def delivered!
+    self.update_attribute(:status, DELIVERED)
+  end
+
+  def status?(status)
+    return self.status == status.to_s
   end
 end
