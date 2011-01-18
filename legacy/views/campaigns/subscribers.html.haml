@@ -1,0 +1,34 @@
+.title
+  %span= "#{@campaign.name}: Selección de listas"
+
+
+
+- form_for @campaign, :url => subscribers_campaign_path(@campaign) do |f|
+  .remote
+    = f.error_messages 
+    .section
+      %ul
+        - for subscriber_list in @subscriber_lists
+          %li.top
+            = check_box_tag "campaign[subscriber_list_ids][]", subscriber_list.id, @campaign.subscriber_lists.include?(subscriber_list)
+            = subscriber_list.name
+            = subscriber_list.has_finder? ? "- Lista inteligente, " : "- "
+
+            = "#{subscriber_list.subscribers.count(:all, :conditions => {:active => true})} contactos "
+            = "(#{subscriber_list.confirmed.count} confirmados)"
+
+        - for subscriber_list in current_space.shared_lists
+          %li.top
+            = check_box_tag "campaign[subscriber_list_ids][]", subscriber_list.id, @campaign.subscriber_lists.include?(subscriber_list)
+            = subscriber_list.name
+            %i= "de #{subscriber_list.shares_space.name}"
+            - if subscriber_list.has_finder?
+              %i
+                (Lista inteligente)
+      
+
+  .buttonbar
+    = f.submit "Guardar"
+    = f.submit "Guardar y seleccionar receptores"
+
+

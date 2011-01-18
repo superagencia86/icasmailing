@@ -1,0 +1,13 @@
+.title_tools
+  = link_to("Crear campaña", new_campaign_path, :title => "Crear campaña")
+
+.title
+  %span= "Campañas"
+
+.list#campaigns
+  - unless @campaigns.empty?
+    = render :partial => "campaign", :collection => @campaigns
+  - else
+    = render :partial => "common/empty"
+#paginate= render :partial => "common/paginate"
+

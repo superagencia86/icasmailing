@@ -16,9 +16,8 @@ class Contact < ActiveRecord::Base
   has_many :subscribers
   has_many :subscriber_lists, :through => :subscribers
   
-  # validates_presence_of :name, :email, :user_id, :space_id
-  validates_presence_of :email, :user_id, :space_id
-  validates_uniqueness_of :email
+  validates_presence_of :email, :scope => :space_id
+  validates_presence_of :user_id, :space_id
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
   default_scope :order => 'contacts.name ASC, surname ASC'
@@ -70,6 +69,44 @@ class Contact < ActiveRecord::Base
     "#{id}/#{Digest::MD5.hexdigest(id.to_s)}"
   end
 
+
+  # Confirm a contact
+  def confirm
+    # Create the contact in the confirmed space
+    cicas = Space.find_by_permalink('confirmados-icas')
+    confirmed = cicas.contacts.find_by_email(self.email)
+    if !confirmed
+      confirmed = self.clone
+      confirmed.space = cicas
+      confirmed.confirmed = true
+      confirmed.save!
+    end
+
+    # Create the mirror lists in the confirmed space
+    self.subscriber_lists.each do |list|
+      list_name = "Confirmados #{self.space.name} - #{list.name}"
+      clist = cicas.subscriber_lists.find_or_create_by_name(list_name)
+      subscriber = clist.subscribers.find_by_contact_id(confirmed.id)
+      if !subscriber
+        clist.subscriber_contacts << confirmed
+        clist.save!
+      end
+    end
+    self.update_attribute(:confirmed, true)
+  end
+
+  def unconfirm
+    cicas = Space.find_by_permalink('confirmados-icas')
+    confirmed = cicas.contacts.find_by_email(self.email)
+    if confirmed
+      confirmed.subscriber_lists.each do |list|
+        list.subscriber_contacts.delete(confirmed)
+      end
+      confirmed.destroy
+    end
+    self.update_attribute(:confirmed, false)
+  end
+
   def self.import(excel, user)
     excel = Spreadsheet.open(excel)
     values = excel.worksheet 0
@@ -93,7 +130,7 @@ class Contact < ActiveRecord::Base
 
   def self.import_contact(contact, options = {})
     if !contact[0].nil?
-      new_contact = { 
+      new_contact = {
         :user => options[:user],
         :space => options[:user].space,
         :email => contact[0],
@@ -137,4 +174,5 @@ class Contact < ActiveRecord::Base
 
     ids
   end
+
 end

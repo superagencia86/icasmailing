@@ -1,0 +1,21 @@
+%h1= "Envío de '#{@sending.campaign.name}'"
+
+%br/
+%br/
+= link_to 'Campañas', admin_campaigns_path
+%br/
+= link_to 'Envío de: ', admin_campaign_sending_path(@sending.campaign, @sending)
+= link_to @sending.campaign.name, admin_campaign_path(@sending.campaign)
+%br/
+%table
+  %thead
+    %tr
+      %td Estado
+      %td Contacto
+      %td Email
+  %tbody
+    - @sending.sending_contacts.each do |sending_contact|
+      %tr
+        %td= sending_contact.status
+        %td= sending_contact.contact.name
+        %td= sending_contact.email

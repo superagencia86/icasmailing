@@ -1,23 +1,72 @@
-.remote
-  .section
-    %table(width="500" cellpadding="0" cellspacing="0")
-      %tr
-        %td(valign="top")
-          .label.top.req= "Nombre"
-          = f.text_field :name, :style => "width:224px"
-        %td= spacer
-        %td{ :valign => :top }
-          .label.top.req Título del email
-          = f.text_field :subject, :style => "width:240px"
-      %tr
-        %td{ :valign => :top }
-          .label.top.req Email desde el que se envía
-          = f.text_field :from, :style => "width:240px"
-        %td= spacer
-        %td{ :valign => :top }
-          .label.top.req Nombre con el que se envía
-          = f.text_field :from_name, :style => "width:240px"
-        %td= spacer
-        %td{ :valign => :top }
-          .label.top Email al que se responde
-          = f.text_field :reply_to, :style => "width:240px"
+- form_for(@campaign, :html => {:multipart => true}) do |f|
+  = f.error_messages
+  .remote
+    .section
+      %table(width="500" cellpadding="0" cellspacing="0")
+        %tr
+          %td(valign="top")
+            .label.top.req= "Nombre"
+            = f.text_field :name, :style => "width:224px"
+          %td= spacer
+          %td{ :valign => :top }
+            .label.top.req Título del email
+            = f.text_field :subject, :style => "width:240px"
+        %tr
+          %td{ :valign => :top }
+            .label.top.req Email desde el que se envía
+            = f.text_field :from, :style => "width:240px"
+          %td= spacer
+          %td{ :valign => :top }
+            .label.top.req Nombre con el que se envía
+            = f.text_field :from_name, :style => "width:240px"
+          %td= spacer
+        %tr
+          %td{ :valign => :top }
+            .label.top Email al que se responde
+            = f.text_field :reply_to, :style => "width:240px"
+
+    .section
+      %table(width="500" cellpadding="0" cellspacing="0")
+        %tr
+          %td(valign="top")
+            .label.top= "Texto"
+            = f.text_area :body, :rows => 10, :cols => 80
+
+        %tr
+          %td(valign="top")
+            .label.top= "HTML"
+            - if @campaign.assets.html.present?
+              Esta campaña tiene un html asociado:
+              = link_to "Ver html actual", @campaign.assets.html.data.url
+              %br/
+              Puedes sustituir el html por otro:
+              %br/
+            = f.file_field :asset_html
+
+        %tr
+          %td{ :valign => :top }
+            .label.top Imágenes
+            - if @campaign.assets.images.present?
+              = "Esta campaña tiene #{@campaign.assets.images.length} de imágenes asociadas."
+              %br/
+              Puedes sustituir éstas por otras subiendo un fichero zip.
+              %br/
+            = f.file_field :asset_images
+            .info= "Fichero zip con las imágenes"
+
+    .section
+      - field_set_tag "Ficheros Adjuntos", :style => 'margin-top:20px;' do
+        .attachments
+          %ul
+            - @campaign.email_attachments.each do |at|
+              %li
+                = link_to at.data_file_name, at.data.url
+                |
+                = link_to "Eliminar", campaign_email_attachment_path(@campaign, at), :method => :delete, :confirm => '¿Seguro?'
+        %p
+          .label.top Subir adjuntos
+          = file_field_tag :new_attachment
+
+
+      .buttonbar
+        = f.submit "Guardar"

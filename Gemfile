@@ -22,6 +22,8 @@ gem 'fastercsv'
 group :development, :test do
   gem 'mysql'
   gem 'webrat'
+  gem 'capybara'
   gem 'capistrano'
+  gem 'newrelic_rpm'
 end
 

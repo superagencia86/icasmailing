@@ -4,7 +4,8 @@
 
 %br/
 %h2 Estadísticas
-= "Número de contactos registrados #{Contact.count}"
+= "Número de contactos registrados #{Contact.count}<br/>"
+= "Número de contactos confirmados #{Contact.count(:all, :conditions => {:confirmed => true})}"
 
 %br/
 %br/
@@ -12,6 +13,8 @@
 = link_to 'Contactos', admin_contacts_path
 %br
 = link_to 'Listas', admin_subscriber_lists_path
+%br
+= link_to 'Campañas', admin_campaigns_path
 %br
 
 %br/

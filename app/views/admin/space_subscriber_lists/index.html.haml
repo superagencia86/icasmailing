@@ -1,0 +1,22 @@
+%h1= "Listas del espacio #{@space.name}"
+%br/
+%br/
+%br/
+%table
+  %thead
+    %tr
+      %td Id
+      %td Nombre
+      %td Espacio
+      %td listos
+      %td Creada
+  %tbody
+    - @lists.each do |list|
+      %tr
+        %td= list.id
+        %td= list.name
+        %td= list.space.name
+        %td= pluralize(list.contacts.length, "contacto", "contactos")
+        %td= time_ago_in_words list.created_at
+
+

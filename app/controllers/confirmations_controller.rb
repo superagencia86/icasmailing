@@ -6,7 +6,7 @@ class ConfirmationsController < ApplicationController
 
   def accept
     if !@contact.confirmed?
-      @contact.update_attribute(:confirmed, true)
+      @contact.confirm
       EmailMailer.queue(:accept_subscription, @contact.email, @contact.name, @contact.confirmation_code)
       Activity.report(User.find(1), :accept_confirmation, @contact)
     end
@@ -14,8 +14,8 @@ class ConfirmationsController < ApplicationController
   end
 
   def reject
-    if @contact.confirmed
-      @contact.update_attribute(:confirmed, false)
+    if @contact.confirmed?
+      @contact.unconfirm
       EmailMailer.queue(:reject_subscription, @contact.email, @contact.name, @contact.confirmation_code)
       Activity.report(User.find(1), :reject_confirmation, @contact)
     end

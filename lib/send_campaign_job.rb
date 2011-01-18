@@ -1,7 +1,7 @@
 
 class SendCampaignJob < Struct.new(:campaign_id)
   include ActionView::Helpers::UrlHelper
-  
+
   # Actualizamos una categoría
   def perform
     logger = ActiveRecord::Base.logger

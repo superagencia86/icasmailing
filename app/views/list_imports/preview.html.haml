@@ -1,0 +1,23 @@
+
+%h2 Selecciona los contactos que quieres importar
+
+- form_tag subscriber_list_list_import_path(@list) do
+  .remote
+    .section
+      %h3
+        Contactos
+      %span#select_count_contacts
+      %br/
+      = link_to 'Seleccionar todos', '#', :id => 'select_all_contacts'
+      |
+      = link_to 'Seleccionar ninguno', '#', :id => 'select_none_contacts'
+      %br/
+      %br/
+      %ul
+      - @contacts.each do |contact|
+        %li
+          - disabled = @list.contacts.include? contact
+          = check_box_tag "contact_ids[]", contact.id, !disabled, :disabled => disabled
+          = "#{contact.name} #{contact.email}"
+          %b= "Ya está incluido en esta lista" if disabled
+      = submit_tag 'Importar'

@@ -1,0 +1,12 @@
+%li
+  .tools
+    =# link_to("Editar", edit_polymorphic_path(campaign)) + " | "
+    = link_to("Eliminar", campaign, :method => :delete, :confirm => '¿Estás seguro?') 
+    &nbsp;
+
+  .indentslim
+    = link_to("#{campaign.name} - ", edit_polymorphic_path(campaign)) 
+    %tt
+      = t(:added, :time_ago => time_ago_in_words(campaign.created_at))
+    %dt
+      = link_to "Enviado a #{campaign.campaign_recipients.sent.length} emails"

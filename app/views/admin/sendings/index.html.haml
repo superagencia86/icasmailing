@@ -1,0 +1,23 @@
+%h1= "Envíos de '#{@campaign.name}'"
+%br/
+%br/
+= link_to 'Campañas', admin_campaigns_path
+%br/
+%table
+  %thead
+    %tr
+      %td Id
+      %td Descripción
+      %td Lista usada para el envío
+      %td Contactos a los que se envió
+      %td Enviado hace
+  %tbody
+    - @sendings.each do |sending|
+      %tr
+        %td= link_to sending.id, admin_campaign_sending_path(@campaign, sending)
+        %td= sending.description
+        %td= sending.subscriber_list.name
+        %td
+          = "#{sending.sending_contacts.size} contactos en total<br/>"
+        %td= sending.sent_at ? time_ago_in_words(sending.sent_at) : 'Pendiente de enviar'
+

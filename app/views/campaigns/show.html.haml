@@ -1,9 +1,64 @@
 - title "Campaña: %s" % resource.name
-  
-- show_for resource do |u|
-  = u.attribute :name 
-  
+
+.title_tools#menu
+  = link_to("Volver", campaigns_path)
+
+.title
+  %span= @campaign.name
+
 %p.actions
+  Gestionar campaña:
   = link_to 'Editar', edit_resource_path(resource)
-  o
-  = link_to 'volver al listado campañas', campaigns_path()
+  |
+  = link_to 'Borrar', campaign_path(@campaign), :method => :delete,
+    :confirm => "¡Vas a borrar esta campaña. ¿Estás seguro?!"
+%p.actions
+  Envíos:
+  = link_to 'Crear envío', new_campaign_sending_path(@campaign)
+
+%br/
+%h2 Envío de prueba
+- form_tag(test_campaign_sendings_path(@campaign), :class => 'actions') do
+  Email:
+  = text_field_tag :email
+  = submit_tag 'Realizar envío de prueba'
+
+%br/
+%h2 Información general
+#summary
+  %p
+    = "Nombre de la campaña: #{@campaign.name}<br/>"
+    = "Título del email: #{@campaign.subject}<br/>"
+    = "Email desde el que se envía: #{@campaign.from}<br/>"
+    = "Nombre con el que se envía: #{@campaign.from_name}<br/>"
+    = "Email al que se responde: #{@campaign.reply_to}<br/>"
+%br/
+%h2 Envios
+%ul
+  - @campaign.sendings.each do |sending|
+    %li
+      = sending.sent_at ? "Enviado hace #{time_ago_in_words sending.sent_at}" : "Pendiente de enviar"
+      = " a #{sending.sending_contacts.count} contactos."
+%br/
+%h2 Contenido
+= h(@campaign.body) if @campaign.body.present?
+%br/
+= link_to("Esta campaña tiene un html asociado", @campaign.assets.html.data.url) if @campaign.assets.html
+
+%br/
+%br/
+%h2= "Imágenes asociadas (#{@campaign.assets.images.size})"
+%ul
+  - @campaign.assets.images.each do |asset|
+    %li= link_to "#{asset.data_file_name}", asset.data.url
+
+  
+
+%br/
+%br/
+%h2= "Ficheros adjuntos (#{@campaign.email_attachments.size})"
+%ul
+  - @campaign.email_attachments.each do |attachment|
+    %li= link_to "#{attachment.data_file_name}", attachment.data.url
+
+

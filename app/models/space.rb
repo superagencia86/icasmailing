@@ -7,7 +7,7 @@ class Space < ActiveRecord::Base
   has_many :subscriber_lists, :dependent => :destroy
   # has_and_belongs_to_many :shared_lists, :join_table => 'shared_lists', :select => 'shared_lists.expires_at, subscriber_lists.space_id as shares_space_id, subscriber_lists.*', :conditions => ["expires_at >= ?", Date.today.to_s(:db)], :foreign_key => 'space_id', :association_foreign_key => 'subscriber_list_id', :class_name => "SubscriberList"
   has_and_belongs_to_many :shared_lists, :join_table => 'shared_lists', :select => 'subscriber_lists.space_id as shares_space_id, subscriber_lists.*', :foreign_key => 'space_id', :association_foreign_key => 'subscriber_list_id', :class_name => "SubscriberList"
-  has_many :campaigns, :dependent => :destroy
+  has_many :campaigns, :dependent => :destroy, :order => 'id DESC'
 
   validates_presence_of :name
   validates_uniqueness_of :name
