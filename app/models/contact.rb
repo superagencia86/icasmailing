@@ -59,7 +59,7 @@ class Contact < ActiveRecord::Base
       joins = "LEFT JOIN contacts_hobbies ON contacts_hobbies.contact_id = contacts.id" 
     end
 
-    Contact.find(:all, :joins => joins, :group => 'contacts.id', :conditions => conditions.join(" AND ")) if conditions.present?
+    Contact.find(:all, :joins => joins, :group => 'contacts.id', :conditions => conditions.join(" AND "), :limit => 30) if conditions.present?
   end
   
   

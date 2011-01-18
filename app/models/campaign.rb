@@ -10,6 +10,12 @@ class Campaign < ActiveRecord::Base
     def sent
       self.find(:all, :conditions => {:status => SendingContact::DELIVERED})
     end
+    def duplicated
+      self.find(:all, :conditions => {:status => SendingContact::DUPLICATED})
+    end
+    def pending
+      self.find(:all, :conditions => ["status = ? OR status = ?", SendingContact::PENDING, SendingContact::FORCE])
+    end
   end
 
   has_and_belongs_to_many :subscriber_lists

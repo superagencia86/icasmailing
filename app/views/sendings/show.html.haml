@@ -1,0 +1,17 @@
+.title_tools
+  = link_to "Volver", campaigns_path
+.title
+  %span= "Envío de '#{@campaign.name}'"
+
+#summary
+  %p
+    = "Estado: #{@sending.current_state}"
+    %br/
+    = "Se envió hace: #{@sending.sent_at ? time_ago_in_words(@sending.sent_at) : 'no ha empezado'}"
+
+%table
+  - @sending.sending_contacts.each do |sc|
+    %tr
+      %td= sc.email
+      %td= sc.contact.name if sc.contact
+      %td= t("sending_contact.#{sc.status}")

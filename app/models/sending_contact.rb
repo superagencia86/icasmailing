@@ -18,7 +18,7 @@ class SendingContact < ActiveRecord::Base
     self.update_attribute(:status, DELIVERED)
   end
 
-  def status?(status)
-    return self.status == status.to_s
+  def pending?
+    self.status == PENDING || self.status == FORCE
   end
 end

@@ -4,6 +4,7 @@ class ContactsController < InheritedResources::Base
   respond_to :html
 
   def index
+    @search_path = search_contacts_path
     @count = current_space.contacts.count
     index!
   end
@@ -25,24 +26,6 @@ class ContactsController < InheritedResources::Base
 
   def search
     @contacts = Contact.finder(:space => current_space, :query => params[:query], :contact_type_id => params[:contact_type_id])
-    
-
-    respond_to do |format|
-      format.js   { 
-        render :update do |page|
-          if params[:query].blank?
-            page << "location.reload()"
-          else
-            if @contacts.present?
-              page["contacts-list"].replace_html(:partial => 'contact', :collection => @contacts)
-            else
-              page["contacts-list"].replace_html(:partial => 'common/empty_search')
-            end
-            page["paginate"].hide
-          end
-        end
-      }
-    end
   end
 
   def add_to_list

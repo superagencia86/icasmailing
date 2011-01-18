@@ -8,7 +8,7 @@
 .title
   %span= "Contactos"
 
-.list#contacts-list
+.list.search#contacts-list
   - unless @contacts.empty?
     = render :partial => "contact", :collection => @contacts
   - else

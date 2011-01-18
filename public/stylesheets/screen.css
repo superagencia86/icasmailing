@@ -164,6 +164,9 @@ tt {
 li {
   list-style: none; }
 
+input[type=text], input[type=password] {
+  border: 1px solid gray; }
+
 .title {
   border-bottom: 2px #cccccc solid;
   color: #b71739;

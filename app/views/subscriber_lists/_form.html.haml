@@ -20,74 +20,75 @@
         - if @subscriber_list.new_record?
           %tr
             %td.form_section(valign="top")
-              = f.radio_button :auto_update, :false
+              = f.radio_button :auto_update, false
               %label Lista normal
           %tr
             %td(valign="top")
               .label.top.req= "Copiar contactos de la lista:"
-              = f.collection_select :clone_list_id, current_space.subscriber_lists, :id, :name, {:selected => params[:clone].to_i, :include_blank => true}
+              = f.collection_select :clone_list_id, current_space.subscriber_lists, :id, :info, {:selected => params[:clone].to_i, :include_blank => params[:clone].blank?}
 
-      %table
-        - if @subscriber_list.new_record?
-          %tr
-            %td.form_section
-              = f.radio_button :auto_update, :true
-              %label Lista inteligente
-        - if @subscriber_list.new_record? || @subscriber_list.auto_update?
-          %tr
-            %td
-              .label.top.req= "Contactos de la lista inteligente:"
-          %tr
-            %td
-              Añadir usuarios generales
-
+      - if params[:clone].blank?
         %table
-          %tr
-            %td{ :valign => :top }
-              = f.check_box :all_general
-              Todos los usuarios
-              %br/
-              - for hobbies in Hobby.find(:all, :conditions => ["name != 'otros'"]).in_groups_of(3, false)
-                %div{:style => 'float:left; margin-right: 80px'}
-                  - for hobby in hobbies
-                    = check_box_tag "subscriber_list[hobby_ids][]", hobby.id, @subscriber_list.hobbies.include?(hobby), :class => 'hobby_checkbox'
-                    = hobby.name
-                    %br/
+          - if @subscriber_list.new_record?
+            %tr
+              %td.form_section
+                = f.radio_button :auto_update, true
+                %label Lista inteligente
+          - if @subscriber_list.new_record? || @subscriber_list.auto_update?
+            %tr
+              %td
+                .label.top.req= "Contactos de la lista inteligente:"
+            %tr
+              %td
+                Añadir usuarios generales
 
-        %table
-          %tr
-            %td
-              Añadir Instituciones
-        %table
-          %tr
-            %td{ :valign => :top }
-              = f.check_box :all_institutions
-              Todas las instituciones
-              %br/
-              - for institution_types in InstitutionType.all.in_groups_of(6, false)
-                %div{:style => 'float:left; margin-right: 80px'}
-                  - for institution_type in institution_types
-                    = check_box_tag "subscriber_list[institution_type_ids][]", institution_type.id, @subscriber_list.institution_types.include?(institution_type), :class => 'institution_type_checkbox'
-                    = institution_type.name
-                    %br/
+          %table
+            %tr
+              %td{ :valign => :top }
+                = f.check_box :all_general
+                Todos los usuarios
+                %br/
+                - for hobbies in Hobby.find(:all, :conditions => ["name != 'otros'"]).in_groups_of(3, false)
+                  %div{:style => 'float:left; margin-right: 80px'}
+                    - for hobby in hobbies
+                      = check_box_tag "subscriber_list[hobby_ids][]", hobby.id, @subscriber_list.hobbies.include?(hobby), :class => 'hobby_checkbox'
+                      = hobby.name
+                      %br/
 
-        %table
-          %tr
-            %td
-              Añadir medios de comunicación
-          %tr
-            %td{ :valign => :top }
-              = f.check_box :all_comunication
-              Todos los contactos
-        %table
-          %tr
-            %td
-              Añadir Artistas - Profesionales
-          %tr
-            %td{ :valign => :top }
-              = f.check_box :all_artists
-              Todos los contactos
+          %table
+            %tr
+              %td
+                Añadir Instituciones
+          %table
+            %tr
+              %td{ :valign => :top }
+                = f.check_box :all_institutions
+                Todas las instituciones
+                %br/
+                - for institution_types in InstitutionType.all.in_groups_of(6, false)
+                  %div{:style => 'float:left; margin-right: 80px'}
+                    - for institution_type in institution_types
+                      = check_box_tag "subscriber_list[institution_type_ids][]", institution_type.id, @subscriber_list.institution_types.include?(institution_type), :class => 'institution_type_checkbox'
+                      = institution_type.name
+                      %br/
 
+          %table
+            %tr
+              %td
+                Añadir medios de comunicación
+            %tr
+              %td{ :valign => :top }
+                = f.check_box :all_comunication
+                Todos los contactos
+          %table
+            %tr
+              %td
+                Añadir Artistas - Profesionales
+            %tr
+              %td{ :valign => :top }
+                = f.check_box :all_artists
+                Todos los contactos
 
-  .buttonbar
-    = f.submit((@subscriber_list.new_record? ? 'Crear lista' : 'Guardar lista'), :class => 'btn')
+      .buttonbar
+        = f.submit((@subscriber_list.new_record? ? 'Crear lista' : 'Guardar lista'), :class => 'btn')
+        = link_to('Cancelar', (@subscriber_list.new_record? ? subscriber_lists_path : subscriber_list_path(@subscriber_list)))

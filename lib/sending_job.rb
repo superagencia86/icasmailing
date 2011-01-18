@@ -13,7 +13,7 @@ class SendingJob < Struct.new(:sending_id)
     logger.debug "Campaña: #{campaign.name}"
     
     sending.sending_contacts.each do |sc|
-      if sc.status? :pending
+      if sc.pending?
         delivered = SendingContact.find(:first, :conditions => {
             :status => SendingContact::DELIVERED,
             :campaign_id => sc.campaign_id, :email => sc.email})

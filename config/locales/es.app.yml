@@ -1,0 +1,23 @@
+
+es:
+  sending_contact:
+    pending: "Pendiente de ser enviado"
+    sent: "Enviado"
+    duplicated: "Email duplicado. Ya se envió a este email"
+    force: "Pendiende de ser enviado (aunque esté duplicado)"
+
+  # ACTIVIDAD
+  action_create: "creó"
+  action_update: "actualizó"
+  action_destroy: "eliminó"
+  action_sent: "envió"
+  action_reject_confirmation: "ha cancelado la confirmación de"
+  action_accept_confirmation: "ha aceptado la confirmación de"
+  action_send_campaign_starts: "ha empezado el envío de"
+  action_send_campaign_ends: "ha finalizado el envío de"
+
+  item_company:  "una empresa"
+  item_proposal: "una propuesta"
+  item_project:  "un proyecto"
+  item_contact: "un contacto"
+  item_campaign: "una campaña"

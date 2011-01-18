@@ -64,7 +64,8 @@ class SubscriberList < ActiveRecord::Base
   end
 
   def info
-    "#{self.space.name} - #{self.name} (#{self.contacts_count} contactos)"
+    contacts = auto_update? ? 'lista inteligente' : "#{self.contacts_count} contactos"
+    "#{self.space.name} - #{self.name} (#{contacts})"
   end
 
   protected

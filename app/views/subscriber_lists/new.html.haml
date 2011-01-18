@@ -1,5 +1,5 @@
 .title
-  %span= "Crear lista de envío"
+  %span= params[:clone].present? ? "Clonar lista de envío" : "Crear lista de envío"
 
 = render "form"
 

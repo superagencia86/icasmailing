@@ -1,0 +1,23 @@
+.title_tools
+  = link_to "Volver", campaign_path(@campaign)
+.title
+  %span= "Enviados a la campaña '#{@campaign.name}'"
+
+%div.properties
+  %div= "Envíos realizados: #{@campaign.sending_contacts.sent.count}"
+  %div= "En proceso: #{@campaign.sending_contacts.pending.count}"
+  %div= "Correos duplicados: #{@campaign.sending_contacts.duplicated.count}"
+
+#paginate= will_paginate @sending_contacts
+.list#sending_contacts
+  - unless @sending_contacts.empty?
+    - @sending_contacts.each do |sc|
+      %li
+        .indentslim
+          A
+          = link_to sc.email, (sc.contact_id ? contact_path(sc.contact_id) : '#')
+          = " usando la lista '#{sc.sending.subscriber_list.name}'" if sc.sending.subscriber_list
+          %dt
+            %b= t("sending_contact.#{sc.status}")
+            = "hace #{time_ago_in_words sc.updated_at}" if sc.updated_at
+

@@ -1,9 +1,13 @@
 - action ||= controller.action_name
 - sidebar = "#{controller.controller_name}/sidebar_#{action}"
 
-= yield(:sidebar)
-- begin
+- if @search_path
   %td{ :class => :sidebar, :id => :sidebar, :valign => :top }
-    = render :partial => sidebar
-  - rescue MissingTemplate
+    = render :partial => 'layouts/search'
+
+-#
+  - begin
+    %td{ :class => :sidebar, :id => :sidebar, :valign => :top }
+      = render :partial => sidebar
+    - rescue MissingTemplate
 

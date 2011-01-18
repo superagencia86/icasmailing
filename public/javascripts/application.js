@@ -1,4 +1,4 @@
-(function() {
+(function($) {
 
   if (typeof console == "undefined" || typeof console.log == "undefined") {
     console = {
@@ -37,8 +37,6 @@
 
 
 
-  // Place your application-specific JavaScript functions and classes here
-  // This file is automatically included by javascript_include_tag :defaults
   $(document).ready(function() {
     $('#company_submit').click( submit_company );
     $('#institution_type_name').live("keypress", function(event){
@@ -183,22 +181,18 @@
     $("#select_count_contacts").html("" + size + " contactos seleccionados.");
   }
 
-})();
+})(jQuery);
 
 var crm = {
-  search: function(query, controller) {
+  search: function(query, search_path) {
     if (!this.request) {
-      var list = "#" + controller;          // ex. "users"
-      if (list.indexOf("/") >= 0) {   // ex. "admin/users"
-        list = list.split("/")[1];
-      }
+      $("#paginate").hide();
       $("loading").show();
-      $(list).css("opacity", "0.4");
-      $.get("/" + controller + "/search", {
-        query: query,
-        list: list
+      $(".search").css("opacity", "0.4");
+      $.get(search_path, {
+        query: query
       }, function(){
-        $(list).css("opacity", "1");
+        $(".search").css("opacity", "1");
       }, "script");
     }
   }

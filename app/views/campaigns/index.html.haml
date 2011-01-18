@@ -4,10 +4,10 @@
 .title
   %span= "Campañas"
 
+#paginate= render :partial => "common/paginate"
 .list#campaigns
   - unless @campaigns.empty?
     = render :partial => "campaign", :collection => @campaigns
   - else
     = render :partial => "common/empty"
-#paginate= render :partial => "common/paginate"
 
