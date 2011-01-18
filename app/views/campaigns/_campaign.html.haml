@@ -11,4 +11,4 @@
     %tt
       = "#{t(:added, :time_ago => time_ago_in_words(campaign.created_at))} - "
       %dt
-        = link_to "Enviado a #{pluralize(campaign.sending_contacts.sent.count, 'contacto', 'contactos')}", campaign_sendings_path(campaign)
+        = link_to "Enviado a #{pluralize(campaign.sent_count, 'contacto', 'contactos')}", campaign_sendings_path(campaign)

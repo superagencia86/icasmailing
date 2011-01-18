@@ -1,6 +1,4 @@
 class Campaign < ActiveRecord::Base
-  include AASM
-
   default_scope :order => 'id ASC'
   validates_presence_of :name, :subject, :from
 
@@ -17,6 +15,11 @@ class Campaign < ActiveRecord::Base
       self.find(:all, :conditions => ["status = ? OR status = ?", SendingContact::PENDING, SendingContact::FORCE])
     end
   end
+
+  def sent_count
+    @sent_count ||= self.sending_contacts.sent.count
+  end
+
 
   has_and_belongs_to_many :subscriber_lists
   has_many :campaign_recipients do
@@ -36,6 +39,7 @@ class Campaign < ActiveRecord::Base
   has_many :contact_recipients, :through => :campaign_recipients, :source => :contact, 
     :conditions => "campaign_recipients.recipient_type = 'Contact' AND visible is true"
 
+
   has_many :assets do
     def html
       find_by_data_type("html")
@@ -47,22 +51,6 @@ class Campaign < ActiveRecord::Base
   end
 
   has_many :email_attachments
-
-
-  aasm_column :current_state
-  aasm_initial_state :new
-
-  aasm_state :new
-  aasm_state :sending
-  aasm_state :sent
-
-  aasm_event :send_now do
-    transitions :to => :sending, :from => [:new]
-  end
-
-  aasm_event :sended do
-    transitions :to => :sent, :from => [:sent]
-  end
 
   def asset_html=(value)
     self.assets.html.destroy if self.assets.html

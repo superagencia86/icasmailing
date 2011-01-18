@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   # PUBLIC
   map.resource  :user_session
   map.resource  :account, :controller => "users"
-  map.resources :campaigns, :member => {:subscribers => :any, :selection => :any, :template => :any, :test => :any} do |campaign|
+  map.resources :campaigns, :collection => {:search => :get} do |campaign|
     campaign.resources :email_attachments
     campaign.resources :sendings, :as => 'envios', :collection => {:test => :post}
   end
