@@ -1,9 +1,19 @@
 class SubscriberListsController < InheritedResources::Base
 
+  def index
+    @search_path = search_subscriber_lists_path
+    index!
+  end
+
   def new
     params[:subscriber_list] ||= {}
     params[:subscriber_list][:auto_update] = false
     new!
+  end
+
+  def search
+    @subscriber_lists = current_space.subscriber_lists.find(:all, :conditions =>
+        "name LIKE '%#{params[:query]}%'", :limit => 30)
   end
 
   protected

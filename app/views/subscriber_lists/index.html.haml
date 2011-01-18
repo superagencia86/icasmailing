@@ -5,7 +5,7 @@
 .title
   %span= "Listas de envío del espacio '#{current_space.name}' (#{@subscriber_lists.size})"
 
-.list#subscriber_lists
+.list.search#subscriber_lists
   - unless @subscriber_lists.empty?
     = render :partial => "subscriber_list", :collection => @subscriber_lists
   - else

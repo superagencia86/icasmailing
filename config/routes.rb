@@ -21,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :contacts, :as => 'contactos', :collection => {:search => :get}
   map.resources :projects
   map.resources :proposals
-  map.resources :subscriber_lists, :as => 'listas' do |list|
+  map.resources :subscriber_lists, :collection => {:search => :get}, :as => 'listas' do |list|
     list.resources :list_subscribers, :as => 'contactos'
     list.resources :list_shared_lists, :as => 'compartidas'
     list.resource :list_export, :as => 'exportar'

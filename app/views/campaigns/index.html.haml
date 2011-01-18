@@ -5,7 +5,7 @@
   %span= "Campañas"
 
 #paginate= render :partial => "common/paginate"
-.list#campaigns
+.list.search#campaigns
   - unless @campaigns.empty?
     = render :partial => "campaign", :collection => @campaigns
   - else

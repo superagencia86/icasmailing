@@ -4,6 +4,16 @@ class CampaignsController < InheritedResources::Base
   respond_to :html
 
 
+  def index
+    @search_path = search_campaigns_path
+    index!
+  end
+
+  def search
+    @campaigns = current_space.campaigns.find(:all, :conditions =>
+        "name LIKE '%#{params[:query]}%'", :limit => 30)
+  end
+
   def create
     create! do |success, failure|
       success.html do

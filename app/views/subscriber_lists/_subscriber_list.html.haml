@@ -21,7 +21,7 @@
         = ", espacio <b>#{subscriber_list.space.name}</b>" if current_user.is_superadmin?
       %dt
         - if subscriber_list.auto_update?
-          = "Lista inteligente"
+          = "<b>Lista inteligente</b>"
         - else
           = pluralize(subscriber_list.contacts.length, "contacto", "contactos")
           = "(#{pluralize(subscriber_list.confirmed.length, "confirmado", "confirmados")})"

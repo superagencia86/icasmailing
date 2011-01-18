@@ -1,0 +1,9 @@
+<% if @subscriber_lists.present? %>
+  $(".search").html("<%= escape_javascript render(:partial => 'subscriber_list', :collection => @subscriber_lists) %>");
+  <% if @subscriber_lists.size == 30 %>
+    $(".search").append("<b>La búsqueda se ha limitado a 30 elementos.</b>");
+  <% end %>
+<% else %>
+  $(".search").html("<%= escape_javascript render(:partial => 'common/empty_search') %>");
+<% end %>
+

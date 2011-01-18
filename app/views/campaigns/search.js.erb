@@ -1,0 +1,9 @@
+<% if @campaigns.present? %>
+  $(".search").html("<%= escape_javascript render(:partial => 'campaign', :collection => @campaigns) %>");
+  <% if @campaigns.size == 30 %>
+    $(".search").append("<b>La búsqueda se ha limitado a 30 elementos.</b>");
+  <% end %>
+<% else %>
+  $(".search").html("<%= escape_javascript render(:partial => 'common/empty_search') %>");
+<% end %>
+
