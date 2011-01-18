@@ -102,7 +102,9 @@ namespace :mysql do
     on_rollback { delete file }
     db = YAML::load(ERB.new(IO.read(File.join(File.dirname(__FILE__), 'database.yml'))).result)
     production = db['production']
-    run "mysqldump -u #{production['username']} --password=#{production['password']} #{production['database']} > #{file}"  do |ch, stream, data|
+
+    pass_ops = !production['password'].nil? ? "--password=#{production['password']}" : ''
+    run "mysqldump -u #{production['username']} #{pass_ops} #{production['database']} > #{file}"  do |ch, stream, data|
       puts data
     end
     get file, "tmp/#{filename}"

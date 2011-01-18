@@ -1,5 +1,5 @@
-%h1 Gestión de contactos (administrador)
-= will_paginate(:prev_label => '« Anterior', :next_label => 'Siguiente »')
+%h1= "Contactos del espacio #{@space.name}"
+= will_paginate @contacts
 %br/
 %br/
 %br/
@@ -23,7 +23,7 @@
         %td= contact.space.name
         %td= time_ago_in_words contact.created_at
         %td
-          = "<b>Aceptar suscripción:</b> #{confirm_url(contact)}<br/>"
-          = "<b>Cancelar suscripción:</b> #{unconfirm_url(contact)}<br/>"
+          = "<b>Aceptar suscripción:</b> http://#{APP.host}#{ConfirmationsController::ACCEPT_URL}/#{contact.confirmation_code}<br/>"
+          = "<b>Cancelar suscripción:</b> http://#{APP.host}#{ConfirmationsController::REJECT_URL}/#{contact.confirmation_code}"
 
 

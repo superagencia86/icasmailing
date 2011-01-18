@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :companies, :collection => {:search => :get}
   map.resources :institution_types
-  map.resources :contacts
+  map.resources :contacts, :as => 'contactos', :collection => {:search => :get}
   map.resources :projects
   map.resources :proposals
   map.resources :subscriber_lists, :as => 'listas' do |list|
@@ -36,10 +36,12 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resources :spaces do |space|
       space.resources :users
+      space.resources :space_contacts, :as => 'contactos'
+      space.resources :space_subscriber_lists, :as => 'listas'
     end
     admin.resources :jobs
     admin.resources :users
-    admin.resources :contacts, :as => 'contactos'
+    admin.resources :contacts, :as => 'contactos', :collection => {:search => :get}
     admin.resources :subscriber_lists, :as => 'listas'
     admin.resources :campaigns, :as => 'campanyas' do |campaign|
       campaign.resources :sendings, :as => 'envios'

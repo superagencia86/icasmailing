@@ -8,7 +8,6 @@ class SubscriberList < ActiveRecord::Base
 
   validates_presence_of :name
   validates_presence_of :space
-  validates_presence_of :auto_update
   validates_uniqueness_of :name, :scope => :space_id
 
 
@@ -70,8 +69,8 @@ class SubscriberList < ActiveRecord::Base
 
   protected
   def clone_list_if_specified
-    puts "CLONE! #{@clone_list_id}"
     if @clone_list_id.present?
+      puts "CLONE! #{@clone_list_id}"
       other = SubscriberList.find @clone_list_id
       self.contacts << other.contacts
       self.save!

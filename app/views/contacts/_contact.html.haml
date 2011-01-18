@@ -6,8 +6,9 @@
   .confirmed
     = contact.confirmed? && current_user.is_admin? ? 'c' : 'x'
   .indentslim
-    = link_to(h(contact.try(:full_name)), contact) << " - "
+    = link_to(h(contact.try(:full_name)), contact)
     %tt
+      = "- #{contact.space.name} - "
       - unless contact.from_form
         = t(:added_by, :time_ago => time_ago_in_words(contact.created_at), :user => (contact.user_id == current_user.id ? t(:me) : h(contact.user.try(:full_name))))
       - else
