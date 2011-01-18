@@ -7,6 +7,7 @@ RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
+  config.gem "newrelic_rpm"
   config.gem "zip"
   config.gem "authlogic"
   config.gem "aasm"
@@ -22,7 +23,6 @@ Rails::Initializer.run do |config|
   config.gem 'delayed_job', :version => '2.0.1'
   config.gem 'exception_notification'
   #  config.gem 'fastercsv', :version => '1.5.4'
-  config.gem "newrelic_rpm"
   
   config.time_zone = 'Madrid'
   config.i18n.default_locale = :es
