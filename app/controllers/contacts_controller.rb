@@ -3,6 +3,12 @@ class ContactsController < InheritedResources::Base
   actions :all
   respond_to :html
 
+  def index
+    @count = current_space.contacts.count
+    index!
+  end
+
+
   def create
     params[:contact][:hobby_ids] ||= []
     params[:contact][:subscriber_list_ids] ||= []
@@ -18,7 +24,7 @@ class ContactsController < InheritedResources::Base
   end
 
   def search
-    @contacts = Contact.finder(:space => @space, :query => params[:query], :contact_type_id => params[:contact_type_id])
+    @contacts = Contact.finder(:space => current_space, :query => params[:query], :contact_type_id => params[:contact_type_id])
     
 
     respond_to do |format|

@@ -1,4 +1,5 @@
 .title_tools
+  = "#{pluralize(@count, 'contacto', 'contactos')} en el espacio #{current_space.name} - "
   - if can? :manage, Contact
     = link_to("Crear contacto", new_contact_path, :title => "Crear contacto") 
   - else

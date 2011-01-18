@@ -36,9 +36,9 @@ set :use_sudo, false
 #############################################################
  
 set :scm, :git
-set :branch, "refactor"
+set :branch, "master"
 set :scm_user, 'git'
-set :repository,  'git://github.com/superagencia86/icas-maxwell.git'
+set :repository,  'git://github.com/superagencia86/icasmailing.git'
 
 # before "deploy:stop_mail_daemon"
 after "deploy:update_code", "db:symlink" # , "deploy:restart_mail_daemon"

@@ -44,8 +44,10 @@ class Contact < ActiveRecord::Base
   def self.finder(options = {})
     conditions, joins = [], ""
 
+    options[:space_id] = options[:space].id if options[:space].present?
+
     conditions << "space_id = #{options[:space_id]}" if options[:space_id].present?
-    conditions << ["name LIKE '%#{options[:query]}%' OR surname LIKE '%#{options[:query]}%' OR email LIKE '%#{options[:query]}%'"] if options[:query].present?
+    conditions << ["(name LIKE '%#{options[:query]}%' OR surname LIKE '%#{options[:query]}%' OR email LIKE '%#{options[:query]}%')"] if options[:query].present?
 
     %w(contact_type_id contact_subtype_id).each do |field|
       conditions << "#{field} = #{options["#{field}".to_sym]}" if options["#{field}".to_sym].present?
