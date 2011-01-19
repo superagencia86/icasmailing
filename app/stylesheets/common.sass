@@ -16,7 +16,7 @@
 //------------------------------------------------------------------------------
 
 !color_title    = #b71739
-!color_subtitle = "darkslateblue"
+!color_subtitle = #888
 !sidebar_width  = 210px
 
 li
@@ -24,6 +24,31 @@ li
 
 input[type=text], input[type=password]
   :border 1px solid gray
+
+h2
+  :font-weight normal
+  :color !color_subtitle
+  :margin 20px 0 -5px 0
+
+div.actions
+  :background-color #e5e5e5
+  :margin 10px 2em
+  :padding 0.5em 1em
+  :font-weight normal
+  :-moz-border-radius 6px
+  :-webkit-border-radius 6px
+  p
+    :margin 5px 0
+    :font-weight normal
+  a
+    :font-weight normal
+
+p.properties
+  label
+    :font-weight normal
+    :padding 3px 0
+
+
 
 // Common page elements.
 //------------------------------------------------------------------------------
@@ -321,7 +346,7 @@ input.btn:hover, a.btn:hover
 #paginate
   :float right
   :font-size 10px
-  :margin 4px 0px 0px 0px
+  :margin 4px 0px 10px 0px
 
 #paging
   :float right

@@ -6,34 +6,32 @@
 .title
   %span= @campaign.name
 
-%p.actions
-  Gestionar campaña:
-  = link_to 'Editar', edit_resource_path(resource)
-  |
-  = link_to 'Borrar', campaign_path(@campaign), :method => :delete,
-    :confirm => "¡Vas a borrar esta campaña. ¿Estás seguro?!"
-%p.actions
-  = "Enviado a #{pluralize(@campaign.sending_contacts.sent.count, 'contacto', 'contactos')}:"
-  = link_to 'Realizar envío', new_campaign_sending_path(@campaign)
-  |
-  = link_to 'Ver a quién se ha enviado', campaign_sendings_path(@campaign)
+%div.actions
+  %p
+    Gestionar campaña:
+    = link_to 'Editar', edit_resource_path(resource)
+    |
+    = link_to 'Borrar', campaign_path(@campaign), :method => :delete,
+      :confirm => "¡Vas a borrar esta campaña. ¿Estás seguro?!"
+  %p
+    = "Enviado a #{pluralize(@campaign.sending_contacts.sent.count, 'contacto', 'contactos')}:"
+    = link_to 'Realizar envío', new_campaign_sending_path(@campaign)
+    |
+    = link_to 'Ver a quién se ha enviado', campaign_sendings_path(@campaign)
 
-%br/
-%h2 Envío de prueba
-- form_tag(test_campaign_sendings_path(@campaign), :class => 'actions') do
-  Email:
-  = text_field_tag :email
-  = submit_tag 'Realizar envío de prueba'
+  - form_tag(test_campaign_sendings_path(@campaign), :class => 'actions') do
+    Email:
+    = text_field_tag :email
+    = submit_tag 'Realizar envío de prueba'
 
 %br/
 %h2 Información general
-#summary
-  %p
-    = "Nombre de la campaña: #{@campaign.name}<br/>"
-    = "Título del email: #{@campaign.subject}<br/>"
-    = "Email desde el que se envía: #{@campaign.from}<br/>"
-    = "Nombre con el que se envía: #{@campaign.from_name}<br/>"
-    = "Email al que se responde: #{@campaign.reply_to}<br/>"
+%p.properties
+  %label= "Nombre de la campaña: #{@campaign.name}<br/>"
+  %label= "Título del email: #{@campaign.subject}<br/>"
+  %label= "Email desde el que se envía: #{@campaign.from}<br/>"
+  %label= "Nombre con el que se envía: #{@campaign.from_name}<br/>"
+  %label= "Email al que se responde: #{@campaign.reply_to}<br/>"
 %br/
 %h2 Contenido
 = h(@campaign.body) if @campaign.body.present?

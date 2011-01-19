@@ -4,6 +4,28 @@ li {
 input[type=text], input[type=password] {
   border: 1px solid gray; }
 
+h2 {
+  font-weight: normal;
+  color: #888888;
+  margin: 20px 0 -5px 0; }
+
+div.actions {
+  background-color: #e5e5e5;
+  margin: 10px 2em;
+  padding: 0.5em 1em;
+  font-weight: normal;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px; }
+  div.actions p {
+    margin: 5px 0;
+    font-weight: normal; }
+  div.actions a {
+    font-weight: normal; }
+
+p.properties label {
+  font-weight: normal;
+  padding: 3px 0; }
+
 .title {
   border-bottom: 2px #cccccc solid;
   color: #b71739;
@@ -25,7 +47,7 @@ input[type=text], input[type=password] {
   font-size: 13px;
   font-weight: bold; }
   .subtitle a:link, .subtitle a:visited {
-    color: darkslateblue;
+    color: #888888;
     text-decoration: none; }
   .subtitle a:hover {
     background: none; }
@@ -268,7 +290,7 @@ input.btn:hover, a.btn:hover {
 #paginate {
   float: right;
   font-size: 10px;
-  margin: 4px 0px 0px 0px; }
+  margin: 4px 0px 10px 0px; }
 
 #paging {
   float: right;

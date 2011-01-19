@@ -15,7 +15,8 @@ class ContactsController < InheritedResources::Base
     params[:contact][:subscriber_list_ids] ||= []
     
     create!(:notice => 'Contacto registrado!') do
-      @contact.register if @contact.confirmed?
+      @contact.confirm if @contact.confirmed?
+      @contact
     end
   end
   
@@ -23,7 +24,10 @@ class ContactsController < InheritedResources::Base
     params[:contact][:hobby_ids] ||= []
     params[:contact][:subscriber_list_ids] ||= []
     
-    update!
+    update!(:notice => 'El contacto ha sido actualizado') do
+      @contact.confirmed? ? @contact.confirm : @contact.unconfirm
+      @contact
+    end
   end
 
   def search

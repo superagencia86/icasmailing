@@ -8,10 +8,10 @@
 .title
   %span= "Contactos en el espacio '#{current_space.name}' (#{@count})"
 
+#paginate= will_paginate @contacts
 .list.search#contacts-list
   - unless @contacts.empty?
     = render :partial => "contact", :collection => @contacts
   - else
     = render :partial => "common/empty"
-#paginate= render :partial => "common/paginate"
 

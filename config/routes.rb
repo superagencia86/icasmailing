@@ -18,7 +18,9 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :companies, :collection => {:search => :get}
   map.resources :institution_types
-  map.resources :contacts, :as => 'contactos', :collection => {:search => :get}
+  map.resources :contacts, :as => 'contactos', :collection => {:search => :get} do |contact|
+    contact.resource :contact_list, :as => 'listas'
+  end
   map.resources :projects
   map.resources :proposals
   map.resources :subscriber_lists, :collection => {:search => :get}, :as => 'listas' do |list|

@@ -1,50 +1,54 @@
 - if can? :manage, @contact
   .title_tools#menu
-    = link_to("Editar", edit_contact_path(@contact))
-    |
-    = link_to("Eliminar", @contact, :method => :delete,
-      :confirm => "Estás a punto de borrar el contacto #{@contact.email} ¿¿Estás seguro?!")
-    |
     = link_to "Volver", contacts_path
 
 .title
   %span= @contact.full_name
 
-#summary
+
+%div.actions
   %p
-    %b= link_to(truncate(@contact.email, :length => 30), "mailto:" << @contact.email.to_s, :title => @contact.email) if @contact.email.present?
-    %b= link_to(truncate(@contact.secondary_email, :length => 30), "mailto:" << @contact.secondary_email.to_s, :title => @contact.secondary_email) if @contact.secondary_email.present?
+    Enviar correo a:
+    = link_to(truncate(@contact.email, :length => 30), "mailto:" << @contact.email.to_s, :title => @contact.email) if @contact.email.present?
+    - if @contact.secondary_email.present?
+      = link_to(truncate(@contact.secondary_email, :length => 30), "mailto:" << @contact.secondary_email.to_s, :title => @contact.secondary_email)
   %p
-    = "Tipo de contacto: #{Contact::SUBSCRIBER_TYPES.find{|e| e.idx == @contact.contact_type_id}.try(:name)}<br/>" 
-    = "Entidad: #{@contact.entidad}<br/>" if @contact.entidad.present?
-    = "Confirmado: #{@contact.confirmed? ? 'si' : 'no'}"
+    Gestionar contacto:
+    = link_to("Editar", edit_contact_path(@contact))
+    |
+    = link_to("Eliminar", @contact, :method => :delete,
+      :confirm => "Estás a punto de borrar el contacto #{@contact.email} ¿¿Estás seguro?!")
+    |
     = link_to('Confirmar', confirm_url(@contact), :confirm => "Vas a CONFIRMAR #{@contact.email} y recibirá un correo. ¿Deseas continuar?") if !@contact.confirmed?
     = link_to('Eliminar confirmación', unconfirm_url(@contact), :confirm => "Vas a ELIMINAR la confirmación de #{@contact.email} y recibirá un correo. ¿Deseas continuar?") if @contact.confirmed?
-    %br/
-    = "Fecha de alta: #{l @contact.created_at}<br/>"
-
-  %h2 Información del contacto
   %p
-    = field("Nombre", @contact, :telephone)
-    = field("Apellidos", @contact, :surname)
-    = field("Profesión", @contact, :job)
-    = field("Teléfono", @contact, :telephone)
-    = field("Móvil", @contact, :celular)
-    = field("Entidad", @contact, :entidad)
-    = field("Dirección", @contact, :address)
+    Listas:
+    = link_to "Modificar las listas en las que está incluido", edit_contact_contact_list_path(@contact)
 
-  %h2 Listas en las que está incluído
-  %ul.list
-    - @contact.subscriber_lists.each do |list|
-      %li
-        .indentslim
-          = link_to list.name, subscriber_list_path(list)
-          = " - Espacio #{list.space.name}"
-          = " - #{pluralize(list.contacts_count, 'contacto', 'contactos')}"
+%h2 Información del contacto
+%p.properties
+  %label= "Tipo de contacto: #{Contact::SUBSCRIBER_TYPES.find{|e| e.idx == @contact.contact_type_id}.try(:name)}<br/>"
+  %label= "Entidad: #{@contact.entidad}<br/>" if @contact.entidad.present?
+  %label= "Confirmado: #{@contact.confirmed? ? 'si' : 'no'}"
+  %label= "Fecha de alta: #{l @contact.created_at}<br/>"
+  = field("Correo", @contact, :email)
+  = field("Nombre", @contact, :telephone)
+  = field("Apellidos", @contact, :surname)
+  = field("Profesión", @contact, :job)
+  = field("Teléfono", @contact, :telephone)
+  = field("Móvil", @contact, :celular)
+  = field("Entidad", @contact, :entidad)
+  = field("Dirección", @contact, :address)
+
+%h2 Listas en las que está incluído
+%ul.list
+  - @contact.subscriber_lists.each do |list|
+    %li
+      .indentslim
+        = link_to list.name, subscriber_list_path(list)
+        = " - Espacio #{list.space.name}"
+        = " - #{pluralize(list.contacts_count, 'contacto', 'contactos')}"
 
 
-  %p
-    - if @contact.telephone.present? || @contact.celular.present?
-      = "Teléfono/s: <b>#{@contact.telephone}</b> - <b>#{@contact.celular}</b><br />"
 
-  
+
