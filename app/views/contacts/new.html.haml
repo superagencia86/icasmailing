@@ -1,9 +1,5 @@
 .title
-  %span= "Crear contacto"
+  %span= title "Crear contacto"
 
-- form_for @contact do |f|
-  = f.error_messages 
-  = render "form", :f => f
+= render "form"
 
-  .buttonbar
-    = f.submit "Crear contacto" 

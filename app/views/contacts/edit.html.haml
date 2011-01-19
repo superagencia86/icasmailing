@@ -1,11 +1,4 @@
 .title
-  %span= "Editar contacto"
+  %span= title "Editar contacto"
 
-- form_for @contact do |f|
-  = f.error_messages 
-  = render "form", :f => f
-
-  .buttonbar
-    = f.submit "Guardar cambios" 
-    %p
-      = link_to "Volver a todos los contactos", contacts_path
+= render "form"

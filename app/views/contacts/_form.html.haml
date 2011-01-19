@@ -1,123 +1,131 @@
-= f.hidden_field :user_id, :value => current_user.id
-%table(width="500" cellpadding="0" cellspacing="0")
-  %tr
-    %td(valign="top")
-      .label.top Nombre
-      = f.text_field :name, :style => "width:224px"
-    %td= spacer
-    %td(valign="top")
-      .label.top= "Apellidos"
-      = f.text_field :surname, :style => "width:224px"
-    %td= spacer
-    %td{ :valign => :top }
-      .label.top Profesión
-      = f.text_field :job, :style => "width:224px"
-  %tr
-    %td{ :valign => :top }
-      .label.top Sexo
+- form_for @contact do |f|
+  = f.error_messages
+  .remote
+    .section
 
-      - for sex in SEX
-        = f.radio_button :sex_id, sex.idx
-        = f.label :sex_id, sex.name, :value => sex.idx
+      = f.hidden_field :user_id, :value => current_user.id
+      %table(width="500" cellpadding="0" cellspacing="0")
+        %tr
+          %td(valign="top")
+            .label.top Nombre
+            = f.text_field :name, :style => "width:224px"
+          %td= spacer
+          %td(valign="top")
+            .label.top= "Apellidos"
+            = f.text_field :surname, :style => "width:224px"
+          %td= spacer
+          %td{ :valign => :top }
+            .label.top Profesión
+            = f.text_field :job, :style => "width:224px"
+        %tr
+          %td{ :valign => :top }
+            .label.top Sexo
 
-    %td= spacer
-    %td{ :valign => :top }
-      .label.top.req Email
-      = f.text_field :email, :style => "width:224px"
-    %td= spacer
-    %td{ :valign => :top }
-      .label.top Web / blog
-      = f.text_field :web, :style => "width:224px"
+            - for sex in SEX
+              = f.radio_button :sex_id, sex.idx
+              = f.label :sex_id, sex.name, :value => sex.idx
 
-  %tr
-    %td{ :valign => :top }
-      .label.top Teléfono móvil
-      = f.text_field :celular, :style => "width:224px"
-    %td= spacer
-    %td{ :valign => :top }
-      .label.top Teléfono fijo
-      = f.text_field :telephone, :style => "width:224px"
+          %td= spacer
+          %td{ :valign => :top }
+            .label.top.req Email
+            = f.text_field :email, :style => "width:224px"
+          %td= spacer
+          %td{ :valign => :top }
+            .label.top Web / blog
+            = f.text_field :web, :style => "width:224px"
 
-    %td= spacer
-    %td{ :valign => :top }
-      .label.top Fecha de nacimiento
-      = f.date_select :birthday_at, :include_blank => true, :start_year => 1900
+        %tr
+          %td{ :valign => :top }
+            .label.top Teléfono móvil
+            = f.text_field :celular, :style => "width:224px"
+          %td= spacer
+          %td{ :valign => :top }
+            .label.top Teléfono fijo
+            = f.text_field :telephone, :style => "width:224px"
 
-  %tr
-    %td{ :valign => :top, :colspan => 2 }
-      .label.top Entidad
-      = f.text_field :entidad, :style => "width:224px"
-    %td{ :valign => :top, :colspan => 4 }
-      .label.top Dirección
-      = f.text_field :address, :size => 63
+          %td= spacer
+          %td{ :valign => :top }
+            .label.top Fecha de nacimiento
+            = f.date_select :birthday_at, :include_blank => true, :start_year => 1900
 
-  %tr
-    %td{ :valign => :top}
-      .label.top Provincia
-      = f.collection_select :province_id, PROVINCES, :idx, :name, {:include_blank => true}, :style => "width:224px"
-    %td= spacer
-    %td{ :valign => :top }
-      .label.top Localidad
-      = f.text_field :locality, :style => "width:224px"
+        %tr
+          %td{ :valign => :top, :colspan => 2 }
+            .label.top Entidad
+            = f.text_field :entidad, :style => "width:224px"
+          %td{ :valign => :top, :colspan => 4 }
+            .label.top Dirección
+            = f.text_field :address, :size => 63
 
-    %td= spacer
-    %td{ :valign => :top }
-      .label.top C.P.
-      = f.text_field :zip, :style => "width:224px"
+        %tr
+          %td{ :valign => :top}
+            .label.top Provincia
+            = f.collection_select :province_id, PROVINCES, :idx, :name, {:include_blank => true}, :style => "width:224px"
+          %td= spacer
+          %td{ :valign => :top }
+            .label.top Localidad
+            = f.text_field :locality, :style => "width:224px"
 
-    
+          %td= spacer
+          %td{ :valign => :top }
+            .label.top C.P.
+            = f.text_field :zip, :style => "width:224px"
 
-%table{  :cellpadding => 0, :cellspacing => 0 }
-  %tr
-    %td{ :valign => :top }
-      .label.top Tipo de contacto
-      - for subscriber_type in Contact::SUBSCRIBER_TYPES[0..-2]
-        = f.radio_button :contact_type_id, subscriber_type.idx, :class => 'contact_type_select_radio'
-        = f.label :contact_type_id, subscriber_type.name, :value => subscriber_type.idx
-      %br/
 
-      #institutions{:style => 'float:left'}
-        = f.radio_button :contact_type_id, Contact::SUBSCRIBER_TYPES[-1].idx, :class => 'contact_type_select_radio'
-        = f.label :contact_type_id, Contact::SUBSCRIBER_TYPES[-1].name, :value => Contact::SUBSCRIBER_TYPES[-1].idx
-      #institution_types{:style => 'margin-left:20px; float:left;display:none'}
-        =# render :partial => 'companies/company_select', :locals => {:f => f.object_name, :selected => @contact.company_id}
-        = render :partial => 'institution_types/institution_select', :locals => {:f => f.object_name, :selected => @contact.institution_type_id}
 
-    %td{ :valign => :top }
-      #subscriber_subtypes{:style => 'display:none'}
-        .label.top Subtipo de contacto
-        = f.collection_select :contact_subtype_id, Contact::SUBSCRIBER_SUBTYPES, :idx, :name, :include_blank => true
-  %tr
-    %td{ :valign => :top }
-      #hobbies{:style => 'display:none'}
-        .label.top Intereses
-        - for hobbies in Hobby.find(:all).in_groups_of(5)
-          .hobbies{:style => 'float:left'}
-            - for hobby in hobbies
-              = check_box_tag "contact[hobby_ids][]", hobby.id, @contact.hobbies.include?(hobby)
-              = hobby.name 
-              %br/          
-%table
-  %tr
-    %td{:valign => :top}
-      .label.top Comentarios
-      = f.text_area :comments, :rows => 4, :cols => 60
+      %table{  :cellpadding => 0, :cellspacing => 0 }
+        %tr
+          %td{ :valign => :top }
+            .label.top Tipo de contacto
+            - for subscriber_type in Contact::SUBSCRIBER_TYPES[0..-2]
+              = f.radio_button :contact_type_id, subscriber_type.idx, :class => 'contact_type_select_radio'
+              = f.label :contact_type_id, subscriber_type.name, :value => subscriber_type.idx
+            %br/
 
-- if current_user.is_superadmin?
-  %table
-    %tr
-      %td{:valign => :top}
-        .label.top Estado de la confirmación
-        = f.check_box :confirmed
-        Confirmado
+            #institutions{:style => 'float:left'}
+              = f.radio_button :contact_type_id, Contact::SUBSCRIBER_TYPES[-1].idx, :class => 'contact_type_select_radio'
+              = f.label :contact_type_id, Contact::SUBSCRIBER_TYPES[-1].name, :value => Contact::SUBSCRIBER_TYPES[-1].idx
+            #institution_types{:style => 'margin-left:20px; float:left;display:none'}
+              =# render :partial => 'companies/company_select', :locals => {:f => f.object_name, :selected => @contact.company_id}
+              = render :partial => 'institution_types/institution_select', :locals => {:f => f.object_name, :selected => @contact.institution_type_id}
 
-- if (subscriber_lists = current_space.subscriber_lists.normal.all).present?
-  %table
-    %tr
-      %td{:valign => :top}
-        .label.top Presencia en listas de envíos
-        - for subscriber_list in subscriber_lists
-          = check_box_tag "contact[subscriber_list_ids][]", subscriber_list.id, @contact.subscriber_lists.include?(subscriber_list)
-          = subscriber_list.info
-          %br/
-        
+          %td{ :valign => :top }
+            #subscriber_subtypes{:style => 'display:none'}
+              .label.top Subtipo de contacto
+              = f.collection_select :contact_subtype_id, Contact::SUBSCRIBER_SUBTYPES, :idx, :name, :include_blank => true
+        %tr
+          %td{ :valign => :top }
+            #hobbies{:style => 'display:none'}
+              .label.top Intereses
+              - for hobbies in Hobby.find(:all).in_groups_of(5)
+                .hobbies{:style => 'float:left'}
+                  - for hobby in hobbies
+                    = check_box_tag "contact[hobby_ids][]", hobby.id, @contact.hobbies.include?(hobby)
+                    = hobby.name
+                    %br/
+      %table
+        %tr
+          %td{:valign => :top}
+            .label.top Comentarios
+            = f.text_area :comments, :rows => 4, :cols => 60
+
+      - if current_user.is_superadmin?
+        %table
+          %tr
+            %td{:valign => :top}
+              .label.top Estado de la confirmación
+              = f.check_box :confirmed
+              Confirmado
+
+      - if (subscriber_lists = current_space.subscriber_lists.normal.all).present?
+        %table
+          %tr
+            %td{:valign => :top}
+              .label.top Presencia en listas de envíos
+              - for subscriber_list in subscriber_lists
+                = check_box_tag "contact[subscriber_list_ids][]", subscriber_list.id, @contact.subscriber_lists.include?(subscriber_list)
+                = subscriber_list.info
+                %br/
+
+    .buttonbar
+      = f.submit((@contact.new_record? ? "Crear contacto" : "Guardar contacto"), :class => 'btn')
+      = link_to 'Cancelar', (@contact.new_record? ? contacts_path : contact_path(@contact))
