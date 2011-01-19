@@ -14,7 +14,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :account, :controller => "users"
   map.resources :campaigns, :collection => {:search => :get} do |campaign|
     campaign.resources :email_attachments
-    campaign.resources :sendings, :as => 'envios', :collection => {:test => :post}
+    campaign.resources :sendings, :as => 'envios', 
+      :collection => {:search => :get, :test => :post}
   end
   map.resources :companies, :collection => {:search => :get}
   map.resources :institution_types

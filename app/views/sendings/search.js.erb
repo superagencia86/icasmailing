@@ -1,0 +1,9 @@
+<% if @sending_contacts.present? %>
+  $("#contacts-list").html("<%= escape_javascript render(:partial => 'contact', :collection => @contacts) %>");
+  <% if @sending_contacts.size == 30 %>
+    $("#contacts-list").append("<b>La búsqueda se ha limitado a 30 elementos.</b>");
+  <% end %>
+<% else %>
+  $("#contacts-list").html("<%= escape_javascript render(:partial => 'common/empty_search') %>");
+<% end %>
+

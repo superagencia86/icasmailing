@@ -1,15 +1,17 @@
 .title_tools
   = link_to "Volver", campaign_path(@campaign)
 .title
-  %span= "Enviados a la campaña '#{@campaign.name}'"
+  %span= title "Enviados a la campaña '#{@campaign.name}'"
 
-%div.properties
-  %div= "Envíos realizados: #{@campaign.sending_contacts.sent.count}"
-  %div= "En proceso: #{@campaign.sending_contacts.pending.count}"
-  %div= "Correos duplicados: #{@campaign.sending_contacts.duplicated.count}"
+%h2 Estadísticas de envío
+%p.properties
+  %label= "Envíos realizados: #{@campaign.sent_count}<br/>"
+  %label= "En proceso: #{@campaign.pending_count}<br/>"
+  %label= "Correos duplicados: #{@campaign.duplicated_count}<br/>"
 
+%h2 Correos al los que se ha enviado
 #paginate= will_paginate @sending_contacts
-.list#sending_contacts
+.list.search#sending_contacts
   - unless @sending_contacts.empty?
     - @sending_contacts.each do |sc|
       %li

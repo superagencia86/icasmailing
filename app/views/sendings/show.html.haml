@@ -3,11 +3,10 @@
 .title
   %span= "Envío de '#{@campaign.name}'"
 
-#summary
-  %p
-    = "Estado: #{@sending.current_state}"
-    %br/
-    = "Se envió hace: #{@sending.sent_at ? time_ago_in_words(@sending.sent_at) : 'no ha empezado'}"
+%p.properties
+  %label= "Estado: #{@sending.current_state}"
+  %br/
+  %label= "Se envió hace: #{@sending.sent_at ? time_ago_in_words(@sending.sent_at) : 'no ha empezado'}"
 
 %table
   - @sending.sending_contacts.each do |sc|

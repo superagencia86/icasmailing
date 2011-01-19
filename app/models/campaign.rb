@@ -20,8 +20,19 @@ class Campaign < ActiveRecord::Base
   def sent_count
     @sent_count ||= SendingContact.count(:conditions => {:campaign_id => self.id,
       :status => SendingContact::DELIVERED})
-      ##self.sending_contacts.sent.count
   end
+
+  def pending_count
+    @pending_count ||= SendingContact.count(:conditions =>
+        ["campaign_id = ? AND (status = ? OR status = ?)", self.id,
+        SendingContact::PENDING, SendingContact::FORCE])
+  end
+
+  def duplicated_count
+    @duplicated_count ||= SendingContact.count(:conditions => {:campaign_id => self.id,
+        :status => SendingContact::DUPLICATED})
+  end
+
 
 
   has_and_belongs_to_many :subscriber_lists
