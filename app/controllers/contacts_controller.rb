@@ -14,7 +14,9 @@ class ContactsController < InheritedResources::Base
     params[:contact][:hobby_ids] ||= []
     params[:contact][:subscriber_list_ids] ||= []
     
-    create!
+    create!(:notice => 'Contacto registrado!') do
+      @contact.register if @contact.confirmed?
+    end
   end
   
   def update

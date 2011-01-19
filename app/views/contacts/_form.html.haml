@@ -111,13 +111,13 @@
         = f.check_box :confirmed
         Confirmado
 
-- if (subscriber_lists = current_space.subscriber_lists.all).present?
+- if (subscriber_lists = current_space.subscriber_lists.normal.all).present?
   %table
     %tr
       %td{:valign => :top}
         .label.top Presencia en listas de envíos
         - for subscriber_list in subscriber_lists
           = check_box_tag "contact[subscriber_list_ids][]", subscriber_list.id, @contact.subscriber_lists.include?(subscriber_list)
-          = subscriber_list.name
+          = subscriber_list.info
           %br/
         
