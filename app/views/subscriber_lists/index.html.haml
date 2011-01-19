@@ -1,6 +1,8 @@
 .title_tools
   - if current_user.is_subscriber_lists_manager?
-    = link_to("Crear lista de subscripción", new_subscriber_list_path, :title => "Crear lista de subscripción") 
+    = link_to("Crear lista", new_subscriber_list_path)
+    |
+    = link_to("Crear lista inteligente", new_subscriber_list_path(:auto_update => true))
 
 .title
   %span= "Listas de envío del espacio '#{current_space.name}' (#{@subscriber_lists.size})"

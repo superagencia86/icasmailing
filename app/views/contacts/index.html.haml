@@ -6,7 +6,7 @@
     Sólo lectura
 
 .title
-  %span= "Contactos"
+  %span= "Contactos en el espacio '#{current_space.name}' (#{@count})"
 
 .list.search#contacts-list
   - unless @contacts.empty?

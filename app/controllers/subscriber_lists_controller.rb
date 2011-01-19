@@ -7,7 +7,8 @@ class SubscriberListsController < InheritedResources::Base
 
   def new
     params[:subscriber_list] ||= {}
-    params[:subscriber_list][:auto_update] = false
+    params[:subscriber_list][:auto_update] = params[:auto_update]
+    params[:subscriber_list][:user_id] = current_user.id
     new!
   end
 

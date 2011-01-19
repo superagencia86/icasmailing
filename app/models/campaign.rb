@@ -6,7 +6,8 @@ class Campaign < ActiveRecord::Base
   has_many(:sendings, :order => 'id DESC')
   has_many(:sending_contacts, :order => 'id DESC') do
     def sent
-      self.find(:all, :conditions => {:status => SendingContact::DELIVERED})
+      self.scoped_by_status(SendingContact::DELIVERED)
+      #self.find(:all, :conditions => {:status => SendingContact::DELIVERED})
     end
     def duplicated
       self.find(:all, :conditions => {:status => SendingContact::DUPLICATED})
@@ -17,7 +18,9 @@ class Campaign < ActiveRecord::Base
   end
 
   def sent_count
-    @sent_count ||= self.sending_contacts.sent.count
+    @sent_count ||= SendingContact.count(:conditions => {:campaign_id => self.id,
+      :status => SendingContact::DELIVERED})
+      ##self.sending_contacts.sent.count
   end
 
 

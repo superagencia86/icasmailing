@@ -34,9 +34,14 @@
     = field("Dirección", @contact, :address)
 
   %h2 Listas en las que está incluído
-  %ul
+  %ul.list
     - @contact.subscriber_lists.each do |list|
-      %li= list.name
+      %li
+        .indentslim
+          = link_to list.name, subscriber_list_path(list)
+          = " - Espacio #{list.space.name}"
+          = " - #{pluralize(list.contacts_count, 'contacto', 'contactos')}"
+
 
   %p
     - if @contact.telephone.present? || @contact.celular.present?
