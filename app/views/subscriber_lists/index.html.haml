@@ -5,7 +5,7 @@
     = link_to("Crear lista inteligente", new_subscriber_list_path(:auto_update => true))
 
 .title
-  %span= "Listas de envío del espacio '#{current_space.name}' (#{@subscriber_lists.size})"
+  %span= title "Listas de envío (#{@subscriber_lists.size}) - Espacio '#{current_space.name}'"
 
 .list.search#subscriber_lists
   - unless @subscriber_lists.empty?

@@ -1,17 +1,16 @@
 .title_tools
-  = "#{pluralize(@count, 'contacto', 'contactos')} en el espacio #{current_space.name} - "
   - if can? :manage, Contact
     = link_to("Crear contacto", new_contact_path, :title => "Crear contacto") 
   - else
     Sólo lectura
 
 .title
-  %span= "Contactos en el espacio '#{current_space.name}' (#{@count})"
+  %span= title "Contactos (#{@count}) - Espacio '#{current_space.name}'"
 
-#paginate= will_paginate @contacts
 .list.search#contacts-list
   - unless @contacts.empty?
     = render :partial => "contact", :collection => @contacts
   - else
     = render :partial => "common/empty"
+#paginate= will_paginate @contacts
 

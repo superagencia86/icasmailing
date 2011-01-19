@@ -2,7 +2,7 @@
   = link_to("Crear campaña", new_campaign_path, :title => "Crear campaña")
 
 .title
-  %span= "Campañas"
+  %span= title "Campañas (#{@campaigns.size}) - Espacio '#{current_space.name}'"
 
 #paginate= render :partial => "common/paginate"
 .list.search#campaigns
