@@ -1,4 +1,5 @@
 class ConfirmationsController < ApplicationController
+  
   before_filter :load_contact
 
   ACCEPT_URL = "/lista-icas/confirmar"

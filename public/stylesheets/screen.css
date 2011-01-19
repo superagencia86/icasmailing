@@ -170,7 +170,8 @@ input[type=text], input[type=password] {
 h2 {
   font-weight: normal;
   color: #888888;
-  margin: 20px 0 -5px 0; }
+  margin: 20px 0 -5px 0;
+  text-shadow: 0 1px 0 #b3bfd3; }
 
 div.actions {
   background-color: #e5e5e5;
@@ -181,9 +182,11 @@ div.actions {
   -webkit-border-radius: 6px; }
   div.actions p {
     margin: 5px 0;
-    font-weight: normal; }
+    font-weight: normal;
+    text-shadow: 0 1px 0 #b3bfd3; }
   div.actions a {
-    font-weight: normal; }
+    font-weight: normal;
+    text-shadow: 0 0 0 #b3bfd3; }
 
 p.properties label {
   font-weight: normal;

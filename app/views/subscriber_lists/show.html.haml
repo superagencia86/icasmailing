@@ -1,6 +1,5 @@
 .title_tools#menu
-  %span#subscribers_count= @subscriber_list.subscribers.count(:all, :conditions => {:active => true})
-  contactos
+  %span#subscribers_count= pluralize(@subscriber_list.contacts_count, 'contacto', 'contactos')
   - if can? :manage, @subscriber_list
     |
     = link_to("Volver", subscriber_lists_path)
@@ -8,19 +7,27 @@
 
 .title
   %span
-    = "#{@subscriber_list.name} - listado y edición de contactos #{params[:solo] == 'confirmados' ? 'CONFIRMADOS' : ''}"
+    = title "Lista '#{@subscriber_list.name}' - Espacio '#{@subscriber_list.space.name}'"
     = "(Compartida, sólo lectura)" unless current_space.id == @subscriber_list.space_id
 
 %div.actions
   %p
     Gestionar lista:
-    = link_to 'Ver contactos', subscriber_list_list_subscribers_path(resource)
-    |
     = link_to 'Editar', edit_subscriber_list_path(resource)
     |
     = link_to 'Clonar', new_subscriber_list_path(:clone => @subscriber_list.id)
     |
     = link_to 'Borrar', subscriber_list_path(@subscriber_list), :method => :delete, :confirm => "Vas a borrar esta lista. ¡¿Estás segurx?!"
+  %p
+    Gestionar contactos:
+    = link_to 'Borrar contactos', subscriber_list_list_subscribers_path(resource)
+  %p
+    Añadir contactos:
+    = link_to 'De otra lista', new_subscriber_list_list_import_path(@subscriber_list, :source => 'list')
+    |
+    = link_to 'Usando un filtro', new_subscriber_list_list_import_path(@subscriber_list, :source => 'filter')
+    |
+    = link_to 'Datos csv'
   %p
     Exportar contactos:
     = link_to 'En PDF', subscriber_list_list_export_path(@subscriber_list, :format => 'pdf')
@@ -29,32 +36,22 @@
     |
     = link_to 'En CSV', subscriber_list_list_export_path(@subscriber_list, :format => 'csv')
   - if !@subscriber_list.auto_update?
-    %p
-      Importar contactos:
-      = link_to 'De otra lista', new_subscriber_list_list_import_path(@subscriber_list, :source => 'list')
-      |
-      = link_to 'Usando un filtro'
-      |
-      = link_to 'Datos csv'
 
 %h2 Información general
-#summary
-  %p.properties
-    %label= "Tipo: #{@subscriber_list.auto_update? ? 'Lista inteligente' : 'Lista normal'}<br/>"
-    %label= "Nombre: #{@subscriber_list.name}<br/>"
-    %label= "Descripción: #{@subscriber_list.description}<br/>"
-    %label= "Espacio: #{@subscriber_list.space.name} (#{@subscriber_list.space_id == current_space.id ? 'Lista propia' : 'Lista compartida'})<br/>"
-    %label= "Número contactos: #{@subscriber_list.contacts_count}<br/>"
+%p.properties
+  %label= "Tipo: #{@subscriber_list.auto_update? ? 'Lista inteligente' : 'Lista normal'}<br/>"
+  %label= "Nombre: #{@subscriber_list.name}<br/>"
+  %label= "Descripción: #{@subscriber_list.description}<br/>"
+  %label= "Espacio: #{@subscriber_list.space.name} (#{@subscriber_list.space_id == current_space.id ? 'Lista propia' : 'Lista compartida'})<br/>"
+  %label= "Número contactos: #{@subscriber_list.contacts_count}<br/>"
 
-%br/
 %h2 Compartir
-#summary
-  %ul.list
-    - @subscriber_list.shared_lists.each do |shared|
-      %li
-        = "Compartida con espacio '#{shared.space.name}'"
-        = link_to "(Dejar de compartir)", subscriber_list_list_shared_list_path(@subscriber_list, shared), :method => :delete,
-                :confirm => "¿Quiere dejar de compartir esta lista con #{shared.space.name}?"
-    %li= 'No está compartida con ningún espacio' if @subscriber_list.shared_lists.size == 0
+%ul.list
+  - @subscriber_list.shared_lists.each do |shared|
+    %li
+      = "Compartida con espacio '#{shared.space.name}'"
+      = link_to "(Dejar de compartir)", subscriber_list_list_shared_list_path(@subscriber_list, shared), :method => :delete,
+              :confirm => "¿Quiere dejar de compartir esta lista con #{shared.space.name}?"
+  %li= 'No está compartida con ningún espacio' if @subscriber_list.shared_lists.size == 0
 
 

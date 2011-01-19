@@ -1,0 +1,8 @@
+
+%br
+%h2 Importar contactos usando un filtro
+%br/
+.label.top.req Elige los criterios que deben cumplir los contactos.
+- form_for @subscriber_list, :url => preview_subscriber_list_list_import_path(@list), :method => :get do |f|
+  = render :partial => 'subscriber_lists/filter', :locals => {:f => f}
+  = submit_tag 'Previsualizar'

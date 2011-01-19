@@ -35,56 +35,10 @@
         - if @subscriber_list.auto_update?
           %table
             %tr
-              %td
-                %br/
+              %td(valign="top")
                 .label.top.req= "Criterios de la lista inteligente:"
                 Selecciona los criterios que deben cumplir los contactos para estar en esta lista.
-            %tr
-              %td{ :valign => :top }
-                = f.check_box :all_general
-                Todos los usuarios
-                %br/
-                - for hobbies in Hobby.find(:all, :conditions => ["name != 'otros'"]).in_groups_of(3, false)
-                  %div{:style => 'float:left; margin-right: 80px'}
-                    - for hobby in hobbies
-                      = check_box_tag "subscriber_list[hobby_ids][]", hobby.id, @subscriber_list.hobbies.include?(hobby), :class => 'hobby_checkbox'
-                      = hobby.name
-                      %br/
-
-
-          %table
-            %tr
-              %td
-                Añadir Instituciones
-          %table
-            %tr
-              %td{ :valign => :top }
-                = f.check_box :all_institutions
-                Todas las instituciones
-                %br/
-                - for institution_types in InstitutionType.all.in_groups_of(6, false)
-                  %div{:style => 'float:left; margin-right: 80px'}
-                    - for institution_type in institution_types
-                      = check_box_tag "subscriber_list[institution_type_ids][]", institution_type.id, @subscriber_list.institution_types.include?(institution_type), :class => 'institution_type_checkbox'
-                      = institution_type.name
-                      %br/
-
-          %table
-            %tr
-              %td
-                Añadir medios de comunicación
-            %tr
-              %td{ :valign => :top }
-                = f.check_box :all_comunication
-                Todos los contactos
-          %table
-            %tr
-              %td
-                Añadir Artistas - Profesionales
-            %tr
-              %td{ :valign => :top }
-                = f.check_box :all_artists
-                Todos los contactos
+          = render :partial => 'filter', :locals => {:f => f}
           
        
         .buttonbar

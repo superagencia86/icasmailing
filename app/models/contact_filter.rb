@@ -3,8 +3,8 @@
 
 
 class ContactFilter
-  def initialize(data = nil)
-    @data = data || self
+  def initialize(list)
+    @data = list
     @contact_ids = nil
   end
 

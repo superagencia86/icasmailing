@@ -1,4 +1,5 @@
 class SubscriberListsController < InheritedResources::Base
+  before_filter :require_user
 
   def index
     @search_path = search_subscriber_lists_path
