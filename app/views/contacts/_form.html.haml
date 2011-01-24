@@ -116,7 +116,7 @@
               = f.check_box :confirmed
               Confirmado
 
-      - if (subscriber_lists = current_space.subscriber_lists.normal.all).present?
+      - if (subscriber_lists = current_space.subscriber_lists.normal).present?
         %table
           %tr
             %td{:valign => :top}
