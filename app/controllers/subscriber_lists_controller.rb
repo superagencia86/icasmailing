@@ -7,10 +7,18 @@ class SubscriberListsController < InheritedResources::Base
   end
 
   def new
+    params[:auto_update] ||= false
     params[:subscriber_list] ||= {}
     params[:subscriber_list][:auto_update] = params[:auto_update]
     params[:subscriber_list][:user_id] = current_user.id
+    @subscriber_list = current_space.subscriber_lists.build(params[:subscriber_list])
+    logger.debug(@subscriber_list.to_yaml)
     new!
+  end
+
+  def create
+    params[:subscriber_list][:auto_update] ||= false
+    create!
   end
 
   def search
