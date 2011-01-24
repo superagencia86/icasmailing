@@ -25,6 +25,8 @@ class ListImportsController < ApplicationController
       params[:subscriber_list][:space_id] = current_space.id
       filter = ContactFilter.new(SubscriberList.new(params[:subscriber_list]))
       @contacts = filter.contacts
+    elsif params[:search]
+      @contacts = Contact.finder(:space => current_space, :query => params[:search])
     else
       @contacts = []
     end

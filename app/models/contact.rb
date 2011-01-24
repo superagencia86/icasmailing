@@ -47,7 +47,12 @@ class Contact < ActiveRecord::Base
     options[:space_id] = options[:space].id if options[:space].present?
 
     conditions << "space_id = #{options[:space_id]}" if options[:space_id].present?
-    conditions << ["(name LIKE '%#{options[:query]}%' OR surname LIKE '%#{options[:query]}%' OR email LIKE '%#{options[:query]}%')"] if options[:query].present?
+
+    if options[:query].present?
+      options[:query].split.each do |query|
+        conditions << ["(name LIKE '%#{query}%' OR surname LIKE '%#{query}%' OR email LIKE '%#{query}%')"]
+      end
+    end
 
     %w(contact_type_id contact_subtype_id).each do |field|
       conditions << "#{field} = #{options["#{field}".to_sym]}" if options["#{field}".to_sym].present?

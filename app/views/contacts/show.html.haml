@@ -31,7 +31,7 @@
   %label= "Confirmado: #{@contact.confirmed? ? 'si' : 'no'}"
   %label= "Fecha de alta: #{l @contact.created_at}<br/>"
   = field("Correo", @contact, :email)
-  = field("Nombre", @contact, :telephone)
+  = field("Nombre", @contact, :name)
   = field("Apellidos", @contact, :surname)
   = field("Profesión", @contact, :job)
   = field("Teléfono", @contact, :telephone)
