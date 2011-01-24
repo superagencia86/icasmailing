@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.form     '/form',     :controller => 'public',        :action => 'create'
   map.pdf '/pdf', :controller => 'dashboard', :action => 'generate_pdf'
   map.boletin '/boletin', :controller => 'api', :action => 'boletin'
+  map.fail '/admin/error', :controller => 'admin/dashboard', :action => 'send_error'
 
   # PUBLIC
   map.resource  :user_session
