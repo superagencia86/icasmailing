@@ -75,6 +75,11 @@ class ContactsController < InheritedResources::Base
   #     redirect_to subscriber_list_path(@subscriber_list)
   #   end
   # end
+
+  def delete
+    @contact = current_space.contacts.find params[:id]
+    @lists = @contact.subscriber_lists
+  end
   
   def destroy
     if params[:subscriber_list_id].present?

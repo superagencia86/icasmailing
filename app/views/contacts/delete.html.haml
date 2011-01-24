@@ -1,0 +1,17 @@
+.title
+  %span= "Vas a borrar #{@contact.full_name}"
+
+%h2= "Quieres borrar el contacto #{@contact.full_name}"
+%br/
+- if @lists.size > 0
+  %h3 Eso significa que se borrará de las siguientes listas:
+  %ul
+    - @lists.each do |list|
+      %li= list.name
+
+%h2
+  ¿Estás seguro?
+  = link_to 'Si', @contact, :method => :delete
+  |
+  = link_to 'No', @contact
+

@@ -5,21 +5,21 @@
 
 %h2 Estadísticas de envío
 %p.properties
-  %label= "Envíos realizados: #{@campaign.sent_count}<br/>"
-  %label= "En proceso: #{@campaign.pending_count}<br/>"
-  %label= "Correos duplicados: #{@campaign.duplicated_count}<br/>"
+  %label= "Envíos ya realizados: <b>#{@campaign.sent_count}</b> contactos<br/>"
+  %label= "En proceso: <b>#{@campaign.pending_count}</b> contactos<br/>"
+  %label= "Duplicados: <b>#{@campaign.duplicated_count}</b> contactos<br/>"
 
-%h2 Correos al los que se ha enviado
-#paginate= will_paginate @sending_contacts
+%h2 Envios realizados
 .list.search#sending_contacts
-  - unless @sending_contacts.empty?
-    - @sending_contacts.each do |sc|
-      %li
-        .indentslim
-          A
-          = link_to sc.email, (sc.contact_id ? contact_path(sc.contact_id) : '#')
-          = " usando la lista '#{sc.sending.subscriber_list.name}'" if sc.sending.subscriber_list
-          %dt
-            %b= t("sending_contact.#{sc.status}")
-            = "hace #{time_ago_in_words sc.updated_at}" if sc.updated_at
+  - @sendings.each do |sending|
+    %li
+      .indentslim
+        = "#{sending.description} - " if sending.description.present?
+        = "Envio de #{sending.contacts_count} contactos"
+        = "(enviados: <b>#{sending.sent_count}</b>, "
+        = "pendientes: <b>#{sending.pending_count}</b> y "
+        = "duplicados: <b>#{sending.duplicated_count})</b>"
+        %tt
+          = "hace #{time_ago_in_words sending.created_at}"
+
 

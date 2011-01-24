@@ -1,8 +1,9 @@
 %li
   - if can? :manage, contact
     .tools
-      = link_to("Editar", edit_contact_path(contact), :title => "Editar #{contact.name}") + " | "
-      = link_to("Eliminar", contact, :method => :delete, :confirm => '¿Estás seguro?') + " "
+      = link_to("Editar", edit_contact_path(contact), :title => "Editar #{contact.name}")
+      |
+      = link_to("Borrar", delete_contact_path(contact))
   .confirmed
     = contact.confirmed? && current_user.is_admin? ? 'c' : 'x'
   .indentslim

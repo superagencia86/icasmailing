@@ -20,7 +20,7 @@
     = link_to 'Borrar', subscriber_list_path(@subscriber_list), :method => :delete, :confirm => "Vas a borrar esta lista. ¡¿Estás segurx?!"
   %p
     Gestionar contactos:
-    = link_to 'Borrar contactos', subscriber_list_list_subscribers_path(resource)
+    = link_to 'Ver y gestionar contactos', subscriber_list_list_subscribers_path(resource)
   %p
     Añadir contactos:
     = link_to 'De otra lista', new_subscriber_list_list_import_path(@subscriber_list, :source => 'list')

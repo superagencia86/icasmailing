@@ -16,8 +16,7 @@
     Gestionar contacto:
     = link_to("Editar", edit_contact_path(@contact))
     |
-    = link_to("Eliminar", @contact, :method => :delete,
-      :confirm => "Estás a punto de borrar el contacto #{@contact.email} ¿¿Estás seguro?!")
+    = link_to("Eliminar", delete_contact_path(@contact))
     |
     = link_to('Confirmar', confirm_url(@contact), :confirm => "Vas a CONFIRMAR #{@contact.email} y recibirá un correo. ¿Deseas continuar?") if !@contact.confirmed?
     = link_to('Eliminar confirmación', unconfirm_url(@contact), :confirm => "Vas a ELIMINAR la confirmación de #{@contact.email} y recibirá un correo. ¿Deseas continuar?") if @contact.confirmed?

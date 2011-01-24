@@ -15,11 +15,14 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :campaigns, :collection => {:search => :get} do |campaign|
     campaign.resources :email_attachments
     campaign.resources :sendings, :as => 'envios', 
-      :collection => {:search => :get, :test => :post}
+      :collection => {:test => :post}
+    campaign.resources :sending_contacts, :as => 'contactos',
+      :collection => {:search => :get}
   end
   map.resources :companies, :collection => {:search => :get}
   map.resources :institution_types
-  map.resources :contacts, :as => 'contactos', :collection => {:search => :get} do |contact|
+  map.resources :contacts, :as => 'contactos', :member => {:delete => :get},
+    :collection => {:search => :get} do |contact|
     contact.resource :contact_list, :as => 'listas'
   end
   map.resources :projects

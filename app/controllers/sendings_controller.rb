@@ -7,8 +7,9 @@ class SendingsController < InheritedResources::Base
   def index
     @campaign = Campaign.find params[:campaign_id]
     #@search_path = search_campaign_sendings_path(@campaign)
-    @sending_contacts = @campaign.sending_contacts.paginate(
-      :page => params[:page], :per_page => params[:per_page])
+    @sendings = @campaign.sendings
+#    @sending_contacts = @campaign.sending_contacts.paginate(
+#      :page => params[:page], :per_page => params[:per_page])
   end
 
   def search

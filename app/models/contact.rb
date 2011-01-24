@@ -13,7 +13,7 @@ class Contact < ActiveRecord::Base
   belongs_to :space
   
   has_and_belongs_to_many :hobbies
-  has_many :subscribers
+  has_many :subscribers, :dependent => :destroy
   has_many :subscriber_lists, :through => :subscribers
   
   validates_presence_of :email, :scope => :space_id

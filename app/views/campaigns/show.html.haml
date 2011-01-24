@@ -17,7 +17,9 @@
     = "Enviado a #{pluralize(@campaign.sending_contacts.sent.count, 'contacto', 'contactos')}:"
     = link_to 'Realizar envío', new_campaign_sending_path(@campaign)
     |
-    = link_to 'Ver a quién se ha enviado', campaign_sendings_path(@campaign)
+    = link_to 'Ver qué envíos se han hecho', campaign_sendings_path(@campaign)
+    |
+    = link_to 'Ver a quién se ha enviado', campaign_sending_contacts_path(@campaign)
 
   - form_tag(test_campaign_sendings_path(@campaign), :class => 'actions') do
     Email:

@@ -9,6 +9,22 @@ class Sending < ActiveRecord::Base
     end
   end
 
+
+  def contacts_count
+    SendingContact.count(:all, :conditions => {:sending_id => self.id})
+  end
+
+  def sent_count
+    SendingContact.count(:all, :conditions => {:sending_id => self.id, :status => SendingContact::DELIVERED})
+  end
+
+  def pending_count
+    SendingContact.count(:all, :conditions => {:sending_id => self.id, :status => SendingContact::PENDING})
+  end
+  def duplicated_count
+    SendingContact.count(:all, :conditions => {:sending_id => self.id, :status => SendingContact::DUPLICATED})
+  end
+
   protected
   def add_sending_contacts
     if self.subscriber_list
