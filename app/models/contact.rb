@@ -91,29 +91,23 @@ class Contact < ActiveRecord::Base
       confirmed.save!
     end
 
-    # Create the mirror lists in the confirmed space
-    self.subscriber_lists.each do |list|
-      list_name = "Confirmados #{self.space.name} - #{list.name}"
-      clist = cicas.subscriber_lists.find_or_create_by_name(list_name)
-      subscriber = clist.subscribers.find_by_contact_id(confirmed.id)
-      if !subscriber
-        clist.subscriber_contacts << confirmed
-        clist.save!
-      end
+    # Confirmar todos los contactos con el mismo email
+    Contact.find_all_by_email(self.email).each do |contact|
+      contact.update_attribute(:confirmed, true)
     end
     self.update_attribute(:confirmed, true)
   end
 
   def unconfirm
     cicas = Space.find_by_permalink('confirmados-icas')
-    confirmed = cicas.contacts.find_by_email(self.email)
-    if confirmed
-      confirmed.subscriber_lists.each do |list|
-        list.subscriber_contacts.delete(confirmed)
-      end
-      confirmed.destroy
+
+    # Quitar la confirmación de los contactos
+    Contact.find_all_by_email(self.email).each do |contact|
+      contact.update_attribute(:confirmed, false)
     end
-    self.update_attribute(:confirmed, false)
+
+    confirmed = cicas.contacts.find_by_email(self.email)
+    confirmed.destroy if confirmed
   end
 
   def self.import(excel, user)
