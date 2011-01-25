@@ -38,6 +38,10 @@
 
 
   $(document).ready(function() {
+    setTimeout(function() {
+      $("#flash").fadeOut();
+    }, 3000);
+
     $('#company_submit').click( submit_company );
     $('#institution_type_name').live("keypress", function(event){
       if (event.keyCode == '13') {

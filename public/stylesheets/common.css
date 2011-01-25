@@ -26,8 +26,10 @@ div.actions {
     text-shadow: 0 0 0 #b3bfd3; }
 
 p.properties label {
+  display: block;
   font-weight: normal;
-  padding: 3px 0; }
+  padding: 1px 0px;
+  font-size: 13px; }
 
 .title {
   border-bottom: 2px #cccccc solid;

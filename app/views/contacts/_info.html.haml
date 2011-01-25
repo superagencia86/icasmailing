@@ -1,9 +1,9 @@
 %h2 Información del contacto
 %p.properties
-  %label= "Tipo de contacto: #{Contact::SUBSCRIBER_TYPES.find{|e| e.idx == @contact.contact_type_id}.try(:name)}<br/>"
-  %label= "Entidad: #{@contact.entidad}<br/>" if @contact.entidad.present?
+  %label= "Tipo de contacto: #{Contact::SUBSCRIBER_TYPES.find{|e| e.idx == @contact.contact_type_id}.try(:name)}"
+  %label= "Entidad: #{@contact.entidad}" if @contact.entidad.present?
   %label= "Confirmado: #{@contact.confirmed? ? 'si' : 'no'}"
-  %label= "Fecha de alta: #{l @contact.created_at}<br/>"
+  %label= "Fecha de alta: #{l @contact.created_at}"
   = field("Correo", @contact, :email)
   = field("Nombre", @contact, :name)
   = field("Apellidos", @contact, :surname)
@@ -12,7 +12,11 @@
   = field("Móvil", @contact, :celular)
   = field("Entidad", @contact, :entidad)
   = field("Dirección", @contact, :address)
-  %br/
-  %b Instituciones
-  -# @contact.institutions.each do |institution|
-    -#%label= institution.name
+  %label= "Tipo de institución: #{@contact.institution_type.name}" if @contact.institution_type
+
+%div.indentslim
+  - if @contact.hobbies.size > 0
+    %h3 Intereses
+    - @contact.hobbies.each do |hobbie|
+      = hobbie.name
+      %br
