@@ -9,38 +9,59 @@ class ContactFilter
   end
 
   def length
-    contact_ids.length
+    contact_ids(false).length
+  end
+
+  def confirmed_length
+    contact_ids(true).length
   end
 
   def contacts
-    Contact.find contact_ids
+    Contact.find contact_ids(false)
+  end
+
+  def confirmed_contacts
+    Contact.find contact_ids(true)
   end
 
 
-  def contact_ids
+  def contact_ids(confirmed = false)
     if !@contact_ids
       @contact_ids = []
       # General
       if @data.all_general
-        @contact_ids += Contact.for_space(@data.space_id).general.find(:all, :select => :id).map(&:id)
+        scoped = Contact.for_space(@data.space_id).general
+        scoped = scoped.confirmed if confirmed
+        @contact_ids += scoped.find(:all, :select => :id).map(&:id)
       else
         if @data.hobbies.present?
-          @contact_ids += Contact.for_space(@data.space_id).general.find(:all, :joins => :hobbies, :conditions => ["hobbies.id IN (#{@data.hobbies.map(&:id).join(', ')})"]).map(&:id)
+          scoped = Contact.for_space(@data.space_id).general
+          scoped = scoped.confirmed if confirmed
+          @contact_ids += scoped.find(:all, :joins => :hobbies, :conditions => ["hobbies.id IN (#{@data.hobbies.map(&:id).join(', ')})"]).map(&:id)
         end
       end
       # Comunication
-      @contact_ids += Contact.for_space(@data.space_id).comunication.map(&:id) if @data.all_comunication
+      scoped = Contact.for_space(@data.space_id).comunication
+      scoped = scoped.confirmed if confirmed
+      @contact_ids += scoped.map(&:id) if @data.all_comunication
+
       # Institutions
       institutions = @data.institution_types
       if @data.all_institutions
-        @contact_ids += Contact.for_space(@data.space_id).institution.map(&:id)
+        scoped = Contact.for_space(@data.space_id).institution
+        scoped = scoped.confirmed if confirmed
+        @contact_ids += scoped.map(&:id)
       else
         if institutions.present?
-          @contact_ids += Contact.for_space(@data.space_id).institution.find(:all, :conditions => ["institution_type_id IN (#{institutions.map(&:id).join(', ')})"], :select => 'id').map(&:id)
+          scoped = Contact.for_space(@data.space_id).institution
+          scoped = scoped.confirmed if confirmed
+          @contact_ids += scoped.find(:all, :conditions => ["institution_type_id IN (#{institutions.map(&:id).join(', ')})"], :select => 'id').map(&:id)
         end
       end
       # Artists
-      @contact_ids += Contact.for_space(@data.space_id).artist.map(&:id) if @data.all_artists
+      scoped = Contact.for_space(@data.space_id).artist
+      scoped = scoped.confirmed if confirmed
+      @contact_ids += scoped.map(&:id) if @data.all_artists
     end
     @contact_ids
   end

@@ -1,0 +1,23 @@
+- form_for @shared_list do |f|
+  = f.error_messages
+  .remote
+    .section
+      %table(width="500" cellpadding="0" cellspacing="0")
+        %tr
+          %td(valign="top")
+            .label.top.req Lista que se comparte:
+            - if @source_list
+              = @source_list.name
+              = f.hidden_field :subscriber_list_id
+            - else
+              = f.collection_select :subscriber_list_id, current_space.subscriber_lists, :id, :info, {:selected => params[:clone].to_i}
+
+        %tr
+          %td(valign="top")
+            .label.top.req Espacio con el que se comparte:
+            = f.collection_select :space_id, Space.all, :id, :name
+
+
+  .buttonbar
+    = f.submit 'Compartir lista', :class => 'btn'
+    = link_to 'Cancelar', @source_list ? @source_list : shared_lists_path

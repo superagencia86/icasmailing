@@ -1,0 +1,7 @@
+.title_tools#menu
+  = link_to "Volver", @shared_list
+
+.title
+  %span= "#{@contact.full_name} - Lista compartida '#{@subscriber_list.name}'"
+
+= render 'contacts/info'

@@ -1,2 +1,0 @@
-class ListSharedListsController < ApplicationController
-end

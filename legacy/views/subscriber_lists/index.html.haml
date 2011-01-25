@@ -14,11 +14,11 @@
     = render :partial => "common/empty"
 #paginate= render :partial => "common/paginate"
 
-- if current_space.shared_lists.present? && !current_user.is_superadmin?
+- if current_space.shared_subscriber_lists.present? && !current_user.is_superadmin?
   .title
     %span Listas de envío que me comparten
   .list#contacts
-    - if current_space.shared_lists.present?
-      = render :partial => "subscriber_list", :collection => current_space.shared_lists, :locals => {:share => true}
+    - if current_space.shared_subscriber_lists.present?
+      = render :partial => "subscriber_list", :collection => current_space.shared_subscriber_lists, :locals => {:share => true}
     - else
       Ninguna.

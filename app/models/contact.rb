@@ -27,6 +27,7 @@ class Contact < ActiveRecord::Base
   named_scope :for, Proc.new{|user| {:conditions => ["user_id = ? and visibility = 'private' OR visibility = 'public'", user.id]}}
 
   # Contact types
+  named_scope :confirmed, :conditions => {:confirmed => true}
   named_scope :general, :conditions => {:contact_type_id => 1}
   named_scope :comunication, :conditions => {:contact_type_id => 2}
   named_scope :artist, :conditions => {:contact_type_id => 3}

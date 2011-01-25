@@ -18,7 +18,11 @@ class SubscriberList < ActiveRecord::Base
   
   has_many :subscribers, :dependent => :destroy
   
-  has_many :subscriber_contacts, :through => :subscribers, :source => :contact
+  has_many :subscriber_contacts, :through => :subscribers, :source => :contact do
+    def confirmed
+      find(:all, :conditions => {:confirmed => true})
+    end
+  end
   
   has_many :confirmed, :through => :subscribers, :source => :contact,
     :conditions => {:confirmed => true}
@@ -34,8 +38,16 @@ class SubscriberList < ActiveRecord::Base
     auto_update? ? filter.contacts : subscriber_contacts
   end
 
+  def confirmed_contacts
+    auto_update? ? filter.confirmed_contacts : subscriber_contacts.confirmed
+  end
+
   def contacts_count
     auto_update? ? filter.length : subscribers.length
+  end
+
+  def confirmed_contacts_count
+    auto_update? ? filter.confirmed_length : subscriber_contacts.confirmed.length
   end
 
   def filter

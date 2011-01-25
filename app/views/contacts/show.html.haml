@@ -24,24 +24,7 @@
     Listas:
     = link_to "Modificar las listas en las que está incluido", edit_contact_contact_list_path(@contact)
 
-%h2 Información del contacto
-%p.properties
-  %label= "Tipo de contacto: #{Contact::SUBSCRIBER_TYPES.find{|e| e.idx == @contact.contact_type_id}.try(:name)}<br/>"
-  %label= "Entidad: #{@contact.entidad}<br/>" if @contact.entidad.present?
-  %label= "Confirmado: #{@contact.confirmed? ? 'si' : 'no'}"
-  %label= "Fecha de alta: #{l @contact.created_at}<br/>"
-  = field("Correo", @contact, :email)
-  = field("Nombre", @contact, :name)
-  = field("Apellidos", @contact, :surname)
-  = field("Profesión", @contact, :job)
-  = field("Teléfono", @contact, :telephone)
-  = field("Móvil", @contact, :celular)
-  = field("Entidad", @contact, :entidad)
-  = field("Dirección", @contact, :address)
-  %br/
-  %b Instituciones
-  -# @contact.institutions.each do |institution|
-    -#%label= institution.name
+= render 'info'
 
 %h2 Listas en las que está incluído
 %ul.list

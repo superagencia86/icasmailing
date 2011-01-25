@@ -1,0 +1,19 @@
+.title_tools
+  = link_to 'Volver', subscriber_lists_path
+.title
+  %span
+    = title "Lista compartida '#{@shared_list.subscriber_list.name}' - Compartida por espacio '#{@shared_list.subscriber_list.space.name}'"
+
+%p
+  = "Número de contactos confirmados: #{@subscriber_list.confirmed_contacts_count}"
+
+
+.list#contacts-list
+  = will_paginate(@contacts ? @contacts : @subscribers)
+  %ul
+    - if @contacts
+      - @contacts.each do |contact|
+        %li
+          .indentslim
+            = contact.name
+            = link_to contact.email, shared_list_shared_list_contact_path(@shared_list, contact)

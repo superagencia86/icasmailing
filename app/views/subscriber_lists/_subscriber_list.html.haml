@@ -1,45 +1,31 @@
-- shared_list = defined?(shared_list) ? shared_list : nil
-- share = defined?(share) && share == true
 
 %li
   .tools
-    - unless share
-      - unless shared_list
-        = link_to("Ver contactos", subscriber_list_list_subscribers_path(subscriber_list)) + " | "
-        - if can? :manage, subscriber_list
-          = link_to("Editar", edit_subscriber_list_path(subscriber_list)) + " | "
-          = link_to "Clonar", new_subscriber_list_path(:clone => subscriber_list.id)
-        - else
-          %span
+    = link_to("Ver contactos", subscriber_list_list_subscribers_path(subscriber_list)) + " | "
+    - if can? :manage, subscriber_list
+      = link_to("Editar", edit_subscriber_list_path(subscriber_list))
+      |
+      = link_to "Guardar como...", new_subscriber_list_path(:clone => subscriber_list.id)
+      |
+      = link_to 'Borrar', subscriber_list_path(subscriber_list), :method => :delete,
+       :confirm => "Vas a borrar la lista #{subscriber_list.name}. ¡¿Estás seguro?!"
 
   .indentslim
     = link_to h(subscriber_list.name), subscriber_list_path(subscriber_list)
-    - unless shared_list || share
-      %tt
-        = " &ndash; "
-        = t(:added_by, :time_ago => time_ago_in_words(subscriber_list.created_at), :user => (subscriber_list.user_id == current_user.id ? t(:me) : h(subscriber_list.user.try(:full_name))))
-        = ", espacio <b>#{subscriber_list.space.name}</b>" if current_user.is_superadmin?
-      %dt
-        - if subscriber_list.auto_update?
-          = "<b>Lista inteligente</b>"
-        - else
-          = pluralize(subscriber_list.contacts.length, "contacto", "contactos")
-          = "(#{pluralize(subscriber_list.confirmed.length, "confirmado", "confirmados")})"
-      - if (shared_lists = subscriber_list.shared_lists).present?
-        %dt
-          Compartida con: 
-          - shared_lists.each_with_index do |sl, index|
-            = ", " if index != 0
-            %b= sl.space.name
-    - else
-      - if share
-        .tools= link_to("Ver Contactos", subscriber_list_path(subscriber_list)) 
-        %tt
-          = " &ndash; "
-          = t(:added_by, :time_ago => time_ago_in_words(subscriber_list.created_at), :user => (subscriber_list.user_id == current_user.id ? t(:me) : h(subscriber_list.user.try(:full_name))))
-        %dt
-          = pluralize(subscriber_list.contacts.length, "contacto", "contactos")
+    %tt
+      = " &ndash; "
+      = t(:added_by, :time_ago => time_ago_in_words(subscriber_list.created_at), :user => (subscriber_list.user_id == current_user.id ? t(:me) : h(subscriber_list.user.try(:full_name))))
+      = ", espacio <b>#{subscriber_list.space.name}</b>" if current_user.is_superadmin?
+    %dt
+      - if subscriber_list.auto_update?
+        = "<b>Lista inteligente</b>"
+      - else
+        = pluralize(subscriber_list.contacts.length, "contacto", "contactos")
         = "(#{pluralize(subscriber_list.confirmed.length, "confirmado", "confirmados")})"
-        %dt
-          = "Compartida por el espacio <b>#{subscriber_list.shares_space.name}</b>"
-          =# "hasta el #{l(subscriber_list.expires_at.to_date, :format => :long)}"
+    - if (shared_lists = subscriber_list.shared_lists).present?
+      %dt
+        Compartida con:
+        - shared_lists.each_with_index do |sl, index|
+          = ", " if index != 0
+          %b= sl.space.name
+ 

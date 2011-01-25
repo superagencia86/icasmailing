@@ -1,5 +1,8 @@
 .title
-  %span= params[:clone].present? ? "Clonar lista de envío" : "Crear lista de envío #{@subscriber_list.auto_update? ? 'inteligente' : ''}"
+  - if @source_list
+    %span=  "Guardar lista de envío '#{@source_list.name}' con otro nombre"
+  - else
+    %span=  "Crear lista de envío #{@subscriber_list.auto_update? ? 'inteligente' : ''}"
 
 = render "form"
 

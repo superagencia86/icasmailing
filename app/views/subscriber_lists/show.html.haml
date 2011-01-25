@@ -15,12 +15,17 @@
     Gestionar lista:
     = link_to 'Editar', edit_subscriber_list_path(resource)
     |
-    = link_to 'Clonar', new_subscriber_list_path(:clone => @subscriber_list.id)
+    = link_to 'Guardar como...', new_subscriber_list_path(:clone => @subscriber_list.id)
     |
     = link_to 'Borrar', subscriber_list_path(@subscriber_list), :method => :delete, :confirm => "Vas a borrar esta lista. ¡¿Estás segurx?!"
   %p
     Gestionar contactos:
-    = link_to 'Ver y gestionar contactos', subscriber_list_list_subscribers_path(resource)
+    = link_to 'Ver', subscriber_list_list_subscribers_path(resource)
+    |
+    = link_to 'Borrar', subscriber_list_list_subscribers_path(resource, :borrar => 'si')
+  %p
+    Compartir lista:
+    = link_to 'Compartir', new_shared_list_path(:list => @subscriber_list.id)
   %p
     Añadir contactos:
     = link_to 'De otra lista', new_subscriber_list_list_import_path(@subscriber_list, :source => 'list')
@@ -28,16 +33,11 @@
     = link_to 'Buscando', new_subscriber_list_list_import_path(@subscriber_list, :source => 'search')
     |
     = link_to 'Usando un filtro', new_subscriber_list_list_import_path(@subscriber_list, :source => 'filter')
-    |
-    = link_to 'Datos csv'
   %p
     Exportar contactos:
     = link_to 'En PDF', subscriber_list_list_export_path(@subscriber_list, :format => 'pdf')
     |
     = link_to 'En Excel', subscriber_list_list_export_path(@subscriber_list, :format => 'xls')
-    |
-    = link_to 'En CSV', subscriber_list_list_export_path(@subscriber_list, :format => 'csv')
-  - if !@subscriber_list.auto_update?
 
 %h2 Información general
 %p.properties
@@ -52,8 +52,9 @@
   - @subscriber_list.shared_lists.each do |shared|
     %li
       = "Compartida con espacio '#{shared.space.name}'"
-      = link_to "(Dejar de compartir)", subscriber_list_list_shared_list_path(@subscriber_list, shared), :method => :delete,
-              :confirm => "¿Quiere dejar de compartir esta lista con #{shared.space.name}?"
-  %li= 'No está compartida con ningún espacio' if @subscriber_list.shared_lists.size == 0
+      = link_to "(Dejar de compartir)",  shared, :method => :delete,
+        :confirm => "¿Quiere dejar de compartir la lista #{shared.subscriber_list.name} con #{shared.space.name}?"
+  - if @subscriber_list.shared_lists.size == 0
+    %li= 'No está compartida con ningún espacio'
 
 
