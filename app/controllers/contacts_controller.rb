@@ -9,6 +9,10 @@ class ContactsController < InheritedResources::Base
     index!
   end
 
+  def new
+    @contact = current_space.contacts.build(:confirmed => true)
+    new!
+  end
 
   def create
     params[:contact][:hobby_ids] ||= []
@@ -56,25 +60,6 @@ class ContactsController < InheritedResources::Base
       }
     end
   end
-
-  # def add_by_type_to
-  #   @subscriber_list = SubscriberList.find(params[:subscriber_list_id])
-
-  #   if request.get?
-  #     if params[:contact_type] && [1, 2, 3, 4].include?(params[:contact_type].to_i)
-  #       @contacts = Contact.find(:all, :conditions => ["contact_type_id = ? AND ((subscribers.active = 0 AND subscribers.subscriber_list_id = ?) OR (subscribers.subscriber_list_id IS NULL OR subscribers.subscriber_list_id != ?))", params[:contact_type], @subscriber_list.id, @subscriber_list.id], :joins => "LEFT JOIN subscribers on contacts.id = subscribers.contact_id")
-  #     end
-  #   else
-  #     params[:subscriber_list] ||= {}
-  #     params[:subscriber_list][:contact_ids] += @subscriber_list.contact_ids 
-
-  #     if @subscriber_list.update_attributes(params[:subscriber_list])
-  #       flash[:notice] = "Lista de envío actualizada"
-  #     end
-  #     
-  #     redirect_to subscriber_list_path(@subscriber_list)
-  #   end
-  # end
 
   def delete
     @contact = current_space.contacts.find params[:id]

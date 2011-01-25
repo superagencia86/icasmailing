@@ -28,7 +28,11 @@
           %td= spacer
           %td{ :valign => :top }
             .label.top.req Email
-            = f.text_field :email, :style => "width:224px"
+            - if @contact.new_record?
+              = f.text_field :email, :style => "width:224px"
+            - else
+              = @contact.email
+              = f.hidden_field :email
           %td= spacer
           %td{ :valign => :top }
             .label.top Web / blog
@@ -108,13 +112,14 @@
             .label.top Comentarios
             = f.text_area :comments, :rows => 4, :cols => 60
 
-      - if current_user.is_superadmin?
-        %table
-          %tr
-            %td{:valign => :top}
-              .label.top Estado de la confirmación
-              = f.check_box :confirmed
-              Confirmado
+      %table
+        %tr
+          %td{:valign => :top}
+            .label.top Estado de la confirmación
+            Cuando un contacto está confirmado, significa que ha dado su consentimiento a recibir información genérica de ICAS
+            .req Si este contacto no ha dado su consentimiento, por favor desmarca esta casilla
+            = f.check_box :confirmed
+            Confirmado
 
       - if (subscriber_lists = current_space.subscriber_lists.normal).present?
         %table

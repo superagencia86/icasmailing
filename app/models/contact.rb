@@ -42,7 +42,8 @@ class Contact < ActiveRecord::Base
     res = "#{name} #{surname}" 
     res.present? ? res : self.email
   end
-  
+
+  # to search
   def self.finder(options = {})
     conditions, joins = [], ""
 

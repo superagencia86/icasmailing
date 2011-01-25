@@ -24,11 +24,15 @@
             %tr
               %td(valign="top")
                 %br/
-                .label.top.req= "Copiar contactos de la lista:"
-                Todos los contactos de la lista seleccionada se copiarán a la nueva lista.<br/>
-                Deja este campo en blanco para crear una lista vacía.
-                %br/
-                = f.collection_select :clone_list_id, current_space.subscriber_lists(:include => :space), :id, :info, {:selected => params[:clone].to_i, :include_blank => params[:clone].blank?}
+                - if @source_list
+                  %b= "Se copiarán todos los contactos (#{@source_list.contacts_count}) de la lista '#{@source_list.name}'"
+                  = f.hidden_field :clone_list_id
+                - else
+                  .label.top.req= "Copiar contactos de la lista:"
+                  Todos los contactos de la lista seleccionada se copiarán a la nueva lista.<br/>
+                  Deja este campo en blanco para crear una lista vacía.
+                  %br/
+                  = f.collection_select :clone_list_id, current_space.subscriber_lists(:include => :space), :id, :info, {:selected => params[:clone].to_i, :include_blank => params[:clone].blank?}
 
 
 
