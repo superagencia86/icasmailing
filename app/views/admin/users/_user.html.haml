@@ -1,16 +1,16 @@
 %li
   .tools
     = link_to("Editar", edit_admin_space_user_path(@space, user), :title => "Editar usuario")
-    = " | " + link_to("Eliminar", [:admin, @space, user], :method => :delete, :confirm => '¿Estás seguro?') + " " unless user.is_superadmin?
+    = " | " + link_to("Eliminar", [:admin, @space, user], :method => :delete, 
+      :confirm => "Estas a punto de borrar a #{user.full_name} ¿Estás seguro?") + " " unless user.is_superadmin?
 
   .indentslim
-    = link_to(h(user.full_name), edit_polymorphic_path([:admin, @space, user])) << " - "
+    = link_to(h(user.full_name), edit_polymorphic_path([:admin, @space, user]))
+    \-
     %tt
       = t(:added, :time_ago => time_ago_in_words(user.created_at))
     - if current_user.is_superadmin? && user != current_user
       %dt
-        -#Administrador, probablemente quitarlo
-        -#= checkbox_for("update_role", user, 'admin', user.roles.include?("admin"))
         = checkbox_for("update_role", user, 'users_manager', user.roles.include?("users_manager"))
         Gestión de usuarios
         |
@@ -21,4 +21,4 @@
         Gestión de Listas de subscripción
         |
         = checkbox_for("update_role", user, 'mailing_manager', user.roles.include?("mailing_manager"))
-        Gestión de Mailing
+        Gestión de campañas

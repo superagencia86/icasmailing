@@ -12,6 +12,6 @@
       .list#users
         .title
           %span= space.name
-        = render :partial => "user", :collection => users
+        = render :partial => "admin/roles/user", :collection => users
 - else
   = render :partial => "common/empty"

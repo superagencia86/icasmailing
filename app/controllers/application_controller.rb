@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :current_space, :current_user, :logged_in?
   include ExceptionNotification::Notifiable
+protect_from_forgery
+
 
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password

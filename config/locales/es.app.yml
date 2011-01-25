@@ -6,6 +6,13 @@ es:
     duplicated: "Email duplicado. Ya se envió a este email"
     force: "Pendiende de ser enviado (aunque esté duplicado)"
 
+  roles:
+    users_manager: "gestionar usuarios"
+    contacts_manager: "gestionar contactos"
+    subscriber_lists_manager: "gestionar listas de envío"
+    mailing_manager: "gestionar campañas"
+
+
   # ACTIVIDAD
   action_create: "creó"
   action_update: "actualizó"

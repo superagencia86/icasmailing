@@ -9,6 +9,6 @@
 
 .list#users
   - unless @users.empty?
-    = render :partial => "user", :collection => @users
+    = render :partial => "/admin/roles/user", :collection => @users
   - else
     = render :partial => "common/empty"

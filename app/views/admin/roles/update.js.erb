@@ -1,0 +1,4 @@
+$("#roles-message-<%= @user.id %>").html("<%= escape_javascript @msg %>").fadeIn();
+setTimeout(function() {
+$("#roles-message-<%= @user.id %>").fadeOut();
+}, 2000);

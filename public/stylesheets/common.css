@@ -477,3 +477,8 @@ input.btn:hover, a.btn:hover {
 div.truncate:hover {
   height: auto;
   border: 1px solid gray; }
+
+div.role-flash {
+  color: #b71739;
+  background-color: yellow;
+  padding: 2px 1em; }

@@ -1,0 +1,28 @@
+%li
+  .tools
+    = link_to("Editar", edit_admin_space_user_path(@space, user), :title => "Editar usuario")
+    = " | " + link_to("Eliminar", [:admin, @space, user], :method => :delete,
+      :confirm => "Estas a punto de borrar a #{user.full_name} ¿Estás seguro?") + " " unless user.is_superadmin?
+
+  .indentslim
+    = link_to(h(user.full_name), edit_polymorphic_path([:admin, @space, user]))
+    \-
+    %tt
+      = t(:added, :time_ago => time_ago_in_words(user.created_at))
+      %div{:id => "roles-message-#{user.id}", :class => 'role-flash', :style => 'display: none'}
+    - if current_user.is_superadmin? && user != current_user
+      %dt
+        - form_tag(admin_user_roles_path(user), :class => 'roles') do
+          = check_box_tag 'users_manager', 'users_manager', user.roles.include?("users_manager")
+          Gestión de usuarios
+          |
+          = check_box_tag 'contacts_manager', 'contacts_manager', user.roles.include?("contacts_manager")
+          Gestión de contactos
+          |
+          = check_box_tag 'subscriber_lists_manager', 'subscriber_lists_manager', user.roles.include?("subscriber_lists_manager")
+          Gestión de Listas de subscripción
+          |
+          = check_box_tag 'mailing_manager', 'mailing_manager', user.roles.include?("mailing_manager")
+          Gestión de campañas
+
+

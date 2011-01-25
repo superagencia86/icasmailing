@@ -47,7 +47,10 @@ ActionController::Routing::Routes.draw do |map|
       space.resources :space_subscriber_lists, :as => 'listas'
     end
     admin.resources :jobs
-    admin.resources :users
+    admin.resources :users, :as => 'usuarios' do |users|
+      users.resource :roles
+    end
+
     admin.resources :contacts, :as => 'contactos', :collection => {:search => :get}
     admin.resources :subscriber_lists, :as => 'listas'
     admin.resources :campaigns, :as => 'campanyas' do |campaign|

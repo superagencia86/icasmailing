@@ -38,6 +38,10 @@
   = field("Móvil", @contact, :celular)
   = field("Entidad", @contact, :entidad)
   = field("Dirección", @contact, :address)
+  %br/
+  %b Instituciones
+  -# @contact.institutions.each do |institution|
+    -#%label= institution.name
 
 %h2 Listas en las que está incluído
 %ul.list

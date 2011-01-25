@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101214111833
+# Schema version: 20110124115939
 #
 # Table name: relationships
 #

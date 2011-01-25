@@ -20,7 +20,7 @@
         %td= campaign.id
         %td= campaign.space.name
         %td= link_to campaign.name, admin_campaign_sendings_path(campaign)
-        %td= "#{campaign.sendings.size} (#{campaign.sendings.map{|s| s.campaign_recipients.length}.join(',')})"
+        %td= "#{campaign.sendings.size} (#{campaign.sendings.map{|s| s.contacts_count}.join(',')})"
         %td= campaign.subject
         %td= campaign.from
         %td= campaign.from_name

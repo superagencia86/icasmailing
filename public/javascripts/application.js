@@ -12,7 +12,7 @@
     var user_id = $('#company_user_id').attr('value');
     var f = $('#company_form').attr('value');
 
-    $.post('/companies/create', {
+    $.post('/empresas', {
       'company[name]': name,
       'company[user_id]': user_id,
       'f': f
@@ -26,7 +26,7 @@
     /* var user_id = $('#institution_type_user_id').attr('value'); */
     var f = $('#institution_type_form').attr('value');
 
-    $.post('/institution_types/create', {
+    $.post('/instituciones', {
       'institution_type[name]': name,
       'f': f
     }, null, "script" );
@@ -174,6 +174,20 @@
       });
       showSelectCountContacts();
     }
+
+    // GESTIÓN  DE ROLES DE USUARIO
+    $("form.roles input[type=checkbox]").click(function(e) {
+      var url = $(this).parent("form.roles").attr('action');
+      var data = {};
+      data['rol'] = $(this).attr('name');
+      data['value'] = $(this).attr('checked');
+      data['_method'] = "put";
+      data['authenticity_token'] = $("meta[name=csrf-token]").attr('content');
+      $.post(url + ".js", data, function(response) {
+        console.log(response);
+      });
+      e.stopPropagation();
+    });
   }); // JQUERY document.load
 
   function showSelectCountContacts() {

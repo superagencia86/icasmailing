@@ -1,3 +1,6 @@
+
+
+
 class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.validates_uniqueness_of_email_field_options =  {:case_sensitive => false, :scope => :space_id, :if => "#{email_field}_changed?".to_sym}

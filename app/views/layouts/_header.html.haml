@@ -1,15 +1,11 @@
 #header
   #welcome
     - if @current_user
-      Bienvenido
+      = "Bienvenido #{@current_user.full_name} | "
       %span#welcome_username
-        = link_to(@current_user.name, edit_admin_space_user_path(@current_user.space, @current_user), :title => "Editar perfil")
+        = link_to('Editar perfil', edit_admin_space_user_path(@current_user.space, @current_user), :title => "Editar perfil")
       %span> &nbsp;&nbsp;
       |
-
-
-      - if @current_user.is_admin?
-        = link_to("Administración", admin_path) << " |"
 
       = link_to("Cerrar sesión", logout_path)
     - else
