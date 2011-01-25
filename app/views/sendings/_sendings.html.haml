@@ -8,11 +8,18 @@
 .list.search#sending_contacts
   - @campaign.sendings.each do |sending|
     %li
+      - if can? :manage, sending
+        .tools
+          = link_to("Borrar", [@campaign, sending], :method => :delete, :confirmation => '¿Seguro?')
+
       .indentslim
         = "#{sending.description} - " if sending.description.present?
-        = "Envio de #{sending.contacts_count} contactos"
-        = "(enviados: <b>#{sending.sent_count}</b>, "
-        = "pendientes: <b>#{sending.pending_count}</b> y "
-        = "duplicados: <b>#{sending.duplicated_count})</b>"
+        = sending.source_description
         %tt
           = "hace #{time_ago_in_words sending.created_at}"
+        %dt
+          = t("sending.state.#{sending.current_state}")
+          = "- Total #{sending.contacts_count} contactos"
+          = "(enviados: <b>#{sending.sent_count}</b>, "
+          = "pendientes: <b>#{sending.pending_count}</b> y "
+          = "duplicados: <b>#{sending.duplicated_count})</b>"

@@ -12,11 +12,13 @@ class Admin::UsersController < Admin::AdminController
       @users = User.find(:all, :conditions => 'space_id IS NOT NULL').group_by(&:space_id)
       render "index_admin" and return
     else
-      @users = @space.users 
+      @users = current_space.users
     end
   end
 
-  def show;  @user   = User.find(params[:id]); end
+  def show
+    @user = User.find(params[:id])
+  end
 
   def create
     @user = User.new(params[:user])

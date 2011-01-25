@@ -486,3 +486,11 @@ div.role-flash {
   color: #b71739;
   background-color: yellow;
   padding: 2px 1em; }
+
+div.optionable {
+  margin: 4px 0 6px 10px; }
+  div.optionable input[type=radio] {
+    margin: 0; }
+  div.optionable span.radio {
+    margin: 0;
+    padding-top: 2px; }

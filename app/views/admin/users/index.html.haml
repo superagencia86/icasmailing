@@ -8,7 +8,4 @@
   %span= "#{@space.name}: Usuarios" 
 
 .list#users
-  - unless @users.empty?
-    = render :partial => "/admin/roles/user", :collection => @users
-  - else
-    = render :partial => "common/empty"
+  = render :partial => "/admin/roles/user", :collection => @users

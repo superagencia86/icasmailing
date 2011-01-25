@@ -179,7 +179,16 @@
       showSelectCountContacts();
     }
 
-    // GESTIÓN  DE ROLES DE USUARIO
+    manageOptionables();
+    manageUserRoles();
+  }); // JQUERY document.load
+
+  function showSelectCountContacts() {
+    var size = $("form input[type=checkbox]:checked").length;
+    $("#select_count_contacts").html("" + size + " contactos seleccionados.");
+  }
+
+  function manageUserRoles() {
     $("form.roles input[type=checkbox]").click(function(e) {
       var url = $(this).parent("form.roles").attr('action');
       var data = {};
@@ -192,11 +201,21 @@
       });
       e.stopPropagation();
     });
-  }); // JQUERY document.load
+  }
 
-  function showSelectCountContacts() {
-    var size = $("form input[type=checkbox]:checked").length;
-    $("#select_count_contacts").html("" + size + " contactos seleccionados.");
+  function manageOptionables() {
+    // se usa para opciones múltiples (al crear un envío)
+    $(".optionable input[type=radio]:not(:checked)").each(function() {
+      $(this).parent('.optionable').find("select").attr('disabled', true);
+    });
+    $(".optionable input[type=radio]").click(function() {
+      $(".optionable input[type=radio]:not(:checked)").each(function() {
+        $(this).parent('.optionable').find("select").attr('disabled', true);
+      });
+      $(".optionable input[type=radio]:checked").each(function() {
+        $(this).parent('.optionable').find("select").attr('disabled', false);
+      });
+    });
   }
 
 })(jQuery);

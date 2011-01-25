@@ -29,11 +29,16 @@ class SendingsController < InheritedResources::Base
     redirect_to campaign
   end
 
+  def new
+    @sending = current_space.sendings.build
+    new!
+  end
+
   def create
     create!(:notice => 'Envío en marcha.') do
       Delayed::Job.enqueue(SendingJob.new(@sending.id))
       Activity.report(current_user, :sent, @campaign)
-      @campaign
+      campaign_sendings_path(@campaign)
     end
   end
 

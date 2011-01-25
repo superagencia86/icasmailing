@@ -5,4 +5,5 @@
   = render "form", :f => f
 
   .buttonbar
-    = f.submit "Crear usuario" 
+    = f.submit "Crear usuario"
+    = link_to 'Cancelar', admin_users_path

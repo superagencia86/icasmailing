@@ -12,6 +12,8 @@
       |
       = link_to "#{space.contacts.count} contactos en este espacio", admin_space_space_contacts_path(space)
       |
+      = link_to "#{space.contacts.confirmed.count} contactos confirmados"
+      |
       = link_to "#{space.subscriber_lists.count} listas en este espacio", admin_space_space_subscriber_lists_path(space)
 
 

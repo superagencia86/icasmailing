@@ -5,12 +5,27 @@
       %table(width="500" cellpadding="0" cellspacing="0")
         %tr
           %td(valign="top")
-            .label.top.req= "Lista a la que se envía:"
-            = f.collection_select :subscriber_list_id, current_space.subscriber_lists, :id, :info, {:selected => params[:clone].to_i}
+            .label.top.req= "A quién enviamos esta campaña:"
+            %div.optionable
+              = f.radio_button :source_type, 'list', {:checked => true}
+              %span.radio Enviar a <b>todos los contactos</b> de una de tus listas<br/>
+              = f.select :subscriber_list_id, @sending.possible_subscriber_lists.collect{|l| [l.info, l.id]}, {:selected => params[:clone].to_i}
+            %div.optionable
+              = f.radio_button :source_type, 'shared', {:disabled => @sending.possible_shared_lists.length == 0}
+              %span.radio Enviar a los <b>contactos confirmados</b> de una de tus listas
+              - if @sending.possible_shared_lists.length > 0
+                = f.select :shared_list_id,  @sending.possible_shared_lists.collect {|s| [ s.subscriber_list.name, s.id ] }, {:selected => params[:clone].to_i}
+              - else
+                %span.disabled <br/>Tu espacio no tiene listas compartidas
+            %div.optionable
+              = f.radio_button :source_type, 'space'
+              %span.radio Enviar a los <b>contactos confirmados</b> de un espacio<br/>
+              = f.select :confirmed_space_id,  @sending.possible_spaces.collect {|s| [ s.name, s.id ] }, {:selected => params[:clone].to_i}
         %tr
           %td(valign="top")
+            %br/
             .label.top.req= "Descripción del envío:"
-            = f.text_area :description
+            = f.text_area :description, :rows => 3
         %tr
           %td.check_box(valign="top")
             %br/
@@ -19,5 +34,5 @@
             = f.check_box :send_duplicates
             %b Enviar aunque se haya enviado previamente.
 
-    .buttonbar
-      = f.submit 'Realizar envío', :class => 'btn'
+  .buttonbar
+    = f.submit 'Realizar envío', :class => 'btn'

@@ -19,6 +19,12 @@ class InstitutionTypesController < InheritedResources::Base
     end
   end
 
+  def show
+    @institution_type = InstitutionType.find params[:id]
+    @contacts = current_space.contacts.find(:all, :conditions => {:institution_type_id => @institution_type.id})
+    show!
+  end
+
   def search
     @institution_types = InstitutionType.search(params[:query])
     

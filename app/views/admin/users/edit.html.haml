@@ -6,4 +6,6 @@
   = render "form", :f => f
 
   .buttonbar
-    = f.submit "Editar usuario", :class => "btn" 
+    = f.submit "Editar usuario", :class => "btn"
+    = link_to 'Cancelar', admin_users_path
+

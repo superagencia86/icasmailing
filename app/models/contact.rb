@@ -82,7 +82,7 @@ class Contact < ActiveRecord::Base
   # Confirm a contact
   def confirm
     # Create the contact in the confirmed space
-    cicas = Space.find_by_permalink('confirmados-icas')
+    cicas = Space.confirmed
     confirmed = cicas.contacts.find_by_email(self.email)
     if !confirmed
       confirmed = self.clone
@@ -99,7 +99,7 @@ class Contact < ActiveRecord::Base
   end
 
   def unconfirm
-    cicas = Space.find_by_permalink('confirmados-icas')
+    cicas = Space.confirmed
 
     # Quitar la confirmación de los contactos
     Contact.find_all_by_email(self.email).each do |contact|

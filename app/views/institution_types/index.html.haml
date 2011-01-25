@@ -4,10 +4,10 @@
 .title
   %span= "Instituciones"
 
+#paginate= render :partial => "common/paginate"
 .list#contacts-list
   - unless @institution_types.empty?
     = render :partial => "institution_type", :collection => @institution_types
   - else
     = render :partial => "common/empty"
-#paginate= render :partial => "common/paginate"
 

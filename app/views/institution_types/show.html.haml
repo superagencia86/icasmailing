@@ -8,3 +8,11 @@
 #summary
 %p
   = link_to "Volver a todas los instituciones", institution_types_path
+
+%h2 Contactos de esta institución en este espacio
+%ul.list.search#contacts-list
+- if @contacts.size > 0
+  = render :partial => '/contacts/contact', :collection => @contacts
+- else
+  No hay contactos con esa instituación en este espacio
+

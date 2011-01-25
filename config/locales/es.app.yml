@@ -5,6 +5,11 @@ es:
     sent: "Enviado"
     duplicated: "Email duplicado. Ya se envió a este email"
     force: "Pendiende de ser enviado (aunque esté duplicado)"
+  sending:
+    state:
+      new: "En cola para ser enviado"
+      working: "Enviándose"
+      sent: "Enviado"
 
   roles:
     users_manager: "gestionar usuarios"
