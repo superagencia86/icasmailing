@@ -168,10 +168,10 @@ input[type=text], input[type=password] {
   border: 1px solid gray; }
 
 h2 {
-  font-weight: normal;
+  font-weight: bold;
   color: #888888;
   margin: 20px 0 -5px 0;
-  text-shadow: 0 1px 0 #b3bfd3; }
+  font-size: 17px; }
 
 div.actions {
   background-color: #e5e5e5;
@@ -188,11 +188,13 @@ div.actions {
     font-weight: normal;
     text-shadow: 0 0 0 #b3bfd3; }
 
-p.properties label {
-  display: block;
-  font-weight: normal;
-  padding: 1px 0px;
-  font-size: 13px; }
+p.properties {
+  margin-left: 38px; }
+  p.properties label {
+    display: block;
+    font-weight: normal;
+    padding: 1px 0px;
+    font-size: 13px; }
 
 .title {
   border-bottom: 2px #cccccc solid;
@@ -686,7 +688,7 @@ p {
     color: maroon;
     padding: 5px 0px 5px 16px; }
   p.flash_notice, p.flash_message {
-    background: yellow;
+    background: #e1b01b;
     color: black;
     padding: 5px 0px 5px 16px; }
   p.flash_exception {
@@ -738,17 +740,17 @@ div.auto_complete {
     float: left;
     margin: 0px 2px 0px 0px; }
   .pagination span.disabled {
-    color: #999999;
+    color: #dddddd;
     border: 1px solid #dddddd; }
   .pagination span.current {
     font-weight: bold;
-    background: #2e6ab1;
+    background: #e1b01b;
     color: white;
-    border: 1px solid #2e6ab1; }
+    border: 1px solid #e1b01b; }
   .pagination a {
     text-decoration: none;
-    color: #105cb6;
-    border: 1px solid #9aafe5; }
+    color: #e1b01b;
+    border: 1px solid #e1b01b; }
     .pagination a:hover, .pagination a:focus {
       color: navy;
       background: lightyellow;

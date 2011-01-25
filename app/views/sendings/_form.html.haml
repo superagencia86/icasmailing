@@ -13,10 +13,11 @@
             = f.text_area :description
         %tr
           %td.check_box(valign="top")
-            Por defecto, las campañas no se envían dos veces al mismo email.<br/>
-            Esta opción te permite modificar ese comportamiento.<br/>
+            %br/
+            .label.top.req Por defecto, las campañas no se envían dos veces al mismo email.<br/>
+            %b La siguiente opción te permite quitar esta restricción para este envío.<br/>
             = f.check_box :send_duplicates
-            Enviar aunque se haya enviado previamente.
+            %b Enviar aunque se haya enviado previamente.
 
     .buttonbar
       = f.submit 'Realizar envío', :class => 'btn'

@@ -51,10 +51,12 @@
 %ul.list
   - @subscriber_list.shared_lists.each do |shared|
     %li
-      = "Compartida con espacio '#{shared.space.name}'"
-      = link_to "(Dejar de compartir)",  shared, :method => :delete,
-        :confirm => "¿Quiere dejar de compartir la lista #{shared.subscriber_list.name} con #{shared.space.name}?"
+      .indentslim
+        = "Compartida con espacio '#{shared.space.name}'"
+        = link_to "(Dejar de compartir)",  shared, :method => :delete,
+          :confirm => "¿Quiere dejar de compartir la lista #{shared.subscriber_list.name} con #{shared.space.name}?"
   - if @subscriber_list.shared_lists.size == 0
-    %li= 'No está compartida con ningún espacio'
+    %li
+      .indentslim= 'No está compartida con ningún espacio'
 
 

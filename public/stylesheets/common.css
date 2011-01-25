@@ -5,10 +5,10 @@ input[type=text], input[type=password] {
   border: 1px solid gray; }
 
 h2 {
-  font-weight: normal;
+  font-weight: bold;
   color: #888888;
   margin: 20px 0 -5px 0;
-  text-shadow: 0 1px 0 #b3bfd3; }
+  font-size: 17px; }
 
 div.actions {
   background-color: #e5e5e5;
@@ -25,11 +25,13 @@ div.actions {
     font-weight: normal;
     text-shadow: 0 0 0 #b3bfd3; }
 
-p.properties label {
-  display: block;
-  font-weight: normal;
-  padding: 1px 0px;
-  font-size: 13px; }
+p.properties {
+  margin-left: 38px; }
+  p.properties label {
+    display: block;
+    font-weight: normal;
+    padding: 1px 0px;
+    font-size: 13px; }
 
 .title {
   border-bottom: 2px #cccccc solid;

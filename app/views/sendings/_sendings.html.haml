@@ -1,0 +1,18 @@
+%h2 Estadísticas de envío
+%p.properties
+  %label= "Envíos ya realizados: <b>#{@campaign.sent_count}</b> contactos<br/>"
+  %label= "En proceso: <b>#{@campaign.pending_count}</b> contactos<br/>"
+  %label= "Duplicados: <b>#{@campaign.duplicated_count}</b> contactos<br/>"
+
+%h2 Envios realizados
+.list.search#sending_contacts
+  - @campaign.sendings.each do |sending|
+    %li
+      .indentslim
+        = "#{sending.description} - " if sending.description.present?
+        = "Envio de #{sending.contacts_count} contactos"
+        = "(enviados: <b>#{sending.sent_count}</b>, "
+        = "pendientes: <b>#{sending.pending_count}</b> y "
+        = "duplicados: <b>#{sending.duplicated_count})</b>"
+        %tt
+          = "hace #{time_ago_in_words sending.created_at}"
