@@ -35,7 +35,7 @@ class EmailMailer < ActionMailer::Base
     elsif campaign.assets.html
       html = true
       file = campaign.assets.html.data.url.split("?").first
-      data = File.read(File.join(Rails.root, "public", file))
+      data = File.read(File.join("/home/deploy/icasmailing/shared/", "public", file))
       # data.gsub!("<head>", "<head>\n<base href='http://#{APP.host}/campaign/#{campaign.id}/images/' />")
     else
       html = false
