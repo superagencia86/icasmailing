@@ -28,7 +28,7 @@ Rails::Initializer.run do |config|
   config.i18n.default_locale = :es
 end
 
-Mime::Type.register 'application/pdf', :pdf
+#Mime::Type.register 'application/pdf', :pdf
 Mime::Type.register "application/vnd.ms-excel", :xls
 
 ExceptionNotification::Notifier.email_prefix = "[icasmailing] "

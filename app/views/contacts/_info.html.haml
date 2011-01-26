@@ -1,6 +1,7 @@
 %h2 Información del contacto
 %p.properties
-  %label= "Tipo de contacto: #{Contact::SUBSCRIBER_TYPES.find{|e| e.idx == @contact.contact_type_id}.try(:name)}"
+  - contact_type_name = Contact::SUBSCRIBER_TYPES.find{|e| e.idx == @contact.contact_type_id}.try(:name)
+  %label= "Tipo de contacto: #{contact_type_name.present? ? contact_type_name : 'Por especificar'}"
   %label= "Entidad: #{@contact.entidad}" if @contact.entidad.present?
   %label= "Confirmado: #{@contact.confirmed? ? 'si' : 'no'}"
   %label= "Fecha de alta: #{l @contact.created_at}"
