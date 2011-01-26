@@ -15,9 +15,9 @@
 
   %br/
   .title
-    %span= "Listas de envío compartidas con '#{current_space.name}' (#{current_space.shared_subscriber_lists.size})"
+    %span= "Listas de envío compartidas con '#{current_space.name}' (#{current_space.shared_lists.size})"
   .list#contacts
-    - if current_space.shared_subscriber_lists.present?
+    - if current_space.shared_lists.present?
       = render :partial => "shared_lists/shared_list", :collection => current_space.shared_lists
     - else
       Ninguna.

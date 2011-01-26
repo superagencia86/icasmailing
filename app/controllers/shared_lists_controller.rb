@@ -7,7 +7,7 @@ class SharedListsController < InheritedResources::Base
     paginate_options[:per_page] ||= (params[:per_page] || 40)
 
     @shared_list = SharedList.find params[:id]
-    @subscriber_list = current_space.subscriber_lists.find @shared_list.subscriber_list_id
+    @subscriber_list = @shared_list.subscriber_list
     @contacts = @subscriber_list.confirmed_contacts.paginate(paginate_options)
     show!
   end
