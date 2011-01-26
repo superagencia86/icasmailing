@@ -4,7 +4,7 @@
 class Contact < ActiveRecord::Base
   SUBSCRIBER_TYPES = os_array(["Público general", "Medios de comunicación", "Artista - profesional", "Instituciones"])
   SUBSCRIBER_SUBTYPES = os_array(["Organismo público", "Responsable político", "Empresa privada", "Espacio cultural", "Artista", "ICAS"])
-
+  after_destroy :unconfirm_if_confirmed
   acts_as_paranoid
   record_activity_of :user, :if => Proc.new{|contact| !contact.from_form }
 
@@ -111,6 +111,13 @@ class Contact < ActiveRecord::Base
     confirmed.destroy if confirmed
   end
 
-
+  protected
+  def unconfirm_if_confirmed
+    if self.space == Space.confirmed
+      Contact.find_all_by_email(self.email).each do |contact|
+        contact.update_attribute(:confirmed, false)
+      end
+    end
+  end
 
 end

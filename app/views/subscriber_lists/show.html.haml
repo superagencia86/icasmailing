@@ -7,7 +7,7 @@
 
 .title
   %span
-    = title "Lista '#{@subscriber_list.name}' - Espacio '#{@subscriber_list.space.name}'"
+    = title "Lista '#{@subscriber_list.name}' - Espacio '#{@subscriber_list.space.name}' (#{@subscriber_list.contacts_count})"
     = "(Compartida, sólo lectura)" unless current_space.id == @subscriber_list.space_id
 
 %div.actions
@@ -17,12 +17,16 @@
     |
     = link_to 'Guardar como...', new_subscriber_list_path(:clone => @subscriber_list.id)
     |
-    = link_to 'Borrar', subscriber_list_path(@subscriber_list), :method => :delete, :confirm => "Vas a borrar esta lista. ¡¿Estás segurx?!"
+    = link_to 'Borrar la lista (pero no sus contactos)', subscriber_list_path(@subscriber_list), :method => :delete, :confirm => "Vas a borrar esta lista. ¡¿Estás segurx?!"
   %p
     Gestionar contactos:
     = link_to 'Ver', subscriber_list_list_subscribers_path(resource)
-    |
-    = link_to 'Borrar', subscriber_list_list_subscribers_path(resource, :borrar => 'si')
+    - if can? :manage, @subscriber_list
+      |
+      = link_to 'Borrar', subscriber_list_list_subscribers_path(resource, :borrar => 'si')
+      |
+      = link_to 'Borrar todos los contactos de esta lista', destroy_all_subscriber_list_list_subscribers_path(resource),
+        :method => :delete, :confirm => "CUIDADO!!! ESTÁS A PUNTO DE BORRAR TODOS LOS CONTACTOS DE ESTA LISTA. ESTA ACCIÓN NO SE PUEDE DESHACER. ¿ESTÁS SEGURO?"
   %p
     Compartir lista:
     = link_to 'Compartir', new_shared_list_path(:list => @subscriber_list.id)

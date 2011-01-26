@@ -12,11 +12,11 @@
               = f.select :subscriber_list_id, @sending.possible_subscriber_lists.collect{|l| [l.info, l.id]}, {:selected => params[:clone].to_i}
             %div.optionable
               = f.radio_button :source_type, 'shared', {:disabled => @sending.possible_shared_lists.length == 0}
-              %span.radio Enviar a los <b>contactos confirmados</b> de una de tus listas
+              %span.radio Enviar a los <b>contactos confirmados</b> de una de tus <b>listas compartidas</b><br/>
               - if @sending.possible_shared_lists.length > 0
                 = f.select :shared_list_id,  @sending.possible_shared_lists.collect {|s| [ s.subscriber_list.name, s.id ] }, {:selected => params[:clone].to_i}
               - else
-                %span.disabled <br/>Tu espacio no tiene listas compartidas
+                %span.disabled Tu espacio no tiene listas compartidas
             %div.optionable
               = f.radio_button :source_type, 'space'
               %span.radio Enviar a los <b>contactos confirmados</b> de un espacio<br/>

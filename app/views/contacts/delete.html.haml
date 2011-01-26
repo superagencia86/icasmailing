@@ -2,12 +2,17 @@
   %span= "Vas a borrar #{@contact.full_name}"
 
 %h2= "Quieres borrar el contacto #{@contact.full_name}"
+
+
 %br/
 - if @lists.size > 0
   %h3 Eso significa que se borrará de las siguientes listas:
   %ul
     - @lists.each do |list|
       %li= list.name
+
+- if @contact.space == Space.confirmed
+  %h3 Atención: al borrar un contacto confirmado, estás quitando la confirmación en el resto de los espacios
 
 %h2
   ¿Estás seguro?

@@ -18,12 +18,19 @@ class ListSubscribersController < InheritedResources::Base
     end
   end
 
-    def destroy
-      destroy! { subscriber_list_list_subscribers_path(@subscriber_list) }
-    end
-
-    protected
-    def begin_of_association_chain
-      current_space
-    end
+  def destroy_all
+    list = current_space.subscriber_lists.find(params[:subscriber_list_id])
+    list.contacts.destroy_all
+    flash[:notice] = "Todos los contactos de #{list.name} han sido borrados"
+    redirect_to list
   end
+
+  def destroy
+    destroy! { subscriber_list_list_subscribers_path(@subscriber_list) }
+  end
+
+  protected
+  def begin_of_association_chain
+    current_space
+  end
+end

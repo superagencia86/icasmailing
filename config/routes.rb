@@ -33,7 +33,7 @@ ActionController::Routing::Routes.draw do |map|
     shared_list.resources :shared_list_contacts, :as => 'contactos'
   end
   map.resources :subscriber_lists, :collection => {:search => :get}, :as => 'listas' do |list|
-    list.resources :list_subscribers, :as => 'contactos'
+    list.resources :list_subscribers, :as => 'contactos', :collection => {:destroy_all => :delete}
     list.resources :list_shared_lists, :as => 'compartidas'
     list.resource :list_export, :as => 'exportar'
     list.resource :list_import, :as => 'importar', :member => {:preview => :post}
