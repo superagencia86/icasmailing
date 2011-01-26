@@ -1,0 +1,24 @@
+.title
+  %span= title "Modificar correo del contacto #{@contact.full_name}"
+
+%p
+  Nota:<br/>
+  Suponemos que editar el campo email de un contacto, significa que esa persona/institución
+  ha modificado su dirección de correo electrónico, por lo que este cambio se aplicará a todos
+  los espacios de ICAS mailing.
+
+%p
+  Si sólo deseas cambiar ese dato en tu espacio, te recomendamos crear un contacto nuevo.
+
+
+- form_tag contact_contact_email_path(@contact), :method => :put do
+  .remote
+    .section
+      %table(width="500" cellpadding="0" cellspacing="0")
+        %tr
+          %td(valign="top")
+            .label.top.req= "Email"
+            = text_field_tag :email, @contact.email, :size => 50
+  .buttonbar
+    = submit_tag "Modificar", :class => 'btn'
+    = link_to "Cancelar", @contact

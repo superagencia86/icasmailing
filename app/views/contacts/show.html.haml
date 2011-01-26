@@ -16,10 +16,12 @@
     Gestionar contacto:
     = link_to("Editar", edit_contact_path(@contact))
     |
+    = link_to("Modificar el correo", edit_contact_contact_email_path(@contact))
+    |
     = link_to("Eliminar", delete_contact_path(@contact))
     |
-    = link_to('Confirmar', confirm_url(@contact), :confirm => "Vas a CONFIRMAR #{@contact.email} y recibirá un correo. ¿Deseas continuar?") if !@contact.confirmed?
-    = link_to('Eliminar confirmación', unconfirm_url(@contact), :confirm => "Vas a ELIMINAR la confirmación de #{@contact.email} y recibirá un correo. ¿Deseas continuar?") if @contact.confirmed?
+    = link_to('Confirmar (con email)', confirm_url(@contact), :confirm => "Vas a CONFIRMAR #{@contact.email} y recibirá un correo. ¿Deseas continuar?") if !@contact.confirmed?
+    = link_to('Eliminar confirmación (con email)', unconfirm_url(@contact), :confirm => "Vas a ELIMINAR la confirmación de #{@contact.email} y recibirá un correo. ¿Deseas continuar?") if @contact.confirmed?
   %p
     Listas:
     = link_to "Modificar las listas en las que está incluido", edit_contact_contact_list_path(@contact)

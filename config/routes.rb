@@ -25,6 +25,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :contacts, :as => 'contactos', :member => {:delete => :get},
     :collection => {:search => :get} do |contact|
     contact.resource :contact_list, :as => 'listas'
+    contact.resource :contact_email, :as => 'correo'
   end
   map.resources :projects, :as => 'proyectos'
   map.resources :proposals, :as => 'propuestas'

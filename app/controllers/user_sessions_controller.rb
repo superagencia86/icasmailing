@@ -10,7 +10,7 @@ class UserSessionsController < ApplicationController
     @space = Space.find_by_id(params[:user_session][:space_id])
     @user_session = @space.user_sessions.new(params[:user_session]) if @space
     if @space && @user_session.save
-      flash[:notice] = "Bienvenido, #{User.find_by_email(@user_session.email).name}!"
+      flash[:notice] = "Bienvenido, #{User.find_by_email(@user_session.email).full_name}!"
       redirect_back_or_default root_url
     else
       @user_session = UserSession.new

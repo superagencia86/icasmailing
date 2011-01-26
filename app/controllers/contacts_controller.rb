@@ -61,6 +61,7 @@ class ContactsController < InheritedResources::Base
     end
   end
 
+  # previous to destroy (just to confirm)
   def delete
     @contact = current_space.contacts.find params[:id]
     @lists = @contact.subscriber_lists
