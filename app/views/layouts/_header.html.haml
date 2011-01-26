@@ -3,9 +3,10 @@
     - if @current_user
       = "Bienvenido #{@current_user.full_name} | "
       %span#welcome_username
-        = link_to('Editar perfil', edit_admin_space_user_path(@current_user.space, @current_user), :title => "Editar perfil")
-      %span> &nbsp;&nbsp;
-      |
+        -if can?(:manage, @current_user)
+          = link_to('Editar perfil', edit_admin_space_user_path(@current_user.space, @current_user), :title => "Editar perfil")
+          %span> &nbsp;&nbsp;
+          |
 
       = link_to("Cerrar sesión", logout_path)
     - else
