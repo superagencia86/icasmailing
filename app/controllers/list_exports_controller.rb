@@ -1,4 +1,3 @@
-require 'xhtml2pdf'
 
 class ListExportsController < ApplicationController
   def show
@@ -8,7 +7,7 @@ class ListExportsController < ApplicationController
       format.html { redirect_to @list }
       format.xml { render :xml => @list }
       format.csv { send_data @list.contacts.to_csv, :filename => "#{@list.name}.csv" }
-      format.pdf { send_file generate_pdf(@list) }
+      #format.pdf { send_file generate_pdf(@list) }
       format.xls { send_file generate_excel(@list)}
     end
 
@@ -16,7 +15,7 @@ class ListExportsController < ApplicationController
 
   protected
 
-  def generate_pdf(list)
+  def old_generate_pdf(list)
     @contacts = list.contacts
     tmp_dir = File.join(Rails.root, 'tmp')
     html = render_to_string :template => 'layouts/pdf.html.erb', :layout => false

@@ -37,8 +37,8 @@
     = link_to 'Desde un archivo de excel', new_subscriber_list_list_import_path(@subscriber_list, :source => 'excel')
   %p
     Exportar contactos:
-    = link_to 'En PDF', subscriber_list_list_export_path(@subscriber_list, :format => 'pdf')
-    |
+    -#= link_to 'En PDF', subscriber_list_list_export_path(@subscriber_list, :format => 'pdf')
+    -#|
     = link_to 'En Excel', subscriber_list_list_export_path(@subscriber_list, :format => 'xls')
 
 %h2 Información general
