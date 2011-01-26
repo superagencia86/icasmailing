@@ -5,7 +5,7 @@
       |
       = link_to("Borrar", delete_contact_path(contact))
   .confirmed
-    = contact.confirmed? && current_user.is_admin? ? 'c' : 'x'
+    = contact.confirmed? ? 'c' : 'x'
   .indentslim
     = link_to(h(contact.try(:full_name)), contact)
     %tt
