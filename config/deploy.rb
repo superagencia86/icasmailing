@@ -44,6 +44,7 @@ set :repository,  'git://github.com/superagencia86/icasmailing.git'
 # before "deploy:stop_mail_daemon"
 after "deploy:update_code", "db:symlink" # , "deploy:restart_mail_daemon"
 #after "deploy:symlink", "deploy:start_mail_cycle"
+after "deploy", "deploy:cleanup"
  
 namespace :db do
   desc "Make symlink for database yaml, mongrel cluster"
