@@ -1,50 +1,45 @@
-- form_for @subscriber_list do |f|
-  .remote
-    = f.error_messages
-    .section
-      = f.hidden_field :user_id
-      = f.hidden_field :auto_update
-      %table(width="500" cellpadding="0" cellspacing="0")
-        - if !@subscriber_list.new_record?
-          %tr
-            %td(valign="top")
-              .label.top.req= "Tipo:"
-              = @subscriber_list.auto_update? ? 'Lista inteligente' : 'Lista normal'
-        %tr
-          %td(valign="top")
-            .label.top.req= "Nombre:"
-            = f.text_field :name
-        %tr
-          %td(valign="top")
-            .label.top.req= "Descripción:"
-            = f.text_area :description, :rows => 5
 
-        - if @subscriber_list.new_record? && !@subscriber_list.auto_update?
-          %table
-            %tr
-              %td(valign="top")
-                %br/
-                - if @source_list
-                  %b= "Se copiarán todos los contactos (#{@source_list.contacts_count}) de la lista '#{@source_list.name}'"
-                  = f.hidden_field :clone_list_id
-                - else
-                  .label.top.req= "Copiar contactos de la lista:"
-                  Todos los contactos de la lista seleccionada se copiarán a la nueva lista.<br/>
-                  Deja este campo en blanco para crear una lista vacía.
-                  %br/
-                  = f.collection_select :clone_list_id, current_space.subscriber_lists(:include => :space), :id, :info, {:selected => params[:clone].to_i, :include_blank => params[:clone].blank?}
+= f.error_messages
+= f.hidden_field :user_id
+= f.hidden_field :auto_update
+%table(width="500" cellpadding="0" cellspacing="0")
+  - if !@subscriber_list.new_record?
+    %tr
+      %td(valign="top")
+        .label.top.req= "Tipo:"
+        = @subscriber_list.auto_update? ? 'Lista inteligente' : 'Lista normal'
+  %tr
+    %td(valign="top")
+      .label.top.req= "Nombre:"
+      = f.text_field :name
+  %tr
+    %td(valign="top")
+      .label.top.req= "Descripción:"
+      = f.text_area :description, :rows => 5
+
+- if @subscriber_list.new_record? && !@subscriber_list.auto_update?
+  %table
+    %tr
+      %td(valign="top")
+        %br/
+        - if @source_list
+          %b= "Se copiarán todos los contactos (#{@source_list.contacts_count}) de la lista '#{@source_list.name}'"
+          = f.hidden_field :clone_list_id
+        - else
+          .label.top.req= "Copiar contactos de la lista:"
+          Todos los contactos de la lista seleccionada se copiarán a la nueva lista.<br/>
+          Deja este campo en blanco para crear una lista vacía.
+          %br/
+          = f.collection_select :clone_list_id, current_space.subscriber_lists(:include => :space), :id, :info, {:selected => params[:clone].to_i, :include_blank => params[:clone].blank?}
 
 
 
-        - if @subscriber_list.auto_update?
-          %table
-            %tr
-              %td(valign="top")
-                .label.top.req= "Criterios de la lista inteligente:"
-                Selecciona los criterios que deben cumplir los contactos para estar en esta lista.
-          = render :partial => 'filter', :locals => {:f => f}
-          
-       
-      .buttonbar
-        = f.submit((@subscriber_list.new_record? ? 'Crear lista' : 'Guardar lista'), :class => 'btn')
-        = link_to('Cancelar', (@subscriber_list.new_record? ? subscriber_lists_path : subscriber_list_path(@subscriber_list)))
+- if @subscriber_list.auto_update?
+  %table
+    %tr
+      %td(valign="top")
+        .label.top.req= "Criterios de la lista inteligente:"
+        Selecciona los criterios que deben cumplir los contactos para estar en esta lista.
+  = render :partial => 'filter', :locals => {:f => f}
+
+<br/><br/>

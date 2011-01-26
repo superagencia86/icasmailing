@@ -2,4 +2,11 @@
   %span 
     = "Editar lista de envío '#{@subscriber_list.name}'"
 
-= render "form"
+- form_for @subscriber_list do |f|
+  .remote
+    .section
+    = render :partial => "form", :locals => {:f => f}
+
+  .buttonbar
+    = f.submit((@subscriber_list.new_record? ? 'Crear lista' : 'Guardar lista'), :class => 'btn')
+    = link_to('Cancelar', (@subscriber_list.new_record? ? subscriber_lists_path : subscriber_list_path(@subscriber_list)))
