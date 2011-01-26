@@ -1,10 +1,11 @@
 class Campaign < ActiveRecord::Base
   default_scope :order => 'id ASC'
   validates_presence_of :name, :subject, :from
-
+  after_save :sanitize_images
+  
   belongs_to :space
-  has_many(:sendings, :order => 'id DESC')
-  has_many(:sending_contacts, :order => 'id DESC') do
+  has_many(:sendings, :order => 'id DESC', :dependent => :destroy)
+  has_many(:sending_contacts, :order => 'id DESC', :dependent => :destroy) do
     def sent
       self.scoped_by_status(SendingContact::DELIVERED)
       #self.find(:all, :conditions => {:status => SendingContact::DELIVERED})
@@ -17,21 +18,7 @@ class Campaign < ActiveRecord::Base
     end
   end
 
-  def sent_count
-    @sent_count ||= SendingContact.count(:conditions => {:campaign_id => self.id,
-      :status => SendingContact::DELIVERED})
-  end
 
-  def pending_count
-    @pending_count ||= SendingContact.count(:conditions =>
-        ["campaign_id = ? AND (status = ? OR status = ?)", self.id,
-        SendingContact::PENDING, SendingContact::FORCE])
-  end
-
-  def duplicated_count
-    @duplicated_count ||= SendingContact.count(:conditions => {:campaign_id => self.id,
-        :status => SendingContact::DUPLICATED})
-  end
 
 
 
@@ -62,6 +49,22 @@ class Campaign < ActiveRecord::Base
     def images
       find_all_by_data_type("images")
     end
+  end
+
+    def sent_count
+    @sent_count ||= SendingContact.count(:conditions => {:campaign_id => self.id,
+      :status => SendingContact::DELIVERED})
+  end
+
+  def pending_count
+    @pending_count ||= SendingContact.count(:conditions =>
+        ["campaign_id = ? AND (status = ? OR status = ?)", self.id,
+        SendingContact::PENDING, SendingContact::FORCE])
+  end
+
+  def duplicated_count
+    @duplicated_count ||= SendingContact.count(:conditions => {:campaign_id => self.id,
+        :status => SendingContact::DUPLICATED})
   end
 
   has_many :email_attachments
@@ -112,6 +115,10 @@ class Campaign < ActiveRecord::Base
   alias_method_chain :subscriber_list_ids=, :subscribing
 
   protected
+
+  def sanitize_images
+
+  end
 
   def create_campaign_recipients_for(list, subscriber_list_id)
     list.each do |element|
