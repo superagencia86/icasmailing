@@ -42,7 +42,8 @@ class ListExportsController < ApplicationController
     end
 
     tmp_dir = File.join(Rails.root, 'tmp')
-    book.write(excel_file = File.join(tmp_dir, "#{list.name}.xls"))
+    excel_file = File.join(tmp_dir, "#{list.name}.xls")
+    book.write(excel_file)
     excel_file
   end
 

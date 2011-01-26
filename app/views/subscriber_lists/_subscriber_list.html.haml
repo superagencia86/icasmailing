@@ -3,6 +3,8 @@
   .tools
     = link_to("Ver contactos", subscriber_list_list_subscribers_path(subscriber_list)) + " | "
     - if can? :manage, subscriber_list
+      = link_to("Gestionar", subscriber_list_path(subscriber_list))
+      |
       = link_to("Editar", edit_subscriber_list_path(subscriber_list))
       |
       = link_to "Guardar como...", new_subscriber_list_path(:clone => subscriber_list.id)
