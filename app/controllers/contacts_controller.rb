@@ -38,28 +38,28 @@ class ContactsController < InheritedResources::Base
     @contacts = Contact.finder(:space => current_space, :query => params[:query], :contact_type_id => params[:contact_type_id])
   end
 
-  def add_to_list
-    @subscriber_list = SubscriberList.find(params[:subscriber_list_id])
-    # Prepare query
-    conditions = load_subscription_list_conditions
-
-    # Add to list
-    if request.post?
-      subscriber = Subscriber.find_or_create_by_subscriber_list_id_and_contact_id_and_excel(params[:subscriber_list_id], params[:id], true).update_attribute(:active, true)
-    end
-
-    # Load contacts
-    @contacts = Contact.find(:all, :select => 'DISTINCT(contacts.id), contacts.*', :conditions => [conditions, @subscriber_list.id], :joins => "LEFT JOIN subscribers on contacts.id = subscribers.contact_id LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id").paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
-
-    respond_to do |format|
-      format.js{
-        render :update do |page|
-          page[:contacts].replace_html(:partial => "subscriber_lists/contacts_list", :locals => {:contacts => @contacts})
-          page[:subscribers_count].replace_html(@subscriber_list.subscribers.count(:all, :conditions => {:active => true}))
-        end 
-      }
-    end
-  end
+#  def add_to_list
+#    @subscriber_list = SubscriberList.find(params[:subscriber_list_id])
+#    # Prepare query
+#    conditions = load_subscription_list_conditions
+#
+#    # Add to list
+#    if request.post?
+#      subscriber = Subscriber.find_or_create_by_subscriber_list_id_and_contact_id_and_excel(params[:subscriber_list_id], params[:id], true).update_attribute(:active, true)
+#    end
+#
+#    # Load contacts
+#    @contacts = Contact.find(:all, :select => 'DISTINCT(contacts.id), contacts.*', :conditions => [conditions, @subscriber_list.id], :joins => "LEFT JOIN subscribers on contacts.id = subscribers.contact_id LEFT JOIN contacts_hobbies on contacts.id = contacts_hobbies.contact_id LEFT JOIN hobbies on contacts_hobbies.hobby_id = hobbies.id").paginate(:per_page => SubscriberList::CONTACTS_PER_PAGE, :page => params[:page])
+#
+#    respond_to do |format|
+#      format.js{
+#        render :update do |page|
+#          page[:contacts].replace_html(:partial => "subscriber_lists/contacts_list", :locals => {:contacts => @contacts})
+#          page[:subscribers_count].replace_html(@subscriber_list.subscribers.count(:all, :conditions => {:active => true}))
+#        end
+#      }
+#    end
+#  end
 
   # previous to destroy (just to confirm)
   def delete

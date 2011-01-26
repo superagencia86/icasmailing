@@ -11,6 +11,18 @@ class ListImportsController < ApplicationController
       @list.contacts << @contacts
       @list.save
       flash[:notice] = "#{@contacts.size} añadidos a la lista #{@list.name}"
+    elsif params[:import_contact]
+      contacts = []
+      count = 0;
+      params[:contacts].each {|attr| contacts << Contact.new(attr)}
+      params[:import_contact].each_key do |key|
+        contact = contacts[key.to_i]
+        contact.save!
+        contact.confirm if params[:confirm]
+        @list.contacts << contact
+        count += 1
+      end
+      flash[:notice] = "Se han importado #{count} contactos a la lista #{@list.name}"
     else
       flash[:notice] = "No se ha añadido ningún contacto a la lista #{@list.name}"
     end
@@ -18,6 +30,7 @@ class ListImportsController < ApplicationController
   end
 
   def preview
+    @subscriber_list = current_space.subscriber_lists.find params[:subscriber_list_id]
     if params[:list_id] # importamos de una lista
       list = current_space.subscriber_lists.find params[:list_id]
       @contacts = list.contacts
@@ -27,6 +40,10 @@ class ListImportsController < ApplicationController
       @contacts = filter.contacts
     elsif params[:search]
       @contacts = Contact.finder(:space => current_space, :query => params[:search])
+    elsif params[:excel]
+      @to_add, @duplicated, @errors = ContactsExcel.import(params[:excel], current_user)
+      @confirm = params[:confirm].present?
+      render :action => 'preview_excel'
     else
       @contacts = []
     end

@@ -33,6 +33,8 @@
     = link_to 'Buscando', new_subscriber_list_list_import_path(@subscriber_list, :source => 'search')
     |
     = link_to 'Usando un filtro', new_subscriber_list_list_import_path(@subscriber_list, :source => 'filter')
+    |
+    = link_to 'Desde un archivo de excel', new_subscriber_list_list_import_path(@subscriber_list, :source => 'excel')
   %p
     Exportar contactos:
     = link_to 'En PDF', subscriber_list_list_export_path(@subscriber_list, :format => 'pdf')

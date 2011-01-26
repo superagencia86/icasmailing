@@ -1,0 +1,12 @@
+
+%br
+%h2 Importar contactos desde un archivo de excel
+%br/
+- form_tag preview_subscriber_list_list_import_path(@list), :multipart => true do
+  .label.top.req Archivo de excel:
+  = file_field_tag :excel
+  <br/>
+  = check_box_tag :confirm
+  Confirmar todos los contactos importados
+  <br/><br/><br/>
+  = submit_tag 'Previsualizar'

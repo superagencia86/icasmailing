@@ -1,0 +1,52 @@
+.title
+  %span= "Lista de contactos a importar en la lista '#{@subscriber_list.name}'"
+
+- form_tag subscriber_list_list_import_path(@list) do
+  = hidden_field_tag :confirm, @confirm
+  .remote
+    .section
+      %h3= "Contactos a importar (#{@to_add.size})"
+      = @confirm ? "Confirmar los contactos" : "No confirmar los contactos"
+      <br/>
+      %span#select_count_contacts
+      %br/
+      = link_to 'Seleccionar todos', '#', :id => 'select_all_contacts'
+      |
+      = link_to 'Seleccionar ninguno', '#', :id => 'select_none_contacts'
+
+      - @to_add.each_with_index do |contact, index|
+        %table
+          %tr
+            %td= check_box_tag "import_contact[#{index}]", index, true
+            %td= contact[:email]
+            %td= contact[:name]
+            %td= contact[:surname]
+            %td= contact[:entidad]
+            %td= contact[:job]
+            %td= contact[:web]
+            %td= contact[:cellular]
+            %td= contact[:telephone]
+            %td= contact[:birthday_at]
+            %td= contact[:zip]
+            %td= contact[:comments]
+            %td
+              - contact.attributes.each_key do |key|
+                = hidden_field_tag "contacts[][#{key}]", contact[key]
+      <br/>
+      = submit_tag 'Importar'
+      <br/><br/><br/>
+      %h3= "Contactos duplicados (#{@duplicated.size})"
+      - if @duplicated.size == 0
+        = "No hay elementos duplicados<br/>"
+      -else
+        - @duplicated.each do |contact|
+          %table
+            %tr
+              %td= contact[:email]
+
+
+      <br/>
+      %h3= "Errores en la importación (#{@errors.size})"
+      - @errors.each do |error|
+        %div= error
+      = "No se ha producido ningún error al importar" if @errors.size == 0
