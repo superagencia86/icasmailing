@@ -12,6 +12,7 @@
   = field("Móvil", @contact, :celular)
   = field("Entidad", @contact, :entidad)
   = field("Dirección", @contact, :address)
+  = field("Comentarios", @contact, :comments)
   %label= "Tipo de institución: #{@contact.institution_type.name}" if @contact.institution_type
 
 %div.indentslim
