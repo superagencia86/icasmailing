@@ -81,10 +81,19 @@ end
 #############################################################
 #	Delayed Job
 #############################################################
-after "deploy:stop",    "delayed_job:stop"
-after "deploy:start",   "delayed_job:start"
-after "deploy:restart", "delayed_job:restart"
+#
+# ps -Alf <- para ver las instancias de delayed_job
+#
+#after "deploy:stop",    "delayed_job:stop"
+#after "deploy:start",   "delayed_job:start"
+#after "deploy:restart", "delayed_job:restart"
+after "deploy:restart", "delayed_job:status"
 namespace :delayed_job do
+  desc "Show delayed_job processes in server"
+  task :status, :roles => :app do
+    run "ps -Af"
+  end
+  
   desc "Stop the delayed_job process"
   task :stop, :roles => :app do
     run "cd #{current_path} && RAILS_ENV=production script/delayed_job stop"
