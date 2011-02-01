@@ -6,7 +6,6 @@
   .remote
     .section
       %h3= "Contactos a importar (#{@to_add.size})"
-      = @confirm ? "Confirmar los contactos" : "No confirmar los contactos"
       <br/>
       %span#select_count_contacts
       %br/
@@ -33,6 +32,8 @@
               - contact.attributes.each_key do |key|
                 = hidden_field_tag "contacts[][#{key}]", contact[key]
       <br/>
+      %b= @confirm == 'yes' ? "Los contactos importados estarán confirmados" : "Los contactos importados NO estarán confirmados"
+      %br/
       = submit_tag 'Importar'
       <br/><br/><br/>
       %h3= "Contactos duplicados (#{@duplicated.size})"

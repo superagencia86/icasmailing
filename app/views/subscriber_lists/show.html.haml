@@ -52,6 +52,7 @@
   %label= "Descripción: #{@subscriber_list.description}<br/>"
   %label= "Espacio: #{@subscriber_list.space.name} (#{@subscriber_list.space_id == current_space.id ? 'Lista propia' : 'Lista compartida'})<br/>"
   %label= "Número contactos: #{@subscriber_list.contacts_count}<br/>"
+  %label= "Número de contactos confirmados: #{@subscriber_list.confirmed_contacts_count}"
 
 %h2 Compartir
 %ul.list
