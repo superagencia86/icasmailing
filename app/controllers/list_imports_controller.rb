@@ -1,4 +1,5 @@
 class ListImportsController < ApplicationController
+  before_filter :require_user
   before_filter :load_list
 
   def new
