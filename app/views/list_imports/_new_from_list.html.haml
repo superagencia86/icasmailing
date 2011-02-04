@@ -3,5 +3,5 @@
 %h2 Importar contactos desde otra lista
 %br
 - form_tag preview_subscriber_list_list_import_path(@list) do
-  = select_tag :list_id, options_for_select(current_space.subscriber_lists.map{|l| ["#{l.name} (#{l.contacts.count} contactos)", l.id]})
+  = select_tag :list_id, options_for_select(current_space.subscriber_lists.map{|l| [l.info, l.id]})
   = submit_tag 'Previsualizar'
