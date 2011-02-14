@@ -26,6 +26,7 @@ Rails::Initializer.run do |config|
   
   config.time_zone = 'Madrid'
   config.i18n.default_locale = :es
+  config.action_controller.resources_path_names = { :new => 'nuevo', :edit => 'cambiar' }
 end
 
 #Mime::Type.register 'application/pdf', :pdf

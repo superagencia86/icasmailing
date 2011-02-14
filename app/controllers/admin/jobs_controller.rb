@@ -7,6 +7,13 @@ class Admin::JobsController < Admin::AdminController
     job.update_attributes(:attempts => 0, :last_error => '')
     redirect_to admin_jobs_path
   end
+  
+  def execute
+  	job = Delayed::Job.find(params[:id])
+  	job.invoke_job
+  	job.destroy
+  	redirect_to admin_jobs_path
+  end
 
   def index
     @jobs = DelayedJob.all

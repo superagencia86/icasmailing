@@ -40,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :comments
-  map.resources :password_resets, :only => [ :new, :create, :edit, :update ]
+  map.resources :password_resets, :only => [ :new, :create, :edit, :update ], :as => 'recuperar_contrasena'
 
 
   # ADMIN
@@ -50,7 +50,7 @@ ActionController::Routing::Routes.draw do |map|
       space.resources :space_contacts, :as => 'contactos'
       space.resources :space_subscriber_lists, :as => 'listas'
     end
-    admin.resources :jobs, :as => 'tareas'
+    admin.resources :jobs, :as => 'tareas', :member => {:execute => :post}
     admin.resources :users, :as => 'usuarios' do |users|
       users.resource :roles, :as => 'roles'
     end

@@ -32,6 +32,8 @@
         <td>
           <%= link_to 'Eliminar', admin_job_path(job), :method => :delete,
             :confirm => 'Esto impedirá que se realize esa tarea. CUIDADO!! ¿Estás seguro?' %>
+          <%= link_to 'Ejecutar', execute_admin_job_path(job), :method => :post,
+            :confirm => 'Vas a ejecutar manualmente esta tarea. Esto puede llevar unos mintos y deberías hacerlo como emergencia. ¿Estás seguro?' %>
         </td>
       </tr>
     <% end %>
