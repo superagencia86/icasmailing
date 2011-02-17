@@ -13,9 +13,9 @@ class ListImportsController < ApplicationController
       @list.save
       flash[:notice] = "#{@contacts.size} añadidos a la lista #{@list.name}"
     elsif params[:import_contact]
-      contacts  = []
+      contacts = []
       not_valid = []
-      count     = 0
+      count = 0
       params[:contacts].each { |attr| contacts << Contact.new(attr) }
       params[:import_contact].each_key do |key|
         contact = contacts[key.to_i]
@@ -37,12 +37,12 @@ class ListImportsController < ApplicationController
   def preview
     @subscriber_list = current_space.subscriber_lists.find params[:subscriber_list_id]
     if params[:list_id] # importamos de una lista
-      list      = current_space.subscriber_lists.find params[:list_id]
+      list = current_space.subscriber_lists.find params[:list_id]
       @contacts = list.contacts
     elsif params[:subscriber_list] # usamos un filtro
       params[:subscriber_list][:space_id] = current_space.id
-      filter                              = ContactFilter.new(SubscriberList.new(params[:subscriber_list]))
-      @contacts                           = filter.contacts
+      filter = ContactFilter.new(SubscriberList.new(params[:subscriber_list]))
+      @contacts = filter.contacts
     elsif params[:search]
       @contacts = Contact.finder(:space => current_space, :query => params[:search])
     elsif params[:excel]

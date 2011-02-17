@@ -19,7 +19,7 @@ class Contact < ActiveRecord::Base
   
   validates_presence_of :email, :scope => :space_id
   validates_presence_of :user_id, :space_id
-  #validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
   default_scope :order => 'contacts.name ASC, surname ASC, email ASC'
 
@@ -89,7 +89,7 @@ class Contact < ActiveRecord::Base
       confirmed = self.clone
       confirmed.space = cicas
       confirmed.confirmed = true
-      confirmed.save!
+      confirmed.save
     end
 
     # Confirmar todos los contactos con el mismo email
