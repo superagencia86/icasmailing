@@ -20,11 +20,11 @@ class Sending < ActiveRecord::Base
 
   # los que quedan por enviar
   def remaining_contacts(limit = 100000)
-    self.sending_contacts.sent(limit)
+    self.sending_contacts.find(:all, :conditions => ['status = ? OR status = ?', 'sent', 'pending'], :limit => limit)
   end
 
   def remaining_contacts_count
-    self.sending_contacts.count(:conditions => {:status => 'sent'})
+    self.sending_contacts.count(:conditions => ['status = ? OR status = ?', 'sent', 'pending'])
   end
 
 

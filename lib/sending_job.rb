@@ -8,11 +8,13 @@ class SendingJob < Struct.new(:sending_id)
     begin
       logger = ActiveRecord::Base.logger
       logger.debug "**** job ** Sending ID #{sending_id}"
+
       sending = Sending.find(sending_id)
       campaign = sending.campaign
+      logger.debug "**** job ** Campaña: #{campaign.name}"
+
       sending.update_attribute(:sent_starts_at, Time.now)
       Activity.report(User.find(1), :send_campaign_starts, campaign)
-      logger.debug "**** job ** Campaña: #{campaign.name}"
 
 
       total = sending.remaining_contacts_count
