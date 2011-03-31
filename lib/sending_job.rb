@@ -15,8 +15,8 @@ class SendingJob < Struct.new(:sending_id)
       logger.debug "Campaña: #{campaign.name}"
 
 
-      total = sending.sending_contacts.count
-      to_send = sending.sending_contacts.not_sent(LIMIT)
+      total = sending.remaining_contacts_count
+      to_send = sending.remaining_contacts(LIMIT)
 
       puts "SENDING JOB TOTAL #{total}"
       puts "SENDING JOB TO_SEND #{to_send.size}"

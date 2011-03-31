@@ -9,14 +9,25 @@ class Sending < ActiveRecord::Base
   belongs_to :confirmed_space, :class_name => "Space"
   
   has_many :sending_contacts do
-    def sent
-      self.find(:all, :conditions => {:status => 'sent'})
+    def sent(limit = 100000)
+      self.find(:all, :conditions => {:status => 'sent'}, :limit => limit)
     end
 
-    def not_sent(limit = 10000)
+    def not_sent(limit = 100000)
       self.find(:all, :conditions => ['status != ?', 'sent'], :limit => limit)
     end
   end
+
+  # los que quedan por enviar
+  def remaining_contacts(limit = 100000)
+    self.sending_contacts.sent(limit)
+  end
+
+  def remaining_contacts_count
+    self.sending_contacts.count(:conditions => {:status => 'sent'})
+  end
+
+
 
   def possible_subscriber_lists
     @possible_subscriber_lists ||= space.subscriber_lists
