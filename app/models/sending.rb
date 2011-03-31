@@ -13,8 +13,8 @@ class Sending < ActiveRecord::Base
       self.find(:all, :conditions => {:status => 'sent'})
     end
 
-    def not_sent
-      self.find(:all, :conditions => ['status != ?', 'sent'])
+    def not_sent(limit = 10000)
+      self.find(:all, :conditions => ['status != ?', 'sent'], :limit => limit)
     end
   end
 
