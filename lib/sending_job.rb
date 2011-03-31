@@ -2,7 +2,7 @@
 class SendingJob < Struct.new(:sending_id)
   include ActionView::Helpers::UrlHelper
 
-  LIMIT = 1
+  LIMIT = 2
 
   def perform
     begin
@@ -16,7 +16,10 @@ class SendingJob < Struct.new(:sending_id)
 
 
       total = sending.sending_contacts.count
-      to_send = sending.sending_contacts.limit(LIMIT)
+      to_send = sending.sending_contacts.limit(LIMIT).all
+
+      puts "SENDING JOB TOTAL #{total}"
+      puts "SENDING JOB TO_SEND #{to_send.size}"
 
       to_send.each do |sc|
         if sc.pending?
