@@ -8,7 +8,7 @@ class Sending < ActiveRecord::Base
   belongs_to :shared_list
   belongs_to :confirmed_space, :class_name => "Space"
   
-  has_many :sending_contacts do
+  has_many :sending_contacts, :dependent => :destroy do
     def sent(limit = 100000)
       self.find(:all, :conditions => {:status => 'sent'}, :limit => limit)
     end
@@ -20,11 +20,11 @@ class Sending < ActiveRecord::Base
 
   # los que quedan por enviar
   def remaining_contacts(limit = 100000)
-    self.sending_contacts.find(:all, :conditions => ['status = ? OR status = ?', 'sent', 'pending'], :limit => limit)
+    self.sending_contacts.find(:all, :conditions => ['status = ? OR status = ?', 'pending', 'force'], :limit => limit)
   end
 
   def remaining_contacts_count
-    self.sending_contacts.count(:conditions => ['status = ? OR status = ?', 'sent', 'pending'])
+    self.sending_contacts.count(:conditions => ['status = ? OR status = ?', 'pending', 'force'])
   end
 
 
