@@ -2,7 +2,7 @@
 class SendingJob < Struct.new(:sending_id)
   include ActionView::Helpers::UrlHelper
 
-  LIMIT = 100
+  LIMIT = 30
 
   def perform
     begin
