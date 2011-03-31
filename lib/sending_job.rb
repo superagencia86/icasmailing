@@ -7,19 +7,19 @@ class SendingJob < Struct.new(:sending_id)
   def perform
     begin
       logger = ActiveRecord::Base.logger
-      logger.debug "Sending ID #{sending_id}"
+      logger.debug "**** job ** Sending ID #{sending_id}"
       sending = Sending.find(sending_id)
       campaign = sending.campaign
       sending.update_attribute(:sent_starts_at, Time.now)
       Activity.report(User.find(1), :send_campaign_starts, campaign)
-      logger.debug "Campaña: #{campaign.name}"
+      logger.debug "**** job ** Campaña: #{campaign.name}"
 
 
       total = sending.remaining_contacts_count
       to_send = sending.remaining_contacts(LIMIT)
 
-      puts "SENDING JOB TOTAL #{total}"
-      puts "SENDING JOB TO_SEND #{to_send.size}"
+      logger.debug "**** job ** SENDING JOB TOTAL #{total}"
+      logger.debug "**** job ** SENDING JOB TO_SEND #{to_send.size}"
 
       to_send.each do |sc|
         if sc.pending?
@@ -39,11 +39,15 @@ class SendingJob < Struct.new(:sending_id)
       end
 
       if total > 0
+        logger.debug "**** job ** RESEND JOB"
         Delayed::Job.enqueue(SendingJob.new(sending_id))
       else
+        logger.debug "**** job ** FINISH JOB"
         sending.update_attributes({:sent_at => Time.now, :current_state => 'sent'})
         Activity.report(User.find(1), :send_campaign_ends, campaign)
       end
+
+      logger.flush
 
     rescue Exception => e
       ExceptionMailer.deliver_exception_message("[icasmailing] Error en SendingJob", e.to_s)
