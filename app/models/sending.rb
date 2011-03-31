@@ -12,6 +12,10 @@ class Sending < ActiveRecord::Base
     def sent
       self.find(:all, :conditions => {:status => 'sent'})
     end
+
+    def not_sent
+      self.find(:all, :conditions => ['status != ?', 'sent'])
+    end
   end
 
   def possible_subscriber_lists

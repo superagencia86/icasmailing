@@ -16,7 +16,7 @@ class SendingJob < Struct.new(:sending_id)
 
 
       total = sending.sending_contacts.count
-      to_send = sending.sending_contacts.all(:limit => LIMIT)
+      to_send = sending.sending_contacts.not_sent.all(:limit => LIMIT)
 
       puts "SENDING JOB TOTAL #{total}"
       puts "SENDING JOB TO_SEND #{to_send.size}"
