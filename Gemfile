@@ -21,7 +21,7 @@ gem 'fastercsv'
 gem "prawn"
 
 group :development, :test do
-  gem 'mysql'
+  gem 'mysql2'
   gem 'webrat'
   gem 'capybara'
   gem 'capistrano'

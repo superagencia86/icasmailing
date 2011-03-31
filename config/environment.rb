@@ -33,5 +33,5 @@ end
 Mime::Type.register "application/vnd.ms-excel", :xls
 
 ExceptionNotification::Notifier.email_prefix = "[icasmailing] "
-ExceptionNotification::Notifier.exception_recipients = %w(danigb@gmail.com)
+ExceptionNotification::Notifier.exception_recipients = %w(danigb@gmail.com )
 

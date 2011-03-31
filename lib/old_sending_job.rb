@@ -2,8 +2,6 @@
 class SendingJob < Struct.new(:sending_id)
   include ActionView::Helpers::UrlHelper
 
-  LIMIT = 1
-
   def perform
     begin
       logger = ActiveRecord::Base.logger
@@ -13,12 +11,8 @@ class SendingJob < Struct.new(:sending_id)
       sending.update_attribute(:sent_starts_at, Time.now)
       Activity.report(User.find(1), :send_campaign_starts, campaign)
       logger.debug "Campaña: #{campaign.name}"
-
-
-      total = sending.sending_contacts.count
-      to_send = sending.sending_contacts.limit(LIMIT)
-
-      to_send.each do |sc|
+    
+      sending.sending_contacts.each do |sc|
         if sc.pending?
           delivered = SendingContact.find(:first, :conditions => {
               :status => SendingContact::DELIVERED,
@@ -34,14 +28,8 @@ class SendingJob < Struct.new(:sending_id)
           sleep 0.1
         end
       end
-
-      if total > 0
-        Delayed::Job.enqueue(SendingJob.new(sending_id))
-      else
-        sending.update_attributes({:sent_at => Time.now, :current_state => 'sent'})
-        Activity.report(User.find(1), :send_campaign_ends, campaign)
-      end
-
+      sending.update_attributes({:sent_at => Time.now, :current_state => 'sent'})
+      Activity.report(User.find(1), :send_campaign_ends, campaign)
     rescue Exception => e
       ExceptionMailer.deliver_exception_message("[icasmailing] Error en SendingJob", e.to_s)
     end

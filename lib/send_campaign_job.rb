@@ -9,7 +9,6 @@ class SendCampaignJob < Struct.new(:campaign_id)
     logger.debug "CAMPAIGN ID #{campaign_id}"
     campaign = Campaign.find(campaign_id)
     Activity.report(User.find(1), :send_campaign_starts, campaign)
-    emails = []
     logger.debug "CAMPAIGN #{campaign.to_yaml}"
     campaign.campaign_recipients.valids.each do |recipient|
       logger.debug "RECIPIENT: #{recipient.to_yaml}"
@@ -24,7 +23,6 @@ class SendCampaignJob < Struct.new(:campaign_id)
           EmailMailer.deliver_email!(campaign, recipient, '', '#')
         end
         sleep 0.1
-        emails << email
       end
     end
     Activity.report(User.find(1), :send_campaign_ends, campaign)
