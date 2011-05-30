@@ -62,7 +62,6 @@ GEM
     net-ssh (2.0.23)
     net-ssh-gateway (1.0.1)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (2.13.4)
     nokogiri (1.4.4)
     paperclip (2.3.8)
       activerecord
@@ -122,7 +121,6 @@ DEPENDENCIES
   hoptoad_notifier
   inherited_resources (= 1.0.3)
   mysql2
-  newrelic_rpm
   nokogiri
   paperclip
   prawn

@@ -25,6 +25,6 @@ group :development, :test do
   gem 'webrat'
   gem 'capybara'
   gem 'capistrano'
-  gem 'newrelic_rpm'
+  #gem 'newrelic_rpm'
 end
 

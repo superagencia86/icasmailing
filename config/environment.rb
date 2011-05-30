@@ -7,7 +7,7 @@ RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  config.gem "newrelic_rpm"
+  #config.gem "newrelic_rpm"
   config.gem "zip"
   config.gem "authlogic"
   config.gem "aasm"
@@ -33,5 +33,5 @@ end
 Mime::Type.register "application/vnd.ms-excel", :xls
 
 ExceptionNotification::Notifier.email_prefix = "[icasmailing] "
-ExceptionNotification::Notifier.exception_recipients = %w(danigb@gmail.com dviana@superagencia86.com )
+ExceptionNotification::Notifier.exception_recipients = %w(danigb@gmail.com) # dviana@superagencia86.com )
 
